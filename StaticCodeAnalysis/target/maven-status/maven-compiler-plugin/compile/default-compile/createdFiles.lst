@@ -1,0 +1,6 @@
+edu/kit/informatik/Policy.class
+edu/kit/informatik/Context.class
+edu/kit/informatik/Client.class
+edu/kit/informatik/MergeSort.class
+edu/kit/informatik/BubbleSort.class
+edu/kit/informatik/SortStrategy.class
