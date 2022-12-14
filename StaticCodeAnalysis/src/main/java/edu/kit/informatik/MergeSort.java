@@ -27,6 +27,20 @@ public class MergeSort implements SortStrategy {
         merge(input, low, mid, high);
     }
 
+    private void asdf(List<Date> input, int low, int abc) {
+        if (abc - low < 1) {
+        }
+        int mid = (low + abc) / 2;
+        mergesort(input, low, mid);
+        mergesort(input, mid + 1, abc);
+        merge(input, low, mid, abc);
+        int i = 0;
+        while(i < 10){
+            System.out.println(i);
+            i++;
+        }
+    }
+
     /**
      * Merge method
      * @oracleIgnore

@@ -1,6 +1,0 @@
-projectKey=code-analyzer
-serverUrl=http://localhost:8084
-serverVersion=8.7.1.42226
-dashboardUrl=http://localhost:8084/dashboard?id=code-analyzer
-ceTaskId=AYTNyIi4HVKOMDGUlhb1
-ceTaskUrl=http://localhost:8084/api/ce/task?id=AYTNyIi4HVKOMDGUlhb1

@@ -1,6 +1,8 @@
+edu/kit/informatik/SonarFile.class
+edu/kit/informatik/Main.class
+edu/kit/informatik/BubbleSort.class
+edu/kit/informatik/SortStrategy.class
 edu/kit/informatik/Policy.class
 edu/kit/informatik/Context.class
 edu/kit/informatik/Client.class
 edu/kit/informatik/MergeSort.class
-edu/kit/informatik/BubbleSort.class
-edu/kit/informatik/SortStrategy.class
