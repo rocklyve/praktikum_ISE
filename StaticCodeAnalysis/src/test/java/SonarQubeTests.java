@@ -21,7 +21,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessageServiceTest {
+public class SonarQubeTests {
     private static ArrayList<Issue> issues;
 
     @BeforeAll
@@ -37,11 +37,10 @@ public class MessageServiceTest {
         StandaloneGlobalConfiguration configuration = StandaloneGlobalConfiguration.builder().addEnabledLanguage(Language.JAVA).addPlugins(javaPlugin).setWorkDir(path).build();
         StandaloneSonarLintEngine standaloneSonarLintEngine = new StandaloneSonarLintEngineImpl(configuration);
         StandaloneAnalysisConfiguration sac = StandaloneAnalysisConfiguration.builder().setBaseDir(path).addInputFiles(javaFiles).build();
-        standaloneSonarLintEngine.analyze(sac, MessageServiceTest::listen, (formattedMessage, level) -> System.out.println(formattedMessage), null);
+        standaloneSonarLintEngine.analyze(sac, SonarQubeTests::listen, (formattedMessage, level) -> System.out.println(formattedMessage), null);
         standaloneSonarLintEngine.stop();
         System.out.println("beforeClass end");
     }
-    static final String message = "Hello JUnit 5";
 
     @DisplayName("Test MessageService.get()")
     @Test

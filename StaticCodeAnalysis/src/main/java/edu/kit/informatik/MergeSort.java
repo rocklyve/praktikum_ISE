@@ -1,8 +1,12 @@
 package edu.kit.informatik;
 
+import org.apache.jasper.util.UniqueAttributesImpl;
+
 import java.util.*;
 
 public class MergeSort implements SortStrategy {
+
+    MergeSort() {}
 
     /**
      * Wrapper method for the real MergeSort algorithm.
@@ -27,18 +31,30 @@ public class MergeSort implements SortStrategy {
         merge(input, low, mid, high);
     }
 
-    private void asdf(List<Date> input, int low, int abc) {
-        if (abc - low < 1) {
+    void asdf(List<Date> input, int low, int high) {
+        if (high - low < 1) {
+            return;
         }
-        int mid = (low + abc) / 2;
+        int mid = (low + high) / 2;
         mergesort(input, low, mid);
-        mergesort(input, mid + 1, abc);
-        merge(input, low, mid, abc);
-        int i = 0;
-        while(i < 10){
-            System.out.println(i);
-            i++;
-        }
+        mergesort(input, mid + 1, high);
+        merge(input, low, mid, high);
+
+        String string = "4";
+        int value = Integer.parseInt(string);
+        String string2 = "asdf";
+        int value2 = Integer.parseInt(string2);
+    }
+
+    // unsafe cast negative example
+    public void assignString(Object t){
+        String value = (String) t;
+        /* ... */
+    }
+
+    // throw missing in method signature
+    public void throwTestMethod() {
+        throw new IllegalStateException();
     }
 
     /**
@@ -46,7 +62,6 @@ public class MergeSort implements SortStrategy {
      * @oracleIgnore
      */
     private void merge(List<Date> input, int low, int middle, int high) {
-
         Date[] temp = new Date[high - low + 1];
         int leftIndex = low;
         int rightIndex = middle + 1;

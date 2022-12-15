@@ -1,8 +1,13 @@
 /Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/MergeSort.java
+/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/Constants.java
 /Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/Main.java
 /Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/Context.java
-/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/SonarFile.java
-/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/Policy.java
 /Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/BubbleSort.java
 /Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/SortStrategy.java
 /Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/Client.java
+/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/Receipt.java
+/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/BaseMatrix.java
+/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/SonarFile.java
+/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/Policy.java
+/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/JPlag.java
+/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/Product.java
