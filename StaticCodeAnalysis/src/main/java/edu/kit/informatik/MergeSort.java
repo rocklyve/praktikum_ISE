@@ -5,9 +5,6 @@ import org.apache.jasper.util.UniqueAttributesImpl;
 import java.util.*;
 
 public class MergeSort implements SortStrategy {
-
-    MergeSort() {}
-
     /**
      * Wrapper method for the real MergeSort algorithm.
      *
@@ -29,32 +26,6 @@ public class MergeSort implements SortStrategy {
         mergesort(input, low, mid);
         mergesort(input, mid + 1, high);
         merge(input, low, mid, high);
-    }
-
-    void asdf(List<Date> input, int low, int high) {
-        if (high - low < 1) {
-            return;
-        }
-        int mid = (low + high) / 2;
-        mergesort(input, low, mid);
-        mergesort(input, mid + 1, high);
-        merge(input, low, mid, high);
-
-        String string = "4";
-        int value = Integer.parseInt(string);
-        String string2 = "asdf";
-        int value2 = Integer.parseInt(string2);
-    }
-
-    // unsafe cast negative example
-    public void assignString(Object t){
-        String value = (String) t;
-        /* ... */
-    }
-
-    // throw missing in method signature
-    public void throwTestMethod() {
-        throw new IllegalStateException();
     }
 
     /**

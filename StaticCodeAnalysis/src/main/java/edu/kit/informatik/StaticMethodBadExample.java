@@ -2,12 +2,12 @@ package edu.kit.informatik;
 
 import java.util.List;
 
-public class Receipt {
+public class StaticMethodBadExample {
     private static int idCounter = 0;
     private final int id;
     private final List<Product> products;
 
-    public Receipt(List<Product> products) {
+    public StaticMethodBadExample(List<Product> products) {
         this.id = idCounter++;
         this.products = products;
     }
