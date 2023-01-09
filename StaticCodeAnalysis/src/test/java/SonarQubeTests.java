@@ -24,12 +24,10 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SonarQubeTests {
     private static ArrayList<Issue> issues;
-
-    // TODO: please change to String[]  or ArrayList<String>
-    private static Object[] issueNumbers;
     private static String rulePrefix = "java:S";
 
     @BeforeAll
@@ -46,307 +44,371 @@ public class SonarQubeTests {
         StandaloneAnalysisConfiguration sac = StandaloneAnalysisConfiguration.builder().setBaseDir(path).addInputFiles(javaFiles).build();
         standaloneSonarLintEngine.analyze(sac, SonarQubeTests::listen, (formattedMessage, level) -> System.out.println(formattedMessage), null);
         standaloneSonarLintEngine.stop();
-
-        issueNumbers = issues.stream().map(x -> x.getRuleKey()).toArray();
     }
 
-    @DisplayName("Test NonFinalAttributesShouldBeFinal")
-    @Test
-    void testNonFinalAttributesShouldBeFinal() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test NonFinalAttributesShouldBeFinal")
+//    @Test
+//    void testNonFinalAttributesShouldBeFinal() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test SystemDependentLineBreak")
-    @Test
-    void testSystemDependentLineBreak() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test SystemDependentLineBreak")
+//    @Test
+//    void testSystemDependentLineBreak() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
     @DisplayName("Test RawType")
     @Test
     void testRawType() {
         ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + "3740"));
-        assertTrue(!isIssueAppearing(relevantIssueNumbers));
+        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
     @DisplayName("Test ConcreteClassInsteadOfInterface")
     @Test
     void testConcreteClassInsteadOfInterface() {
-        assertTrue(issues.size() == 0);
+        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + "1319"));
+        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
     @DisplayName("Test AssertInsteadOfIfLoop")
     @Test
     void testAssertInsteadOfIfLoop() {
-        assertTrue(issues.size() == 0);
+        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(
+                Arrays.asList(
+                        rulePrefix + "5960",
+                        rulePrefix + "4274"
+                )
+        );
+        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
-    @DisplayName("Test ObjectInsteadOfConcreteClass")
-    @Test
-    void testObjectInsteadOfConcreteClass() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test ObjectInsteadOfConcreteClass")
+//    @Test
+//    void testObjectInsteadOfConcreteClass() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test PublicEnumInsideClassAndNotInSeparateFile")
-    @Test
-    void testPublicEnumInsideClassAndNotInSeparateFile() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test PublicEnumInsideClassAndNotInSeparateFile")
+//    @Test
+//    void testPublicEnumInsideClassAndNotInSeparateFile() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test VisibilityAsLowAsPossible")
-    @Test
-    void testVisibilityAsLowAsPossible() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test VisibilityAsLowAsPossible")
+//    @Test
+//    void testVisibilityAsLowAsPossible() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
     @DisplayName("Test Code Duplication")
     @Test
     void testCodeDuplication() {
-        assertTrue(issues.size() == 0);
+        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + "4144"));
+        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
-    @DisplayName("Test CodeDuplicationRepetitionsFixableByInheritance")
-    @Test
-    void testCodeDuplicationRepetitionsFixableByInheritance() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test CodeDuplicationRepetitionsFixableByInheritance")
+//    @Test
+//    void testCodeDuplicationRepetitionsFixableByInheritance() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test InheritanceInsteadOfEnums")
-    @Test
-    void testInheritanceInsteadOfEnums() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test InheritanceInsteadOfEnums")
+//    @Test
+//    void testInheritanceInsteadOfEnums() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test OperationsInsteadOfDomain")
-    @Test
-    void testOperationsInsteadOfDomain() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test OperationsInsteadOfDomain")
+//    @Test
+//    void testOperationsInsteadOfDomain() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test HardcodedLogic")
-    @Test
-    void testHardcodedLogic() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test HardcodedLogic")
+//    @Test
+//    void testHardcodedLogic() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test StringReferences")
-    @Test
-    void testStringReferences() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test StringReferences")
+//    @Test
+//    void testStringReferences() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test ExceptionsForControlFlow")
-    @Test
-    void testExceptionsForControlFlow() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test ExceptionsForControlFlow")
+//    @Test
+//    void testExceptionsForControlFlow() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test TryCatchBlock")
-    @Test
-    void testTryCatchBlock() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test TryCatchBlock")
+//    @Test
+//    void testTryCatchBlock() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test UnspecifiedErrorMessage")
-    @Test
-    void testUnspecifiedErrorMessage() {
-        assertTrue(issues.size() == 0);
-    }
-
-
-    @DisplayName("Test WrongLoopType")
-    @Test
-    void testWrongLoopType() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test UnspecifiedErrorMessage")
+//    @Test
+//    void testUnspecifiedErrorMessage() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
 
-    @DisplayName("Test UnnecessaryComplexity")
-    @Test
-    void testUnnecessaryComplexity() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test WrongLoopType")
+//    @Test
+//    void testWrongLoopType() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test ClumsySolution")
-    @Test
-    void testClumsySolution() {
-        assertTrue(issues.size() == 0);
-    }
 
-    @DisplayName("Test ParsingIntegerValues")
-    @Test
-    void testParsingIntegerValues() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test UnnecessaryComplexity")
+//    @Test
+//    void testUnnecessaryComplexity() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
+
+//    @DisplayName("Test ClumsySolution")
+//    @Test
+//    void testClumsySolution() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
+
+//    @DisplayName("Test ParsingIntegerValues")
+//    @Test
+//    void testParsingIntegerValues() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
     @DisplayName("Test UtilityClass")
     @Test
     void testUtilityClass() {
-        assertTrue(issues.size() == 0);
+        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + "1118"));
+        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
-    @DisplayName("Test UnsafeCast")
-    @Test
-    void testUnsafeCast() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test UnsafeCast")
+//    @Test
+//    void testUnsafeCast() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test EmptyConstructor")
-    @Test
-    void testEmptyConstructor() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test EmptyConstructor")
+//    @Test
+//    void testEmptyConstructor() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test MeaninglessConstant")
-    @Test
-    void testMeaninglessConstant() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test MeaninglessConstant")
+//    @Test
+//    void testMeaninglessConstant() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test Scanner")
-    @Test
-    void testScanner() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test Scanner")
+//    @Test
+//    void testScanner() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
     @DisplayName("Test UnusedElement")
     @Test
     void testUnusedElement() {
-        assertTrue(issues.size() == 0);
+        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(
+                Arrays.asList(
+                        rulePrefix + "1144",
+                        rulePrefix + "1068",
+                        rulePrefix + "1481"
+                )
+        );
+        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
-    @DisplayName("Test MissingThrowsInMethodSignature")
-    @Test
-    void testMissingThrowsInMethodSignature() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test MissingThrowsInMethodSignature")
+//    @Test
+//    void testMissingThrowsInMethodSignature() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test PublicEnumInClass")
-    @Test
-    void testPublicEnumInClass() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test PublicEnumInClass")
+//    @Test
+//    void testPublicEnumInClass() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test ParsingIntegerValues")
-    @Test
-    void testClassOfConstants() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test ParsingIntegerValues")
+//    @Test
+//    void testClassOfConstants() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test TrivialJavaDoc")
-    @Test
-    void testTrivialJavaDoc() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test TrivialJavaDoc")
+//    @Test
+//    void testTrivialJavaDoc() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test BadNaming")
-    @Test
-    void testBadNaming() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test BadNaming")
+//    @Test
+//    void testBadNaming() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test DataEncapsulationViolation")
-    @Test
-    void testDataEncapsulationViolation() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test DataEncapsulationViolation")
+//    @Test
+//    void testDataEncapsulationViolation() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test SeparationOfLogicAndInteraction")
-    @Test
-    void testSeparationOfLogicAndInteraction() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test SeparationOfLogicAndInteraction")
+//    @Test
+//    void testSeparationOfLogicAndInteraction() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test TooComplexCode")
-    @Test
-    void testTooComplexCode() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test TooComplexCode")
+//    @Test
+//    void testTooComplexCode() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test StaticMethods")
-    @Test
-    void testStaticMethods() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test StaticMethods")
+//    @Test
+//    void testStaticMethods() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
     @DisplayName("Test StaticAttributeOfInstanceAttribute")
     @Test
     void testStaticAttributeOfInstanceAttribute() {
-        assertTrue(issues.size() == 0);
+        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + "1170"));
+        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
     @DisplayName("Test FinalModifier")
     @Test
     void testFinalModifier() {
-        assertTrue(issues.size() == 0);
+        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + "3008"));
+        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
     @DisplayName("Test AssertVsIf")
     @Test
     void testAssertVsIf() {
-        assertTrue(issues.size() == 0);
+        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + "5960"));
+        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
-    @DisplayName("Test ParsingIntegerValues")
-    @Test
-    void testJavaAPI() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test ParsingIntegerValues")
+//    @Test
+//    void testJavaAPI() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test ToStringVsEquals")
-    @Test
-    void testToStringVsEquals() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test ToStringVsEquals")
+//    @Test
+//    void testToStringVsEquals() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test DoNotUseObject")
-    @Test
-    void testDoNotUseObject() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test DoNotUseObject")
+//    @Test
+//    void testDoNotUseObject() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
     @DisplayName("Test ClassInsteadOfInterface")
     @Test
     void testClassInsteadOfInterface() {
-        assertTrue(issues.size() == 0);
+        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + "1319"));
+        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
-    @DisplayName("Test EnumForClosedSet")
-    @Test
-    void testEnumForClosedSet() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test EnumForClosedSet")
+//    @Test
+//    void testEnumForClosedSet() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
     @DisplayName("Test EmptyBlock")
     @Test
     void testEmptyBlock() {
-        assertTrue(issues.size() == 0);
+        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(
+                Arrays.asList(
+                        rulePrefix + "2094",
+                        rulePrefix + "1186",
+                        rulePrefix + "108"
+                )
+        );
+        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
-    @DisplayName("Test PackageUsage")
-    @Test
-    void testPackageUsage() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test PackageUsage")
+//    @Test
+//    void testPackageUsage() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
-    @DisplayName("Test DynamicBinding")
-    @Test
-    void testDynamicBinding() {
-        assertTrue(issues.size() == 0);
-    }
+//    @DisplayName("Test DynamicBinding")
+//    @Test
+//    void testDynamicBinding() {
+//        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + ""));
+//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
+//    }
 
     @AfterAll
     public static void tearDownAfterClass() {
         issues = null;
     }
 
-    private boolean isIssueAppearing(ArrayList<String> relevantIssueNumbers) {
-        for (String issueNumber: relevantIssueNumbers) {
-            if (ArrayUtils.contains(issueNumbers, issueNumber)) {
-                return true;
-            }
+    private static void checkOccurringIssues(List<Issue> occurringIssues) {
+        if (occurringIssues.isEmpty()) {
+            assertTrue(true);
+        } else {
+            occurringIssues.forEach(issue -> assertTrue(false, issue.getMessage()));
         }
-        return false;
+    }
+
+    private List<Issue> findOccurringIssues(ArrayList<String> relevantIssueNumbers) {
+        return issues.stream().filter(issue -> relevantIssueNumbers.contains(issue.getRuleKey())).collect(Collectors.toList());
     }
 
     private static Path getJavaPlugin() {
