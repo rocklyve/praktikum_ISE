@@ -1,3 +1,9 @@
+package edu.kit.informatik.listings;
+
+import edu.kit.informatik.listings.Food;
+
+import java.util.List;
+
 abstract class Animal {
     public void feed(List<Food> meal) { /* feed */ }
 }

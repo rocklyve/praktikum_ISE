@@ -1,6 +1,6 @@
 package edu.kit.informatik.listings;
 
-public enum Weekday{
+public enum enumForRangeP {
 	MONDAY,
 	TUESDAY,
 	WEDNESDAY,

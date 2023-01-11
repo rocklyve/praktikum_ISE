@@ -1,8 +1,12 @@
-public class Main {
-    public static void main(String[] args) {
-        while (readLine()) {
+package edu.kit.informatik.listings;
+
+import java.util.Scanner;
+
+public class ScannerN3 {
+    public void foo(String[] args) {
+//        while (readLine()) {
             // Do something with input ..
-        }
+//        }
     }
 
     private void readLine() {

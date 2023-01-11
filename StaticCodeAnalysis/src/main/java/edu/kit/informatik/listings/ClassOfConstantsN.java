@@ -1,6 +1,6 @@
 package edu.kit.informatik.listings;
 
-public class Constants {
+public class ClassOfConstantsN {
     public static final int MATRIX_MAX_WIDTH = 9;
     public static final int MATRIX_MAX_HEIGHT = 9;
     public static final int MATRIX_DEFAULT_CELL_VALUE = -1;

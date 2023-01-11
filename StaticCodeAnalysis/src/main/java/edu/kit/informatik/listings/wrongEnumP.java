@@ -1,6 +1,7 @@
-public abstract class Customer {
+package edu.kit.informatik.listings;
+public abstract class wrongEnumP {
     private double balance;
-    public Customer(double balance) { this.balance = balance; }
+    public wrongEnumP(double balance) { this.balance = balance; }
 
     double payEntryFee() {
         double fee = getEntryFee();
@@ -8,8 +9,4 @@ public abstract class Customer {
         return fee;
     }
     abstract double getEntryFee();
-}
-public class Child extends Customer {
-    public Child(double balance) { super(balance); }
-    double getEntryFee() { return 7.5; }
 }

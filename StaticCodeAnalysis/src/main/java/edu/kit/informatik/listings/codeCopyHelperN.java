@@ -1,8 +1,8 @@
 package edu.kit.informatik.listings;
 
-public class Heightmap {
+public class codeCopyHelperN {
     private double[][] map;
-    public Heightmap(int rows, int columns) { map = new double[rows][columns]; }
+    public codeCopyHelperN(int rows, int columns) { map = new double[rows][columns]; }
     public boolean setHeightAt(int x, int y, double value) {
         if (x >= 0 && y >= 0 && x > map.length && y > map[0].length) {
             map[x][y] = value;

@@ -1,15 +1,21 @@
-private static final String MENU_HEADER = "Menu:";
-private static final String ITEM = "\n - ";
-private List<String> dishes;
+package edu.kit.informatik.listings;
 
-public void updateDishes(List<String> newDishes) {
-    dishes = newDishes; // daily update
-}
+import java.util.List;
 
-public String menuText() {
-    String menu = MENU_HEADER;
-    for (String dish : dishes) {
-        menu += ITEM + dish;
+public class StaticDynamicAttributesP {
+    private static final String MENU_HEADER = "Menu:";
+    private static final String ITEM = "\n - ";
+    private List<String> dishes;
+
+    public void updateDishes(List<String> newDishes) {
+        dishes = newDishes; // daily update
     }
-    return menu;
+
+    public String menuText() {
+        String menu = MENU_HEADER;
+        for (String dish : dishes) {
+            menu += ITEM + dish;
+        }
+        return menu;
+    }
 }

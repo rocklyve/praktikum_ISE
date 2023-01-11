@@ -1,6 +1,6 @@
 package edu.kit.informatik.listings;
 
-public class Matrix {
+public class EmptyBlockN {
     public void printMatrixSize(int size) {
         if (size == 0) {
         } else {

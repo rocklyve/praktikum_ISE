@@ -6,6 +6,9 @@ public class BaseMatrix {
         // Now compare the entries
         return false;
     }
+
+    public String getSerializedString() { return ""; }
+
     public String getRepresentation() {
         return "";
     }

@@ -1,9 +1,9 @@
 package edu.kit.informatik.listings;
 
-public class Table {
+public class emptyConstructorP {
     private int rows;
 
-    public Table() {
+    public emptyConstructorP() {
         this.rows = 0;
     }
 }

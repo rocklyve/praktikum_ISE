@@ -1,10 +1,13 @@
 package edu.kit.informatik.listings;
 
-class Event {
+import java.util.ArrayList;
+import java.util.List;
+
+class FinalQ {
     private static int BASE_FEE = 1000;
     private List<String> participants;
 
-    public Event() {
+    public FinalQ() {
         participants = new ArrayList<>();
     }
 

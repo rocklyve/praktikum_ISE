@@ -1,5 +1,7 @@
-public final MathHelper{
-	private MathHelper(){
+package edu.kit.informatik.listings;
+
+public final class utilityPrivateP {
+	private utilityPrivateP(){
 		throw new IllegalStateException("Not allowed");
 	}
 

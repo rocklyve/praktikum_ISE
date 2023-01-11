@@ -1,15 +1,20 @@
-public final class Book {
+package edu.kit.informatik.listings;
+
+import java.io.InvalidClassException;
+
+public final class publicprivateN {
     public String title;
     long isbn;
 
-    protected Book(String title, long isbn) {
+    protected publicprivateN(String title, long isbn) {
         if (!isIsbnValid(isbn)) {
-            throw new InvalidIsbnException(isbn);
+            throw new ClassCastException();
         }
         this.title = title;
         this.isbn = isbn;
     }
     public boolean isIsbnValid(long isbn) { // isIsbnValid is only an internal helper method
         // ...
+        return true;
     }
 }

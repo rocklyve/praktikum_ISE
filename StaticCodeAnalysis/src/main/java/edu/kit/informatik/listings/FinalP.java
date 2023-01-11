@@ -1,9 +1,9 @@
 package edu.kit.informatik.listings;
 
-class Account implements Comparable<Account> {
+class FinalP implements Comparable<Account> {
     final int id;
 
-    public Account(int id) {
+    public FinalP(int id) {
         this.id = id;
     }
 

@@ -1,6 +1,11 @@
+package edu.kit.informatik.listings;
 
-public int foo(){
-	/* ... do something ... */
-	return 2;
+import java.util.List;
+
+public class unnecessaryComplexP {
+	public int foo() {
+		/* ... do something ... */
+		return 2;
+	}
 }
 

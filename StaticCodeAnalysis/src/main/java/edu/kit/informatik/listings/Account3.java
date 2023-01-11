@@ -1,10 +1,12 @@
-public static void main(String[] args) {
-    // ...
-    int amount=Integer.parseInt(input);
-    account.transfer(amount);
-}
+package edu.kit.informatik.listings;
 
-public class Account {
+public class Account3 {
+    int balance;
+
+    Account3() {
+        balance = 0;
+    }
+
     public void transfer(int amount) {
         if (balance + amount > 0) {
             balance += amount;

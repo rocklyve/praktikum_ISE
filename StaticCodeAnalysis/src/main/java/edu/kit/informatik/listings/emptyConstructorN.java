@@ -1,8 +1,8 @@
 package edu.kit.informatik.listings;
 
-public class Table {
+public class emptyConstructorN {
     private int rows = 0;
 
-    public Table() {
+    public emptyConstructorN() {
     }
 }
