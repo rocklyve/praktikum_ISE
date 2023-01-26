@@ -36,7 +36,6 @@ public class SonarQubeTests {
         issues = new ArrayList<Issue>();
 
         Path javaPlugin = getJavaPlugin();
-        // TODO: Check also for a relative path
         var path = Path.of("src/main/java", "edu/kit/informatik/").toAbsolutePath();
         var javaFiles = getFiles(path);
 
@@ -45,7 +44,6 @@ public class SonarQubeTests {
         StandaloneAnalysisConfiguration sac = StandaloneAnalysisConfiguration.builder().setBaseDir(path).addInputFiles(javaFiles).build();
         standaloneSonarLintEngine.analyze(sac, SonarQubeTests::listen, (formattedMessage, level) -> System.out.println(formattedMessage), null);
         standaloneSonarLintEngine.stop();
-        System.out.println("here");
     }
 
 //    @DisplayName("Test NonFinalAttributesShouldBeFinal")

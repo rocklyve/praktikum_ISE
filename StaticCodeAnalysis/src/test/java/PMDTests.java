@@ -34,7 +34,6 @@ public class PMDTests {
         Gson gson = new Gson();
         String jsonString = new String(Files.readAllBytes(Paths.get("src/resources/pmd-report.json")));
         issues = gson.fromJson(jsonString, PMDTestResult.class);
-        System.out.println("here");
     }
 
 //    @DisplayName("Test NonFinalAttributesShouldBeFinal")
