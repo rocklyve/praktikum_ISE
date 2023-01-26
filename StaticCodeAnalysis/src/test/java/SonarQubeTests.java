@@ -1,4 +1,5 @@
 import edu.kit.informatik.SonarFile;
+import junit.framework.Assert;
 import org.apache.commons.lang.ArrayUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -44,6 +45,7 @@ public class SonarQubeTests {
         StandaloneAnalysisConfiguration sac = StandaloneAnalysisConfiguration.builder().setBaseDir(path).addInputFiles(javaFiles).build();
         standaloneSonarLintEngine.analyze(sac, SonarQubeTests::listen, (formattedMessage, level) -> System.out.println(formattedMessage), null);
         standaloneSonarLintEngine.stop();
+        System.out.println("here");
     }
 
 //    @DisplayName("Test NonFinalAttributesShouldBeFinal")
@@ -401,9 +403,16 @@ public class SonarQubeTests {
 
     private static void checkOccurringIssues(List<Issue> occurringIssues) {
         if (occurringIssues.isEmpty()) {
-            assertTrue(true);
+            return;
         } else {
-            occurringIssues.forEach(issue -> assertTrue(false, issue.getMessage()));
+            String mergedMessage = "\n";
+            for (Issue issue : occurringIssues) {
+               mergedMessage +=
+                       "Issue: " + issue.getRuleKey() + " with message: " + issue.getMessage() +
+                       " File: " + issue.getInputFile().relativePath() + ", Line: " + issue.getStartLine() + " \n";
+            }
+            String finalMergedMessage = "Found " + occurringIssues.size()+ " issues: full text: " + mergedMessage;
+            occurringIssues.forEach(issue -> Assert.fail(finalMergedMessage));
         }
     }
 
