@@ -15,7 +15,7 @@ public class staticCodeN {
     private static double getTotalPrice(List<Product> products) {
         double total = 0;
         for (Product product : products) {
-            total += product .getPrice();
+            total += product.getPrice();
         }
         return total;
     }
