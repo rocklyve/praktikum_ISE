@@ -1,12 +1,13 @@
 package edu.kit.informatik.listings;
 public class parseIntP {
-	public boolean assignValue(String number) {
+	public int assignValue(String number) {
+		int value = 0;
 		try {
-			int value = Integer.parseInt(number);
+			value = Integer.parseInt(number);
 		} catch (NumberFormatException e) {
-			return false;
+			return value;
 		}
 		/* ... */
-		return true;
+		return value;
 	}
 }

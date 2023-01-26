@@ -1,7 +1,7 @@
 {
   "formatVersion": 0,
   "pmdVersion": "6.49.0",
-  "timestamp": "2023-01-26T11:38:54.260+01:00",
+  "timestamp": "2023-01-26T12:17:49.831+01:00",
   "files": [
     {
       "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/EmptyConstructorBadExample.java",
@@ -38,44 +38,6 @@
           "ruleset": "Documentation",
           "priority": 3,
           "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_documentation.html#uncommentedemptyconstructor"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/BaseMatrix.java",
-      "violations": [
-        {
-          "beginline": 5,
-          "begincolumn": 9,
-          "endline": 5,
-          "endcolumn": 35,
-          "description": "Avoid unnecessary if..then..else statements when returning booleans",
-          "rule": "SimplifyBooleanReturns",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#simplifybooleanreturns"
-        },
-        {
-          "beginline": 5,
-          "begincolumn": 24,
-          "endline": 5,
-          "endcolumn": 35,
-          "description": "This statement should have braces",
-          "rule": "ControlStatementBraces",
-          "ruleset": "Code Style",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#controlstatementbraces"
-        },
-        {
-          "beginline": 5,
-          "begincolumn": 13,
-          "endline": 5,
-          "endcolumn": 21,
-          "description": "Use equals() to compare object references.",
-          "rule": "CompareObjectsWithEquals",
-          "ruleset": "Error Prone",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_errorprone.html#compareobjectswithequals"
         }
       ]
     },
@@ -178,18 +140,83 @@
       ]
     },
     {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/BubbleSort.java",
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/BaseMatrix.java",
       "violations": [
         {
-          "beginline": 12,
-          "begincolumn": 12,
-          "endline": 24,
-          "endcolumn": 5,
-          "description": "The method \u0027performSort(List)\u0027 is missing an @Override annotation.",
-          "rule": "MissingOverride",
+          "beginline": 5,
+          "begincolumn": 9,
+          "endline": 5,
+          "endcolumn": 35,
+          "description": "Avoid unnecessary if..then..else statements when returning booleans",
+          "rule": "SimplifyBooleanReturns",
+          "ruleset": "Design",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#simplifybooleanreturns"
+        },
+        {
+          "beginline": 5,
+          "begincolumn": 24,
+          "endline": 5,
+          "endcolumn": 35,
+          "description": "This statement should have braces",
+          "rule": "ControlStatementBraces",
+          "ruleset": "Code Style",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#controlstatementbraces"
+        },
+        {
+          "beginline": 5,
+          "begincolumn": 13,
+          "endline": 5,
+          "endcolumn": 21,
+          "description": "Use equals() to compare object references.",
+          "rule": "CompareObjectsWithEquals",
+          "ruleset": "Error Prone",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_errorprone.html#compareobjectswithequals"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/ExceptionForControlFlow.java",
+      "violations": [
+        {
+          "beginline": 6,
+          "begincolumn": 17,
+          "endline": 6,
+          "endcolumn": 21,
+          "description": "Avoid unused local variables such as \u0027value\u0027.",
+          "rule": "UnusedLocalVariable",
           "ruleset": "Best Practices",
           "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#missingoverride"
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#unusedlocalvariable"
+        },
+        {
+          "beginline": 7,
+          "begincolumn": 11,
+          "endline": 9,
+          "endcolumn": 9,
+          "description": "Avoid empty catch blocks",
+          "rule": "EmptyCatchBlock",
+          "ruleset": "Error Prone",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_errorprone.html#emptycatchblock"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/UtilityClassBadExample.java",
+      "violations": [
+        {
+          "beginline": 3,
+          "begincolumn": 30,
+          "endline": 7,
+          "endcolumn": 1,
+          "description": "All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.",
+          "rule": "UseUtilityClass",
+          "ruleset": "Design",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#useutilityclass"
         }
       ]
     },
@@ -292,30 +319,14 @@
       ]
     },
     {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/UtilityClassBadExample.java",
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/BubbleSort.java",
       "violations": [
         {
-          "beginline": 3,
-          "begincolumn": 30,
-          "endline": 7,
-          "endcolumn": 1,
-          "description": "All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.",
-          "rule": "UseUtilityClass",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#useutilityclass"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/Child.java",
-      "violations": [
-        {
-          "beginline": 8,
-          "begincolumn": 5,
-          "endline": 10,
+          "beginline": 12,
+          "begincolumn": 12,
+          "endline": 24,
           "endcolumn": 5,
-          "description": "The method \u0027getEntryFee()\u0027 is missing an @Override annotation.",
+          "description": "The method \u0027performSort(List)\u0027 is missing an @Override annotation.",
           "rule": "MissingOverride",
           "ruleset": "Best Practices",
           "priority": 3,
@@ -347,6 +358,38 @@
           "ruleset": "Code Style",
           "priority": 3,
           "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#controlstatementbraces"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/Child.java",
+      "violations": [
+        {
+          "beginline": 8,
+          "begincolumn": 5,
+          "endline": 10,
+          "endcolumn": 5,
+          "description": "The method \u0027getEntryFee()\u0027 is missing an @Override annotation.",
+          "rule": "MissingOverride",
+          "ruleset": "Best Practices",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#missingoverride"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/AssertIf.java",
+      "violations": [
+        {
+          "beginline": 10,
+          "begincolumn": 17,
+          "endline": 10,
+          "endcolumn": 47,
+          "description": "Useless parentheses.",
+          "rule": "UselessParentheses",
+          "ruleset": "Code Style",
+          "priority": 4,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#uselessparentheses"
         }
       ]
     },
@@ -416,18 +459,34 @@
       ]
     },
     {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/AssertIf.java",
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/LineBreakN.java",
       "violations": [
         {
-          "beginline": 10,
-          "begincolumn": 17,
-          "endline": 10,
-          "endcolumn": 47,
-          "description": "Useless parentheses.",
-          "rule": "UselessParentheses",
-          "ruleset": "Code Style",
-          "priority": 4,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#uselessparentheses"
+          "beginline": 3,
+          "begincolumn": 25,
+          "endline": 9,
+          "endcolumn": 1,
+          "description": "All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.",
+          "rule": "UseUtilityClass",
+          "ruleset": "Design",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#useutilityclass"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/HardcodedLogicP.java",
+      "violations": [
+        {
+          "beginline": 3,
+          "begincolumn": 30,
+          "endline": 16,
+          "endcolumn": 1,
+          "description": "All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.",
+          "rule": "UseUtilityClass",
+          "ruleset": "Design",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#useutilityclass"
         }
       ]
     },
@@ -448,12 +507,12 @@
       ]
     },
     {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/LineBreakN.java",
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/LineBreakP.java",
       "violations": [
         {
           "beginline": 3,
           "begincolumn": 25,
-          "endline": 9,
+          "endline": 13,
           "endcolumn": 1,
           "description": "All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.",
           "rule": "UseUtilityClass",
@@ -507,38 +566,6 @@
       ]
     },
     {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/HardcodedLogicP.java",
-      "violations": [
-        {
-          "beginline": 3,
-          "begincolumn": 30,
-          "endline": 16,
-          "endcolumn": 1,
-          "description": "All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.",
-          "rule": "UseUtilityClass",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#useutilityclass"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/LineBreakP.java",
-      "violations": [
-        {
-          "beginline": 3,
-          "begincolumn": 25,
-          "endline": 13,
-          "endcolumn": 1,
-          "description": "All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.",
-          "rule": "UseUtilityClass",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#useutilityclass"
-        }
-      ]
-    },
-    {
       "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/ParsingException.java",
       "violations": [
         {
@@ -551,44 +578,6 @@
           "ruleset": "Best Practices",
           "priority": 3,
           "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#unusedprivatefield"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/ScannerN2.java",
-      "violations": [
-        {
-          "beginline": 5,
-          "begincolumn": 24,
-          "endline": 10,
-          "endcolumn": 1,
-          "description": "All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.",
-          "rule": "UseUtilityClass",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#useutilityclass"
-        },
-        {
-          "beginline": 7,
-          "begincolumn": 17,
-          "endline": 7,
-          "endcolumn": 28,
-          "description": "Avoid unused local variables such as \u0027inputScanner\u0027.",
-          "rule": "UnusedLocalVariable",
-          "ruleset": "Best Practices",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#unusedlocalvariable"
-        },
-        {
-          "beginline": 7,
-          "begincolumn": 17,
-          "endline": 7,
-          "endcolumn": 28,
-          "description": "Ensure that resources like this InputStream object are closed after use",
-          "rule": "CloseResource",
-          "ruleset": "Error Prone",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_errorprone.html#closeresource"
         }
       ]
     },
@@ -653,12 +642,12 @@
       ]
     },
     {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/ScannerP2.java",
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/ScannerN2.java",
       "violations": [
         {
           "beginline": 5,
           "begincolumn": 24,
-          "endline": 11,
+          "endline": 10,
           "endcolumn": 1,
           "description": "All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.",
           "rule": "UseUtilityClass",
@@ -668,8 +657,46 @@
         },
         {
           "beginline": 7,
+          "begincolumn": 17,
+          "endline": 7,
+          "endcolumn": 28,
+          "description": "Avoid unused local variables such as \u0027inputScanner\u0027.",
+          "rule": "UnusedLocalVariable",
+          "ruleset": "Best Practices",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#unusedlocalvariable"
+        },
+        {
+          "beginline": 7,
+          "begincolumn": 17,
+          "endline": 7,
+          "endcolumn": 28,
+          "description": "Ensure that resources like this InputStream object are closed after use",
+          "rule": "CloseResource",
+          "ruleset": "Error Prone",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_errorprone.html#closeresource"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/ScannerN3.java",
+      "violations": [
+        {
+          "beginline": 12,
+          "begincolumn": 18,
+          "endline": 12,
+          "endcolumn": 27,
+          "description": "Avoid unused private methods such as \u0027readLine()\u0027.",
+          "rule": "UnusedPrivateMethod",
+          "ruleset": "Best Practices",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#unusedprivatemethod"
+        },
+        {
+          "beginline": 13,
           "begincolumn": 9,
-          "endline": 9,
+          "endline": 15,
           "endcolumn": 9,
           "description": "Empty try body - you could rename the resource to \u0027ignored\u0027",
           "rule": "EmptyControlStatement",
@@ -767,6 +794,22 @@
       ]
     },
     {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/Mutability.java",
+      "violations": [
+        {
+          "beginline": 4,
+          "begincolumn": 1,
+          "endline": 4,
+          "endcolumn": 31,
+          "description": "Unused import \u0027java.util.stream.Stream\u0027",
+          "rule": "UnnecessaryImport",
+          "ruleset": "Code Style",
+          "priority": 4,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#unnecessaryimport"
+        }
+      ]
+    },
+    {
       "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/ScannerP3.java",
       "violations": [
         {
@@ -794,6 +837,76 @@
       ]
     },
     {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/ScannerP2.java",
+      "violations": [
+        {
+          "beginline": 5,
+          "begincolumn": 24,
+          "endline": 11,
+          "endcolumn": 1,
+          "description": "All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.",
+          "rule": "UseUtilityClass",
+          "ruleset": "Design",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#useutilityclass"
+        },
+        {
+          "beginline": 7,
+          "begincolumn": 9,
+          "endline": 9,
+          "endcolumn": 9,
+          "description": "Empty try body - you could rename the resource to \u0027ignored\u0027",
+          "rule": "EmptyControlStatement",
+          "ruleset": "Code Style",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#emptycontrolstatement"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/SavingsAccount.java",
+      "violations": [
+        {
+          "beginline": 4,
+          "begincolumn": 13,
+          "endline": 4,
+          "endcolumn": 33,
+          "description": "Use one line for each declaration, it enhances code readability.",
+          "rule": "OneDeclarationPerLine",
+          "ruleset": "Best Practices",
+          "priority": 4,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#onedeclarationperline"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/ScannerN.java",
+      "violations": [
+        {
+          "beginline": 5,
+          "begincolumn": 23,
+          "endline": 15,
+          "endcolumn": 1,
+          "description": "All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.",
+          "rule": "UseUtilityClass",
+          "ruleset": "Design",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#useutilityclass"
+        },
+        {
+          "beginline": 8,
+          "begincolumn": 21,
+          "endline": 8,
+          "endcolumn": 32,
+          "description": "Ensure that resources like this InputStream object are closed after use",
+          "rule": "CloseResource",
+          "ruleset": "Error Prone",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_errorprone.html#closeresource"
+        }
+      ]
+    },
+    {
       "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/UserInterface.java",
       "violations": [
         {
@@ -806,6 +919,22 @@
           "ruleset": "Best Practices",
           "priority": 3,
           "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#unusedprivatefield"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/clumsySolutionP.java",
+      "violations": [
+        {
+          "beginline": 5,
+          "begincolumn": 1,
+          "endline": 9,
+          "endcolumn": 1,
+          "description": "The class name \u0027clumsySolutionP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "rule": "ClassNamingConventions",
+          "ruleset": "Code Style",
+          "priority": 1,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
         }
       ]
     },
@@ -833,92 +962,6 @@
           "ruleset": "Best Practices",
           "priority": 3,
           "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#unusedprivatemethod"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/Mutability.java",
-      "violations": [
-        {
-          "beginline": 4,
-          "begincolumn": 1,
-          "endline": 4,
-          "endcolumn": 31,
-          "description": "Unused import \u0027java.util.stream.Stream\u0027",
-          "rule": "UnnecessaryImport",
-          "ruleset": "Code Style",
-          "priority": 4,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#unnecessaryimport"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/clumsySolutionP.java",
-      "violations": [
-        {
-          "beginline": 5,
-          "begincolumn": 1,
-          "endline": 9,
-          "endcolumn": 1,
-          "description": "The class name \u0027clumsySolutionP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
-          "rule": "ClassNamingConventions",
-          "ruleset": "Code Style",
-          "priority": 1,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/ScannerN3.java",
-      "violations": [
-        {
-          "beginline": 12,
-          "begincolumn": 18,
-          "endline": 12,
-          "endcolumn": 27,
-          "description": "Avoid unused private methods such as \u0027readLine()\u0027.",
-          "rule": "UnusedPrivateMethod",
-          "ruleset": "Best Practices",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#unusedprivatemethod"
-        },
-        {
-          "beginline": 13,
-          "begincolumn": 9,
-          "endline": 15,
-          "endcolumn": 9,
-          "description": "Empty try body - you could rename the resource to \u0027ignored\u0027",
-          "rule": "EmptyControlStatement",
-          "ruleset": "Code Style",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#emptycontrolstatement"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/StaticDynamicAttributesN.java",
-      "violations": [
-        {
-          "beginline": 6,
-          "begincolumn": 26,
-          "endline": 6,
-          "endcolumn": 35,
-          "description": "This final field could be made static",
-          "rule": "FinalFieldCouldBeStatic",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#finalfieldcouldbestatic"
-        },
-        {
-          "beginline": 7,
-          "begincolumn": 26,
-          "endline": 7,
-          "endcolumn": 29,
-          "description": "This final field could be made static",
-          "rule": "FinalFieldCouldBeStatic",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#finalfieldcouldbestatic"
         }
       ]
     },
@@ -988,6 +1031,49 @@
       ]
     },
     {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/enumForRangeP.java",
+      "violations": [
+        {
+          "beginline": 3,
+          "begincolumn": 8,
+          "endline": 9,
+          "endcolumn": 1,
+          "description": "The enum name \u0027enumForRangeP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "rule": "ClassNamingConventions",
+          "ruleset": "Code Style",
+          "priority": 1,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/StaticDynamicAttributesN.java",
+      "violations": [
+        {
+          "beginline": 6,
+          "begincolumn": 26,
+          "endline": 6,
+          "endcolumn": 35,
+          "description": "This final field could be made static",
+          "rule": "FinalFieldCouldBeStatic",
+          "ruleset": "Design",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#finalfieldcouldbestatic"
+        },
+        {
+          "beginline": 7,
+          "begincolumn": 26,
+          "endline": 7,
+          "endcolumn": 29,
+          "description": "This final field could be made static",
+          "rule": "FinalFieldCouldBeStatic",
+          "ruleset": "Design",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#finalfieldcouldbestatic"
+        }
+      ]
+    },
+    {
       "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/emptyConstructorP.java",
       "violations": [
         {
@@ -1026,97 +1112,6 @@
       ]
     },
     {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/ScannerN.java",
-      "violations": [
-        {
-          "beginline": 5,
-          "begincolumn": 23,
-          "endline": 15,
-          "endcolumn": 1,
-          "description": "All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.",
-          "rule": "UseUtilityClass",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#useutilityclass"
-        },
-        {
-          "beginline": 8,
-          "begincolumn": 21,
-          "endline": 8,
-          "endcolumn": 32,
-          "description": "Ensure that resources like this InputStream object are closed after use",
-          "rule": "CloseResource",
-          "ruleset": "Error Prone",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_errorprone.html#closeresource"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/clumsySolutionN.java",
-      "violations": [
-        {
-          "beginline": 7,
-          "begincolumn": 8,
-          "endline": 20,
-          "endcolumn": 1,
-          "description": "The class name \u0027clumsySolutionN\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
-          "rule": "ClassNamingConventions",
-          "ruleset": "Code Style",
-          "priority": 1,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/codeCopyInheritanceN.java",
-      "violations": [
-        {
-          "beginline": 3,
-          "begincolumn": 8,
-          "endline": 9,
-          "endcolumn": 1,
-          "description": "The class name \u0027codeCopyInheritanceN\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
-          "rule": "ClassNamingConventions",
-          "ruleset": "Code Style",
-          "priority": 1,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/SavingsAccount.java",
-      "violations": [
-        {
-          "beginline": 4,
-          "begincolumn": 13,
-          "endline": 4,
-          "endcolumn": 33,
-          "description": "Use one line for each declaration, it enhances code readability.",
-          "rule": "OneDeclarationPerLine",
-          "ruleset": "Best Practices",
-          "priority": 4,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#onedeclarationperline"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/enumForRangeP.java",
-      "violations": [
-        {
-          "beginline": 3,
-          "begincolumn": 8,
-          "endline": 9,
-          "endcolumn": 1,
-          "description": "The enum name \u0027enumForRangeP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
-          "rule": "ClassNamingConventions",
-          "ruleset": "Code Style",
-          "priority": 1,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        }
-      ]
-    },
-    {
       "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/enumWithinClassN.java",
       "violations": [
         {
@@ -1141,92 +1136,6 @@
           "endline": 5,
           "endcolumn": 1,
           "description": "The class name \u0027enumWithinClassP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
-          "rule": "ClassNamingConventions",
-          "ruleset": "Code Style",
-          "priority": 1,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/errorMessageN.java",
-      "violations": [
-        {
-          "beginline": 3,
-          "begincolumn": 28,
-          "endline": 9,
-          "endcolumn": 1,
-          "description": "All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.",
-          "rule": "UseUtilityClass",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#useutilityclass"
-        },
-        {
-          "beginline": 3,
-          "begincolumn": 8,
-          "endline": 9,
-          "endcolumn": 1,
-          "description": "The class name \u0027errorMessageN\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
-          "rule": "ClassNamingConventions",
-          "ruleset": "Code Style",
-          "priority": 1,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/errorMessageP.java",
-      "violations": [
-        {
-          "beginline": 3,
-          "begincolumn": 28,
-          "endline": 9,
-          "endcolumn": 1,
-          "description": "All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.",
-          "rule": "UseUtilityClass",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#useutilityclass"
-        },
-        {
-          "beginline": 3,
-          "begincolumn": 8,
-          "endline": 9,
-          "endcolumn": 1,
-          "description": "The class name \u0027errorMessageP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
-          "rule": "ClassNamingConventions",
-          "ruleset": "Code Style",
-          "priority": 1,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/identifierNamingN.java",
-      "violations": [
-        {
-          "beginline": 3,
-          "begincolumn": 8,
-          "endline": 11,
-          "endcolumn": 1,
-          "description": "The class name \u0027identifierNamingN\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
-          "rule": "ClassNamingConventions",
-          "ruleset": "Code Style",
-          "priority": 1,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/getterSetterN.java",
-      "violations": [
-        {
-          "beginline": 5,
-          "begincolumn": 8,
-          "endline": 19,
-          "endcolumn": 1,
-          "description": "The class name \u0027getterSetterN\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
           "rule": "ClassNamingConventions",
           "ruleset": "Code Style",
           "priority": 1,
@@ -1284,14 +1193,14 @@
       ]
     },
     {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/interfaceP.java",
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/codeCopyInheritanceN.java",
       "violations": [
         {
-          "beginline": 5,
+          "beginline": 3,
           "begincolumn": 8,
           "endline": 9,
           "endcolumn": 1,
-          "description": "The class name \u0027interfaceP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "description": "The class name \u0027codeCopyInheritanceN\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
           "rule": "ClassNamingConventions",
           "ruleset": "Code Style",
           "priority": 1,
@@ -1300,46 +1209,84 @@
       ]
     },
     {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/identifierNamingP.java",
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/errorMessageN.java",
+      "violations": [
+        {
+          "beginline": 3,
+          "begincolumn": 28,
+          "endline": 9,
+          "endcolumn": 1,
+          "description": "All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.",
+          "rule": "UseUtilityClass",
+          "ruleset": "Design",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#useutilityclass"
+        },
+        {
+          "beginline": 3,
+          "begincolumn": 8,
+          "endline": 9,
+          "endcolumn": 1,
+          "description": "The class name \u0027errorMessageN\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "rule": "ClassNamingConventions",
+          "ruleset": "Code Style",
+          "priority": 1,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/clumsySolutionN.java",
+      "violations": [
+        {
+          "beginline": 7,
+          "begincolumn": 8,
+          "endline": 20,
+          "endcolumn": 1,
+          "description": "The class name \u0027clumsySolutionN\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "rule": "ClassNamingConventions",
+          "ruleset": "Code Style",
+          "priority": 1,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/errorMessageP.java",
+      "violations": [
+        {
+          "beginline": 3,
+          "begincolumn": 28,
+          "endline": 9,
+          "endcolumn": 1,
+          "description": "All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.",
+          "rule": "UseUtilityClass",
+          "ruleset": "Design",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#useutilityclass"
+        },
+        {
+          "beginline": 3,
+          "begincolumn": 8,
+          "endline": 9,
+          "endcolumn": 1,
+          "description": "The class name \u0027errorMessageP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "rule": "ClassNamingConventions",
+          "ruleset": "Code Style",
+          "priority": 1,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/identifierNamingN.java",
       "violations": [
         {
           "beginline": 3,
           "begincolumn": 8,
           "endline": 11,
           "endcolumn": 1,
-          "description": "The class name \u0027identifierNamingP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
-          "rule": "ClassNamingConventions",
-          "ruleset": "Code Style",
-          "priority": 1,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/jdTrivialP.java",
-      "violations": [
-        {
-          "beginline": 3,
-          "begincolumn": 8,
-          "endline": 15,
-          "endcolumn": 1,
-          "description": "The class name \u0027jdTrivialP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
-          "rule": "ClassNamingConventions",
-          "ruleset": "Code Style",
-          "priority": 1,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/codeCopyHelperP.java",
-      "violations": [
-        {
-          "beginline": 2,
-          "begincolumn": 8,
-          "endline": 19,
-          "endcolumn": 1,
-          "description": "The class name \u0027codeCopyHelperP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "description": "The class name \u0027identifierNamingN\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
           "rule": "ClassNamingConventions",
           "ruleset": "Code Style",
           "priority": 1,
@@ -1375,29 +1322,50 @@
       ]
     },
     {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/parseIntN.java",
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/getterSetterN.java",
       "violations": [
         {
-          "beginline": 3,
+          "beginline": 5,
           "begincolumn": 8,
-          "endline": 8,
+          "endline": 19,
           "endcolumn": 1,
-          "description": "The class name \u0027parseIntN\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "description": "The class name \u0027getterSetterN\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
           "rule": "ClassNamingConventions",
           "ruleset": "Code Style",
           "priority": 1,
           "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        },
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/interfaceP.java",
+      "violations": [
         {
           "beginline": 5,
-          "begincolumn": 7,
-          "endline": 5,
-          "endcolumn": 11,
-          "description": "Avoid unused local variables such as \u0027value\u0027.",
-          "rule": "UnusedLocalVariable",
-          "ruleset": "Best Practices",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#unusedlocalvariable"
+          "begincolumn": 8,
+          "endline": 9,
+          "endcolumn": 1,
+          "description": "The class name \u0027interfaceP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "rule": "ClassNamingConventions",
+          "ruleset": "Code Style",
+          "priority": 1,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/codeCopyHelperN.java",
+      "violations": [
+        {
+          "beginline": 3,
+          "begincolumn": 8,
+          "endline": 17,
+          "endcolumn": 1,
+          "description": "The class name \u0027codeCopyHelperN\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "rule": "ClassNamingConventions",
+          "ruleset": "Code Style",
+          "priority": 1,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
         }
       ]
     },
@@ -1418,57 +1386,78 @@
       ]
     },
     {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/jdTrivialP.java",
+      "violations": [
+        {
+          "beginline": 3,
+          "begincolumn": 8,
+          "endline": 15,
+          "endcolumn": 1,
+          "description": "The class name \u0027jdTrivialP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "rule": "ClassNamingConventions",
+          "ruleset": "Code Style",
+          "priority": 1,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/parseIntN.java",
+      "violations": [
+        {
+          "beginline": 3,
+          "begincolumn": 8,
+          "endline": 9,
+          "endcolumn": 1,
+          "description": "The class name \u0027parseIntN\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "rule": "ClassNamingConventions",
+          "ruleset": "Code Style",
+          "priority": 1,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/identifierNamingP.java",
+      "violations": [
+        {
+          "beginline": 3,
+          "begincolumn": 8,
+          "endline": 11,
+          "endcolumn": 1,
+          "description": "The class name \u0027identifierNamingP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "rule": "ClassNamingConventions",
+          "ruleset": "Code Style",
+          "priority": 1,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/codeCopyHelperP.java",
+      "violations": [
+        {
+          "beginline": 2,
+          "begincolumn": 8,
+          "endline": 19,
+          "endcolumn": 1,
+          "description": "The class name \u0027codeCopyHelperP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "rule": "ClassNamingConventions",
+          "ruleset": "Code Style",
+          "priority": 1,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
+        }
+      ]
+    },
+    {
       "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/parseIntP.java",
       "violations": [
         {
           "beginline": 2,
           "begincolumn": 8,
-          "endline": 12,
+          "endline": 13,
           "endcolumn": 1,
           "description": "The class name \u0027parseIntP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
-          "rule": "ClassNamingConventions",
-          "ruleset": "Code Style",
-          "priority": 1,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        },
-        {
-          "beginline": 5,
-          "begincolumn": 8,
-          "endline": 5,
-          "endcolumn": 12,
-          "description": "Avoid unused local variables such as \u0027value\u0027.",
-          "rule": "UnusedLocalVariable",
-          "ruleset": "Best Practices",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#unusedlocalvariable"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/getterSetterP.java",
-      "violations": [
-        {
-          "beginline": 5,
-          "begincolumn": 8,
-          "endline": 23,
-          "endcolumn": 1,
-          "description": "The class name \u0027getterSetterP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
-          "rule": "ClassNamingConventions",
-          "ruleset": "Code Style",
-          "priority": 1,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/codeCopyHelperN.java",
-      "violations": [
-        {
-          "beginline": 3,
-          "begincolumn": 8,
-          "endline": 17,
-          "endcolumn": 1,
-          "description": "The class name \u0027codeCopyHelperN\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
           "rule": "ClassNamingConventions",
           "ruleset": "Code Style",
           "priority": 1,
@@ -1504,29 +1493,72 @@
       ]
     },
     {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/publicprivateP.java",
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/unnecessaryComplexN.java",
       "violations": [
         {
-          "beginline": 2,
-          "begincolumn": 14,
-          "endline": 18,
+          "beginline": 3,
+          "begincolumn": 8,
+          "endline": 9,
           "endcolumn": 1,
-          "description": "The class name \u0027publicprivateP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "description": "The class name \u0027unnecessaryComplexN\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
           "rule": "ClassNamingConventions",
           "ruleset": "Code Style",
           "priority": 1,
           "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
         },
         {
-          "beginline": 17,
-          "begincolumn": 38,
-          "endline": 17,
-          "endcolumn": 41,
-          "description": "Avoid unused method parameters such as \u0027isbn\u0027.",
-          "rule": "UnusedFormalParameter",
+          "beginline": 6,
+          "begincolumn": 10,
+          "endline": 6,
+          "endcolumn": 10,
+          "description": "Avoid unused local variables such as \u0027i\u0027.",
+          "rule": "UnusedLocalVariable",
           "ruleset": "Best Practices",
           "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#unusedformalparameter"
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#unusedlocalvariable"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/getterSetterP.java",
+      "violations": [
+        {
+          "beginline": 5,
+          "begincolumn": 8,
+          "endline": 23,
+          "endcolumn": 1,
+          "description": "The class name \u0027getterSetterP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "rule": "ClassNamingConventions",
+          "ruleset": "Code Style",
+          "priority": 1,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/unnecessaryComplexP.java",
+      "violations": [
+        {
+          "beginline": 3,
+          "begincolumn": 1,
+          "endline": 3,
+          "endcolumn": 22,
+          "description": "Unused import \u0027java.util.List\u0027",
+          "rule": "UnnecessaryImport",
+          "ruleset": "Code Style",
+          "priority": 4,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#unnecessaryimport"
+        },
+        {
+          "beginline": 5,
+          "begincolumn": 8,
+          "endline": 10,
+          "endcolumn": 1,
+          "description": "The class name \u0027unnecessaryComplexP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "rule": "ClassNamingConventions",
+          "ruleset": "Code Style",
+          "priority": 1,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
         }
       ]
     },
@@ -1558,6 +1590,60 @@
       ]
     },
     {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/uiloP.java",
+      "violations": [
+        {
+          "beginline": 2,
+          "begincolumn": 20,
+          "endline": 12,
+          "endcolumn": 1,
+          "description": "All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.",
+          "rule": "UseUtilityClass",
+          "ruleset": "Design",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#useutilityclass"
+        },
+        {
+          "beginline": 2,
+          "begincolumn": 8,
+          "endline": 12,
+          "endcolumn": 1,
+          "description": "The class name \u0027uiloP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "rule": "ClassNamingConventions",
+          "ruleset": "Code Style",
+          "priority": 1,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/publicprivateP.java",
+      "violations": [
+        {
+          "beginline": 2,
+          "begincolumn": 14,
+          "endline": 18,
+          "endcolumn": 1,
+          "description": "The class name \u0027publicprivateP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "rule": "ClassNamingConventions",
+          "ruleset": "Code Style",
+          "priority": 1,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
+        },
+        {
+          "beginline": 17,
+          "begincolumn": 38,
+          "endline": 17,
+          "endcolumn": 41,
+          "description": "Avoid unused method parameters such as \u0027isbn\u0027.",
+          "rule": "UnusedFormalParameter",
+          "ruleset": "Best Practices",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#unusedformalparameter"
+        }
+      ]
+    },
+    {
       "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/unsafeCastN.java",
       "violations": [
         {
@@ -1574,7 +1660,7 @@
         {
           "beginline": 6,
           "begincolumn": 8,
-          "endline": 11,
+          "endline": 12,
           "endcolumn": 1,
           "description": "The class name \u0027unsafeCastN\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
           "rule": "ClassNamingConventions",
@@ -1583,15 +1669,15 @@
           "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
         },
         {
-          "beginline": 8,
-          "begincolumn": 10,
-          "endline": 8,
-          "endcolumn": 14,
-          "description": "Avoid unused local variables such as \u0027value\u0027.",
-          "rule": "UnusedLocalVariable",
-          "ruleset": "Best Practices",
+          "beginline": 9,
+          "begincolumn": 3,
+          "endline": 9,
+          "endcolumn": 15,
+          "description": "Consider simply returning the value vs storing it in local variable \u0027value\u0027",
+          "rule": "UnnecessaryLocalBeforeReturn",
+          "ruleset": "Code Style",
           "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#unusedlocalvariable"
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#unnecessarylocalbeforereturn"
         }
       ]
     },
@@ -1645,121 +1731,18 @@
       ]
     },
     {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/uiloP.java",
-      "violations": [
-        {
-          "beginline": 2,
-          "begincolumn": 20,
-          "endline": 12,
-          "endcolumn": 1,
-          "description": "All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.",
-          "rule": "UseUtilityClass",
-          "ruleset": "Design",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_design.html#useutilityclass"
-        },
-        {
-          "beginline": 2,
-          "begincolumn": 8,
-          "endline": 12,
-          "endcolumn": 1,
-          "description": "The class name \u0027uiloP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
-          "rule": "ClassNamingConventions",
-          "ruleset": "Code Style",
-          "priority": 1,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/unnecessaryComplexP.java",
-      "violations": [
-        {
-          "beginline": 3,
-          "begincolumn": 1,
-          "endline": 3,
-          "endcolumn": 22,
-          "description": "Unused import \u0027java.util.List\u0027",
-          "rule": "UnnecessaryImport",
-          "ruleset": "Code Style",
-          "priority": 4,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#unnecessaryimport"
-        },
-        {
-          "beginline": 5,
-          "begincolumn": 8,
-          "endline": 10,
-          "endcolumn": 1,
-          "description": "The class name \u0027unnecessaryComplexP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
-          "rule": "ClassNamingConventions",
-          "ruleset": "Code Style",
-          "priority": 1,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/unsafeCastP.java",
-      "violations": [
-        {
-          "beginline": 4,
-          "begincolumn": 1,
-          "endline": 4,
-          "endcolumn": 22,
-          "description": "Unused import \u0027java.util.List\u0027",
-          "rule": "UnnecessaryImport",
-          "ruleset": "Code Style",
-          "priority": 4,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#unnecessaryimport"
-        },
-        {
-          "beginline": 6,
-          "begincolumn": 8,
-          "endline": 13,
-          "endcolumn": 1,
-          "description": "The class name \u0027unsafeCastP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
-          "rule": "ClassNamingConventions",
-          "ruleset": "Code Style",
-          "priority": 1,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        },
-        {
-          "beginline": 9,
-          "begincolumn": 11,
-          "endline": 9,
-          "endcolumn": 15,
-          "description": "Avoid unused local variables such as \u0027value\u0027.",
-          "rule": "UnusedLocalVariable",
-          "ruleset": "Best Practices",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#unusedlocalvariable"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/unnecessaryComplexN.java",
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/todoN.java",
       "violations": [
         {
           "beginline": 3,
           "begincolumn": 8,
-          "endline": 9,
+          "endline": 20,
           "endcolumn": 1,
-          "description": "The class name \u0027unnecessaryComplexN\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "description": "The class name \u0027todoN\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
           "rule": "ClassNamingConventions",
           "ruleset": "Code Style",
           "priority": 1,
           "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        },
-        {
-          "beginline": 6,
-          "begincolumn": 10,
-          "endline": 6,
-          "endcolumn": 10,
-          "description": "Avoid unused local variables such as \u0027i\u0027.",
-          "rule": "UnusedLocalVariable",
-          "ruleset": "Best Practices",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#unusedlocalvariable"
         }
       ]
     },
@@ -1807,22 +1790,6 @@
       ]
     },
     {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/todoN.java",
-      "violations": [
-        {
-          "beginline": 3,
-          "begincolumn": 8,
-          "endline": 20,
-          "endcolumn": 1,
-          "description": "The class name \u0027todoN\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
-          "rule": "ClassNamingConventions",
-          "ruleset": "Code Style",
-          "priority": 1,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        }
-      ]
-    },
-    {
       "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/todoP.java",
       "violations": [
         {
@@ -1846,33 +1813,6 @@
           "ruleset": "Code Style",
           "priority": 3,
           "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#unnecessaryreturn"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/wrongEnumP.java",
-      "violations": [
-        {
-          "beginline": 2,
-          "begincolumn": 17,
-          "endline": 12,
-          "endcolumn": 1,
-          "description": "The class name \u0027wrongEnumP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
-          "rule": "ClassNamingConventions",
-          "ruleset": "Code Style",
-          "priority": 1,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        },
-        {
-          "beginline": 3,
-          "begincolumn": 20,
-          "endline": 3,
-          "endcolumn": 26,
-          "description": "Avoid unused private fields such as \u0027balance\u0027.",
-          "rule": "UnusedPrivateField",
-          "ruleset": "Best Practices",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#unusedprivatefield"
         }
       ]
     },
@@ -1948,50 +1888,67 @@
       ]
     },
     {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/wrongLanguageN.java",
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/unsafeCastP.java",
       "violations": [
         {
-          "beginline": 5,
+          "beginline": 4,
+          "begincolumn": 1,
+          "endline": 4,
+          "endcolumn": 22,
+          "description": "Unused import \u0027java.util.List\u0027",
+          "rule": "UnnecessaryImport",
+          "ruleset": "Code Style",
+          "priority": 4,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#unnecessaryimport"
+        },
+        {
+          "beginline": 6,
           "begincolumn": 8,
-          "endline": 21,
+          "endline": 13,
           "endcolumn": 1,
-          "description": "The class name \u0027wrongLanguageN\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "description": "The class name \u0027unsafeCastP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
           "rule": "ClassNamingConventions",
           "ruleset": "Code Style",
           "priority": 1,
           "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
+        },
+        {
+          "beginline": 9,
+          "begincolumn": 11,
+          "endline": 9,
+          "endcolumn": 15,
+          "description": "Avoid unused local variables such as \u0027value\u0027.",
+          "rule": "UnusedLocalVariable",
+          "ruleset": "Best Practices",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#unusedlocalvariable"
         }
       ]
     },
     {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/wrongLoopTypePI.java",
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/wrongEnumP.java",
       "violations": [
+        {
+          "beginline": 2,
+          "begincolumn": 17,
+          "endline": 12,
+          "endcolumn": 1,
+          "description": "The class name \u0027wrongEnumP\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "rule": "ClassNamingConventions",
+          "ruleset": "Code Style",
+          "priority": 1,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
+        },
         {
           "beginline": 3,
-          "begincolumn": 8,
-          "endline": 11,
-          "endcolumn": 1,
-          "description": "The class name \u0027wrongLoopTypePI\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
-          "rule": "ClassNamingConventions",
-          "ruleset": "Code Style",
-          "priority": 1,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/wrongLoopTypePII.java",
-      "violations": [
-        {
-          "beginline": 5,
-          "begincolumn": 8,
-          "endline": 11,
-          "endcolumn": 1,
-          "description": "The class name \u0027wrongLoopTypePII\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
-          "rule": "ClassNamingConventions",
-          "ruleset": "Code Style",
-          "priority": 1,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
+          "begincolumn": 20,
+          "endline": 3,
+          "endcolumn": 26,
+          "description": "Avoid unused private fields such as \u0027balance\u0027.",
+          "rule": "UnusedPrivateField",
+          "ruleset": "Best Practices",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#unusedprivatefield"
         }
       ]
     },
@@ -2012,56 +1969,18 @@
       ]
     },
     {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/wrongLoopTypePIII.java",
-      "violations": [
-        {
-          "beginline": 3,
-          "begincolumn": 8,
-          "endline": 20,
-          "endcolumn": 1,
-          "description": "The class name \u0027wrongLoopTypePIII\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
-          "rule": "ClassNamingConventions",
-          "ruleset": "Code Style",
-          "priority": 1,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        },
-        {
-          "beginline": 17,
-          "begincolumn": 36,
-          "endline": 17,
-          "endcolumn": 40,
-          "description": "Avoid unused method parameters such as \u0027input\u0027.",
-          "rule": "UnusedFormalParameter",
-          "ruleset": "Best Practices",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#unusedformalparameter"
-        }
-      ]
-    },
-    {
-      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/wrongLoopTypeNII.java",
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/wrongLanguageN.java",
       "violations": [
         {
           "beginline": 5,
           "begincolumn": 8,
-          "endline": 11,
+          "endline": 21,
           "endcolumn": 1,
-          "description": "The class name \u0027wrongLoopTypeNII\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "description": "The class name \u0027wrongLanguageN\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
           "rule": "ClassNamingConventions",
           "ruleset": "Code Style",
           "priority": 1,
           "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
-        },
-        {
-          "beginline": 7,
-          "begincolumn": 4,
-          "endline": 9,
-          "endcolumn": 4,
-          "description": "This for loop can be replaced by a foreach loop",
-          "rule": "ForLoopCanBeForeach",
-          "ruleset": "Best Practices",
-          "priority": 3,
-          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#forloopcanbeforeach"
         }
       ]
     },
@@ -2094,6 +2013,92 @@
           "beginline": 14,
           "begincolumn": 36,
           "endline": 14,
+          "endcolumn": 40,
+          "description": "Avoid unused method parameters such as \u0027input\u0027.",
+          "rule": "UnusedFormalParameter",
+          "ruleset": "Best Practices",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#unusedformalparameter"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/wrongLoopTypePII.java",
+      "violations": [
+        {
+          "beginline": 5,
+          "begincolumn": 8,
+          "endline": 11,
+          "endcolumn": 1,
+          "description": "The class name \u0027wrongLoopTypePII\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "rule": "ClassNamingConventions",
+          "ruleset": "Code Style",
+          "priority": 1,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/wrongLoopTypePI.java",
+      "violations": [
+        {
+          "beginline": 3,
+          "begincolumn": 8,
+          "endline": 11,
+          "endcolumn": 1,
+          "description": "The class name \u0027wrongLoopTypePI\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "rule": "ClassNamingConventions",
+          "ruleset": "Code Style",
+          "priority": 1,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/wrongLoopTypeNII.java",
+      "violations": [
+        {
+          "beginline": 5,
+          "begincolumn": 8,
+          "endline": 11,
+          "endcolumn": 1,
+          "description": "The class name \u0027wrongLoopTypeNII\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "rule": "ClassNamingConventions",
+          "ruleset": "Code Style",
+          "priority": 1,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
+        },
+        {
+          "beginline": 7,
+          "begincolumn": 4,
+          "endline": 9,
+          "endcolumn": 4,
+          "description": "This for loop can be replaced by a foreach loop",
+          "rule": "ForLoopCanBeForeach",
+          "ruleset": "Best Practices",
+          "priority": 3,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_bestpractices.html#forloopcanbeforeach"
+        }
+      ]
+    },
+    {
+      "filename": "/Users/davidlaubenstein/git/private/uni/praktikumIngenieurSE/StaticCodeAnalysis/src/main/java/edu/kit/informatik/listings/wrongLoopTypePIII.java",
+      "violations": [
+        {
+          "beginline": 3,
+          "begincolumn": 8,
+          "endline": 20,
+          "endcolumn": 1,
+          "description": "The class name \u0027wrongLoopTypePIII\u0027 doesn\u0027t match \u0027[A-Z][a-zA-Z0-9]*\u0027",
+          "rule": "ClassNamingConventions",
+          "ruleset": "Code Style",
+          "priority": 1,
+          "externalInfoUrl": "https://pmd.github.io/pmd-6.49.0/pmd_rules_java_codestyle.html#classnamingconventions"
+        },
+        {
+          "beginline": 17,
+          "begincolumn": 36,
+          "endline": 17,
           "endcolumn": 40,
           "description": "Avoid unused method parameters such as \u0027input\u0027.",
           "rule": "UnusedFormalParameter",

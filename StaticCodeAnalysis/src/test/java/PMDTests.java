@@ -133,14 +133,14 @@ public class PMDTests {
 //        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
 //        checkOccurringIssues(findOccurringIssues(relevantRules));
 //    }
-//
-//    @DisplayName("Test ExceptionsForControlFlow")
-//    @Test
-//    void testExceptionsForControlFlow() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
+
+    @DisplayName("Test ExceptionsForControlFlow")
+    @Test
+    void testExceptionsForControlFlow() {
+        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("EmptyCatchBlock"));
+        checkOccurringIssues(findOccurringIssues(relevantRules));
+    }
+
 //    @DisplayName("Test TryCatchBlock")
 //    @Test
 //    void testTryCatchBlock() {
@@ -184,28 +184,28 @@ public class PMDTests {
 //        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
 //        checkOccurringIssues(findOccurringIssues(relevantRules));
 //    }
-//
-//    @DisplayName("Test UtilityClass")
-//    @Test
-//    void testUtilityClass() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
+
+    @DisplayName("Test UtilityClass")
+    @Test
+    void testUtilityClass() {
+        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UseUtilityClass"));
+        checkOccurringIssues(findOccurringIssues(relevantRules));
+    }
+
 //    @DisplayName("Test UnsafeCast")
 //    @Test
 //    void testUnsafeCast() {
 //        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
 //        checkOccurringIssues(findOccurringIssues(relevantRules));
 //    }
-//
-//    @DisplayName("Test EmptyConstructor")
-//    @Test
-//    void testEmptyConstructor() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
+
+    @DisplayName("Test EmptyConstructor")
+    @Test
+    void testEmptyConstructor() {
+        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UncommentedEmptyConstructor", "UnnecessaryConstructor"));
+        checkOccurringIssues(findOccurringIssues(relevantRules));
+    }
+
 //    @DisplayName("Test MeaninglessConstant")
 //    @Test
 //    void testMeaninglessConstant() {

@@ -4,8 +4,9 @@ package edu.kit.informatik.listings;
 import java.util.List;
 
 public class unsafeCastN {
-	public void assignString(Object t) {
+	public String assignString(Object t) {
 		String value = (String) t;
+		return value;
 		/* ... */
 	}
 }
