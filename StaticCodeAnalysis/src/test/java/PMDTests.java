@@ -57,14 +57,14 @@ public class PMDTests {
 //        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
 //        checkOccurringIssues(findOccurringIssues(relevantRules));
 //    }
-//
-//    @DisplayName("Test ConcreteClassInsteadOfInterface")
-//    @Test
-//    void testConcreteClassInsteadOfInterface() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
+
+    @DisplayName("Test ConcreteClassInsteadOfInterface")
+    @Test
+    void testConcreteClassInsteadOfInterface() {
+        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("LooseCoupling"));
+        checkOccurringIssues(findOccurringIssues(relevantRules));
+    }
+
 //    @DisplayName("Test AssertInsteadOfIfLoop")
 //    @Test
 //    void testAssertInsteadOfIfLoop() {
