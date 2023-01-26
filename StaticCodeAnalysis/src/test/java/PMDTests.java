@@ -34,15 +34,16 @@ public class PMDTests {
         Gson gson = new Gson();
         String jsonString = new String(Files.readAllBytes(Paths.get("src/resources/pmd-report.json")));
         issues = gson.fromJson(jsonString, PMDTestResult.class);
+        System.out.println("here");
     }
 
-    @DisplayName("Test NonFinalAttributesShouldBeFinal")
-    @Test
-    void testNonFinalAttributesShouldBeFinal() {
-        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField", "UncommentedEmptyConstructor"));
-        checkOccurringIssues(findOccurringIssues(relevantRules));
-    }
-
+//    @DisplayName("Test NonFinalAttributesShouldBeFinal")
+//    @Test
+//    void testNonFinalAttributesShouldBeFinal() {
+//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField", "UncommentedEmptyConstructor"));
+//        checkOccurringIssues(findOccurringIssues(relevantRules));
+//    }
+//
 //    @DisplayName("Test SystemDependentLineBreak")
 //    @Test
 //    void testSystemDependentLineBreak() {
@@ -219,14 +220,16 @@ public class PMDTests {
 //        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
 //        checkOccurringIssues(findOccurringIssues(relevantRules));
 //    }
-//
-//    @DisplayName("Test UnusedElement")
-//    @Test
-//    void testUnusedElement() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
+
+    @DisplayName("Test UnusedElement")
+    @Test
+    void testUnusedElement() {
+        ArrayList<String> relevantRules = new ArrayList<String>(
+                Arrays.asList("UnusedPrivateField", "UnusedPrivateMethod", "UnusedLocalVariable")
+        );
+        checkOccurringIssues(findOccurringIssues(relevantRules));
+    }
+
 //    @DisplayName("Test MissingThrowsInMethodSignature")
 //    @Test
 //    void testMissingThrowsInMethodSignature() {
