@@ -1,4 +1,4 @@
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import junit.framework.Assert;
 import pmdModel.PMDTestResult;
 import pmdModel.PMDTestResultFile;
@@ -19,21 +19,27 @@ import net.sourceforge.pmd.PMD;
 import net.sourceforge.pmd.PMDConfiguration;
 
 public class PMDTests {
+    public static final String newLine = System.lineSeparator();
+
+    private static final String pmdReportInputFilePath = "src/main/java/edu/kit/informatik/";
+    private static final String pmdRuleSetFilePath = "rulesets/java/quickstart.xml";
+    private static final String pmdReportFilePath = "src/resources/pmd-report.json";
+    private static final String pmdReportFileFormat = "json";
     static PMDTestResult issues;
 
     @BeforeAll
     public static void setUpBeforeClass() throws Exception {
         PMDConfiguration configuration = new PMDConfiguration();
-        configuration.setInputPaths("src/main/java/edu/kit/informatik/");
-        configuration.addRuleSet("rulesets/java/quickstart.xml");
-        configuration.setReportFormat("json");
-        configuration.setReportFile("src/resources/pmd-report.json");
+        configuration.setInputPaths(pmdReportInputFilePath);
+        configuration.addRuleSet(pmdRuleSetFilePath);
+        configuration.setReportFormat(pmdReportFileFormat);
+        configuration.setReportFile(pmdReportFilePath);
 
         PMD.runPmd(configuration);
 
-        Gson gson = new Gson();
-        String jsonString = new String(Files.readAllBytes(Paths.get("src/resources/pmd-report.json")));
-        issues = gson.fromJson(jsonString, PMDTestResult.class);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = new String(Files.readAllBytes(Paths.get(pmdReportFilePath)));
+        issues = objectMapper.readValue(jsonString, PMDTestResult.class);
     }
 
 //    @DisplayName("Test NonFinalAttributesShouldBeFinal")
@@ -372,19 +378,22 @@ public class PMDTests {
     private static void checkOccurringIssues(List<PMDTestResultFile> occurringIssues) {
         if (occurringIssues.isEmpty()) {
             return;
-        } else {
-            String mergedMessage = "\n";
-            for (PMDTestResultFile file : occurringIssues) {
-                for (PMDTestViolation violation : file.violations) {
-                    mergedMessage +=
-                            "Issue: " + violation.rule + " with message: " + violation.description +
-                                    " File: " + file.filename + ", Line: " + violation.beginline + " \n";
-                }
-            }
-
-            String finalMergedMessage = "Found " + occurringIssues.size()+ " issues: full text: " + mergedMessage;
-            occurringIssues.forEach(issue -> Assert.fail(finalMergedMessage));
         }
+        String mergedMessage = newLine;
+        for (PMDTestResultFile file : occurringIssues) {
+            for (PMDTestViolation violation : file.violations) {
+                mergedMessage +=
+                        "Issue: " + violation.rule + " with message: " + violation.description +
+                                " File: " + file.filename + ", Line: " + violation.beginline + " " + newLine;
+                // System.lineSeparator() or formatted string usage %n with linebreaks
+                // or \n
+                // TODO: file path not absolute!
+            }
+        }
+
+        String finalMergedMessage = "Found " + occurringIssues.size()+ " issues: full text: " + mergedMessage;
+        // assert fail outside of
+        Assert.fail(finalMergedMessage);
     }
 
     private List<PMDTestResultFile> findOccurringIssues(ArrayList<String> relevantRules) {
