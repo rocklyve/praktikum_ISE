@@ -381,12 +381,10 @@ public class PMDTests {
         String mergedMessage = newLine;
         for (PMDTestResultFile file : occurringIssues) {
             for (PMDTestViolation violation : file.violations) {
+                String fileName = file.filename.split(pmdReportInputFilePath)[1];
                 mergedMessage +=
                         "Issue: " + violation.rule + " with message: " + violation.description +
-                                " File: " + file.filename + ", Line: " + violation.beginline + " " + newLine;
-                // System.lineSeparator() or formatted string usage %n with linebreaks
-                // or \n
-                // TODO: file path not absolute!
+                                " File: " + fileName + ", Line: " + violation.beginline + " " + newLine;
             }
         }
 
