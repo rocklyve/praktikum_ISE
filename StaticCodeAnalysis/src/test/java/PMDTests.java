@@ -397,8 +397,22 @@ public class PMDTests {
     }
 
     private List<PMDTestResultFile> findOccurringIssues(ArrayList<String> relevantRules) {
-        // TODO: mistake, find it
-        return issues.files.stream().filter(file -> !file.violations.stream().filter(violation -> relevantRules.contains(violation.rule)).collect(Collectors.toList()).isEmpty()).collect(Collectors.toList());
+        // get relevant files containing that relevant rules
+        List<PMDTestResultFile> results = issues.files.stream().filter(
+                file -> !file.violations.stream().filter(
+                        violation -> relevantRules.contains(violation.rule)
+                ).collect(Collectors.toList()).isEmpty()
+        ).collect(Collectors.toList());
+
+        // filter irrelevant rules out of every relevant file
+        for (PMDTestResultFile result: results) {
+            for (PMDTestViolation violation: result.violations) {
+                if (!relevantRules.contains(violation.rule)) {
+                    result.violations.remove(violation);
+                }
+            }
+        }
+        return results;
     }
 
     @AfterAll
