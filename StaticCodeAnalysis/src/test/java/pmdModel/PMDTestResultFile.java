@@ -1,10 +1,10 @@
 package pmdModel;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class PMDTestResultFile {
     public String filename;
-    public ArrayList<PMDTestViolation> violations;
+    public List<PMDTestViolation> violations;
 }
 
 

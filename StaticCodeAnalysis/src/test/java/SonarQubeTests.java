@@ -1,15 +1,10 @@
 import edu.kit.informatik.SonarFile;
 import junit.framework.Assert;
-import org.apache.commons.lang.ArrayUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.sonar.api.utils.command.StringStreamConsumer;
 import org.sonarsource.sonarlint.core.StandaloneSonarLintEngineImpl;
 import org.sonarsource.sonarlint.core.analysis.api.ClientInputFile;
 import org.sonarsource.sonarlint.core.client.api.common.analysis.Issue;
@@ -28,12 +23,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SonarQubeTests {
-    public static final String newLine = System.lineSeparator();;
+    public static final String newLine = System.lineSeparator();
     private static ArrayList<Issue> issues;
-    private static String rulePrefix = "java:S";
-    private static String projectEntryPath = "src/main/java";
-    private static String packagePath = "edu/kit/informatik/";
-    private static String javaFilePrefix = ".java";
+    private static final String rulePrefix = "java:S";
+    private static final String projectEntryPath = "src/main/java";
+    private static final String packagePath = "edu/kit/informatik/";
+    private static final String javaFilePrefix = ".java";
 
     @BeforeAll
     public static void setUpBeforeClass() throws Exception {

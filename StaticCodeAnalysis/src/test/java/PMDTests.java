@@ -20,7 +20,6 @@ import net.sourceforge.pmd.PMDConfiguration;
 
 public class PMDTests {
     public static final String newLine = System.lineSeparator();
-
     private static final String pmdReportInputFilePath = "src/main/java/edu/kit/informatik/";
     private static final String pmdRuleSetFilePath = "rulesets/java/quickstart.xml";
     private static final String pmdReportFilePath = "src/resources/pmd-report.json";
@@ -397,22 +396,13 @@ public class PMDTests {
     }
 
     private List<PMDTestResultFile> findOccurringIssues(ArrayList<String> relevantRules) {
-        // get relevant files containing that relevant rules
-        List<PMDTestResultFile> results = issues.files.stream().filter(
-                file -> !file.violations.stream().filter(
-                        violation -> relevantRules.contains(violation.rule)
-                ).collect(Collectors.toList()).isEmpty()
-        ).collect(Collectors.toList());
-
-        // filter irrelevant rules out of every relevant file
-        for (PMDTestResultFile result: results) {
-            for (PMDTestViolation violation: result.violations) {
-                if (!relevantRules.contains(violation.rule)) {
-                    result.violations.remove(violation);
-                }
-            }
+        List<PMDTestResultFile> filteredResultFiles = issues.files;
+        // remove irrelevant violations
+        for (PMDTestResultFile file: filteredResultFiles) {
+            file.violations = file.violations.stream().filter(violation -> relevantRules.contains(violation.rule)).collect(Collectors.toList());
         }
-        return results;
+        // remove files with empty violation lists
+        return filteredResultFiles.stream().filter(file -> !file.violations.isEmpty()).collect(Collectors.toList());
     }
 
     @AfterAll
