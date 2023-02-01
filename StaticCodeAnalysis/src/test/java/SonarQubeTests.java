@@ -28,15 +28,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SonarQubeTests {
+    public static final String newLine = System.lineSeparator();;
     private static ArrayList<Issue> issues;
     private static String rulePrefix = "java:S";
+    private static String projectEntryPath = "src/main/java";
+    private static String packagePath = "edu/kit/informatik/";
+    private static String javaFilePrefix = ".java";
 
     @BeforeAll
     public static void setUpBeforeClass() throws Exception {
         issues = new ArrayList<Issue>();
 
         Path javaPlugin = getJavaPlugin();
-        var path = Path.of("src/main/java", "edu/kit/informatik/").toAbsolutePath();
+        var path = Path.of(projectEntryPath, packagePath).toAbsolutePath();
         var javaFiles = getFiles(path);
 
         StandaloneGlobalConfiguration configuration = StandaloneGlobalConfiguration.builder().addEnabledLanguage(Language.JAVA).addPlugins(javaPlugin).setWorkDir(path).build();
@@ -403,11 +407,11 @@ public class SonarQubeTests {
         if (occurringIssues.isEmpty()) {
             return;
         } else {
-            String mergedMessage = "\n";
+            String mergedMessage = newLine;
             for (Issue issue : occurringIssues) {
                mergedMessage +=
                        "Issue: " + issue.getRuleKey() + " with message: " + issue.getMessage() +
-                       " File: " + issue.getInputFile().relativePath() + ", Line: " + issue.getStartLine() + " \n";
+                       " File: " + issue.getInputFile().relativePath() + ", Line: " + issue.getStartLine() + " " + newLine;
             }
             String finalMergedMessage = "Found " + occurringIssues.size()+ " issues: full text: " + mergedMessage;
             occurringIssues.forEach(issue -> Assert.fail(finalMergedMessage));
@@ -431,7 +435,7 @@ public class SonarQubeTests {
     private static List<ClientInputFile> getFiles(Path path) throws IOException {
         final var list = new ArrayList<ClientInputFile>();
         Files.walk(path).forEach(filePath -> {
-            if (filePath.getFileName().toString().endsWith(".java")) {
+            if (filePath.getFileName().toString().endsWith(javaFilePrefix)) {
                 list.add(new SonarFile(path, filePath));
             }
         });
