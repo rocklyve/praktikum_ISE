@@ -22,16 +22,90 @@ import net.sourceforge.pmd.PMDConfiguration;
 public class PMDTests {
     public static final String newLine = System.lineSeparator();
     private static final String pmdReportInputFilePath = "src/main/java/edu/kit/informatik/";
-    private static final String pmdRuleSetFilePath = "rulesets/java/quickstart.xml";
+    private static final String pmdRuleSetFilePathJ2ee = "rulesets/java/j2ee.xml";
+    private static final String pmdRuleSetFilePathSunsecure = "rulesets/java/sunsecure.xml";
+    private static final String pmdRuleSetFilePathDesign = "rulesets/java/design.xml";
+    private static final String pmdRuleSetFilePathFinalizers = "rulesets/java/finalizers.xml";
+    private static final String pmdRuleSetFilePathControversial = "rulesets/java/controversial.xml";
+    private static final String pmdRuleSetFilePathUnnecessary = "rulesets/java/unnecessary.xml";
+    private static final String pmdRuleSetFilePathLogging = "rulesets/java/logging-jakarta-commons.xml";
+    private static final String pmdRuleSetFilePathQuickstart = "rulesets/java/quickstart.xml";
+    private static final String pmdRuleSetFilePathJavabeans = "rulesets/java/javabeans.xml";
+    private static final String pmdRuleSetFilePathOptimizations = "rulesets/java/optimizations.xml";
+    private static final String pmdRuleSetFilePathStrings = "rulesets/java/strings.xml";
+    private static final String pmdRuleSetFilePathStrictException = "rulesets/java/strictexception.xml";
+    private static final String pmdRuleSetFilePathImports = "rulesets/java/imports.xml";
+    private static final String pmdRuleSetFilePathJunit = "rulesets/java/junit.xml";
+    private static final String pmdRuleSetFilePathCodeSize = "rulesets/java/codesize.xml";
+    private static final String pmdRuleSetFilePathBraces = "rulesets/java/braces.xml";
+    private static final String pmdRuleSetFilePathCoupling = "rulesets/java/coupling.xml";
+    private static final String pmdRuleSetFilePathNaming = "rulesets/java/naming.xml";
+    private static final String pmdRuleSetFilePathClone = "rulesets/java/clone.xml";
+    private static final String pmdRuleSetFilePathLoggingJava= "rulesets/java/logging-java.xml";
+    private static final String pmdRuleSetFilePathTypeResolution = "rulesets/java/typeresolution.xml";
+    private static final String pmdRuleSetFilePathMetrics = "rulesets/java/metrics.xml";
+    private static final String pmdRuleSetFilePathUnusedCode = "rulesets/java/unusedcode.xml";
+    private static final String pmdRuleSetFilePathComments = "rulesets/java/comments.xml";
+    private static final String pmdRuleSetFilePathBasic = "rulesets/java/basic.xml";
+    private static final String pmdRuleSetFilePathEmpty = "rulesets/java/empty.xml";
+    private static final String pmdRuleSetFilePathCategoryCodeStyle = "category/java/codestyle.xml";
+    private static final String pmdRuleSetFilePathCategoryBestPractices = "category/java/bestpractices.xml";
+    private static final String pmdRuleSetFilePathCategoryDocumentation = "category/java/documentation.xml";
+    private static final String pmdRuleSetFilePathCategoryErrorProne = "category/java/errorprone.xml";
+    private static final String pmdRuleSetFilePathCategoryMultiThreading = "category/java/multithreading.xml";
+    private static final String pmdRuleSetFilePathCategoryPerformance = "category/java/performance.xml";
+    private static final String pmdRuleSetFilePathCategorySecurity = "category/java/security.xml";
+//    private static final String pmdRuleSetFilePathJavaFull = "rulesets/java/maven-pmd-plugin-default.xml";
     private static final String pmdReportFilePath = "src/resources/pmd-report.json";
     private static final String pmdReportFileFormat = "json";
+
     static PMDTestResult issues;
 
     @BeforeAll
     public static void setUpBeforeClass() throws Exception {
         PMDConfiguration configuration = new PMDConfiguration();
         configuration.setInputPaths(pmdReportInputFilePath);
-        configuration.addRuleSet(pmdRuleSetFilePath);
+
+        configuration.setRuleSets(List.of(
+                pmdRuleSetFilePathQuickstart,
+                pmdReportInputFilePath,
+                pmdRuleSetFilePathJ2ee,
+                pmdRuleSetFilePathSunsecure,
+                pmdRuleSetFilePathDesign,
+                pmdRuleSetFilePathFinalizers,
+                pmdRuleSetFilePathControversial,
+                pmdRuleSetFilePathUnnecessary,
+                pmdRuleSetFilePathLogging,
+                pmdRuleSetFilePathQuickstart,
+                pmdRuleSetFilePathJavabeans,
+                pmdRuleSetFilePathOptimizations,
+                pmdRuleSetFilePathStrings,
+                pmdRuleSetFilePathStrictException,
+                pmdRuleSetFilePathImports,
+                pmdRuleSetFilePathJunit,
+                pmdRuleSetFilePathCodeSize,
+                pmdRuleSetFilePathBraces,
+// this rule currently creates configuration errors we are not able to handle right now
+//                pmdRuleSetFilePathCoupling,
+                pmdRuleSetFilePathNaming,
+                pmdRuleSetFilePathClone,
+                pmdRuleSetFilePathLoggingJava,
+                pmdRuleSetFilePathTypeResolution,
+                pmdRuleSetFilePathMetrics,
+                pmdRuleSetFilePathUnusedCode,
+                pmdRuleSetFilePathComments,
+                pmdRuleSetFilePathBasic,
+                pmdRuleSetFilePathEmpty,
+                pmdRuleSetFilePathCategoryCodeStyle,
+                pmdRuleSetFilePathCategoryBestPractices,
+                pmdRuleSetFilePathCategoryDocumentation,
+                pmdRuleSetFilePathCategoryErrorProne,
+                pmdRuleSetFilePathCategoryMultiThreading,
+                pmdRuleSetFilePathCategoryPerformance,
+                pmdRuleSetFilePathCategorySecurity
+        ));
+
+
         configuration.setReportFormat(pmdReportFileFormat);
         configuration.setReportFile(pmdReportFilePath);
 
@@ -39,11 +113,6 @@ public class PMDTests {
 
         ObjectMapper objectMapper = new ObjectMapper();
         issues = objectMapper.readValue(new File(pmdReportFilePath), PMDTestResult.class);
-        int countViolations = 0;
-        for (PMDTestResultFile file: issues.files) {
-            countViolations += file.violations.size();
-        }
-        System.out.println("CountViolations: " + countViolations);
     }
 
 //    @DisplayName("Test NonFinalAttributesShouldBeFinal")

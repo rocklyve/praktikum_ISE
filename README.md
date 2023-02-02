@@ -87,3 +87,12 @@
 |  |  |  |  |  |  |  |  |
 |  |  |  |  |  |  |  |  |
 |  | CUSTOM RULESET | https://docs.sonarqube.org/9.6/extension-guide/adding-coding-rules/ |  |  | https://pmd.github.io/latest/pmd_userdocs_extending_writing_pmd_rules.html |  |  |
+
+## Custom Rulesets
+
+### Custom Rulesets for PMD
+
+https://pmd.github.io/latest/pmd_userdocs_making_rulesets.html#referencing-a-single-rule
+
+### Custom Rulesets for Sonarqube
+
