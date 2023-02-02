@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -37,8 +38,12 @@ public class PMDTests {
         PMD.runPmd(configuration);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        String jsonString = new String(Files.readAllBytes(Paths.get(pmdReportFilePath)));
-        issues = objectMapper.readValue(jsonString, PMDTestResult.class);
+        issues = objectMapper.readValue(new File(pmdReportFilePath), PMDTestResult.class);
+        int countViolations = 0;
+        for (PMDTestResultFile file: issues.files) {
+            countViolations += file.violations.size();
+        }
+        System.out.println("CountViolations: " + countViolations);
     }
 
 //    @DisplayName("Test NonFinalAttributesShouldBeFinal")
@@ -394,13 +399,24 @@ public class PMDTests {
     }
 
     private List<PMDTestResultFile> findOccurringIssues(ArrayList<String> relevantRules) {
-        List<PMDTestResultFile> filteredResultFiles = issues.files;
         // remove irrelevant violations
-        for (PMDTestResultFile file: filteredResultFiles) {
-            file.violations = file.violations.stream().filter(violation -> relevantRules.contains(violation.rule)).collect(Collectors.toList());
+        List<PMDTestResultFile> filteredPMDTestResultFiles = new ArrayList<>();
+        for (PMDTestResultFile file: issues.files) {
+            PMDTestResultFile newFile = new PMDTestResultFile();
+            newFile.filename = file.filename;
+            ArrayList<PMDTestViolation> newViolations = new ArrayList<PMDTestViolation>();
+            for (PMDTestViolation violation: file.violations) {
+                if (relevantRules.contains(violation.rule)) {
+                    newViolations.add(violation);
+                }
+            }
+            newFile.violations = newViolations;
+            filteredPMDTestResultFiles.add(newFile);
         }
+
         // remove files with empty violation lists
-        return filteredResultFiles.stream().filter(file -> !file.violations.isEmpty()).collect(Collectors.toList());
+        List<PMDTestResultFile> result = filteredPMDTestResultFiles.stream().filter(file -> !file.violations.isEmpty()).collect(Collectors.toList());
+        return result;
     }
 
     @AfterAll
