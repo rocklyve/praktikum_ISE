@@ -105,7 +105,6 @@ public class PMDTests {
                 pmdRuleSetFilePathCategorySecurity
         ));
 
-
         configuration.setReportFormat(pmdReportFileFormat);
         configuration.setReportFile(pmdReportFilePath);
 
