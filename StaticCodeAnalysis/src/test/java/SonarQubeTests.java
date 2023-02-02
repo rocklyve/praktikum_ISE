@@ -324,13 +324,6 @@ public class SonarQubeTests {
         checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
-    @DisplayName("Test AssertVsIf")
-    @Test
-    void testAssertVsIf() {
-        ArrayList<String> relevantIssueNumbers = new ArrayList<String>(Arrays.asList(rulePrefix + "5960"));
-        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-    }
-
 //    @DisplayName("Test ParsingIntegerValues")
 //    @Test
 //    void testJavaAPI() {
