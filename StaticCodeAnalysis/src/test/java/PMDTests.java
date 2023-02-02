@@ -400,23 +400,19 @@ public class PMDTests {
 
     private List<PMDTestResultFile> findOccurringIssues(ArrayList<String> relevantRules) {
         // remove irrelevant violations
-        List<PMDTestResultFile> filteredPMDTestResultFiles = new ArrayList<>();
-        for (PMDTestResultFile file: issues.files) {
-            PMDTestResultFile newFile = new PMDTestResultFile();
-            newFile.filename = file.filename;
-            ArrayList<PMDTestViolation> newViolations = new ArrayList<PMDTestViolation>();
-            for (PMDTestViolation violation: file.violations) {
-                if (relevantRules.contains(violation.rule)) {
-                    newViolations.add(violation);
-                }
-            }
-            newFile.violations = newViolations;
-            filteredPMDTestResultFiles.add(newFile);
-        }
-
-        // remove files with empty violation lists
-        List<PMDTestResultFile> result = filteredPMDTestResultFiles.stream().filter(file -> !file.violations.isEmpty()).collect(Collectors.toList());
-        return result;
+        return issues.files.stream()
+                .filter(file -> file.violations.stream()
+                        .anyMatch(violation -> relevantRules.contains(violation.rule)))
+                .map(file -> {
+                    PMDTestResultFile newFile = new PMDTestResultFile();
+                    newFile.filename = file.filename;
+                    newFile.violations = file.violations.stream()
+                            .filter(violation -> relevantRules.contains(violation.rule))
+                            .collect(Collectors.toList());
+                    return newFile;
+                })
+                .filter(file -> !file.violations.isEmpty())
+                .collect(Collectors.toList());
     }
 
     @AfterAll
