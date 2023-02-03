@@ -1,13 +1,13 @@
 package pmdModel;
 
-public class PMDTestViolation {
-    public int beginline;
-    public int begincolumn;
-    public int endline;
-    public int endcolumn;
-    public String description;
-    public String rule;
-    public String ruleset;
-    public int priority;
-    public String externalInfoUrl;
-}
+public record PMDTestViolation (
+     int beginline,
+     int begincolumn,
+     int endline,
+     int endcolumn,
+     String description,
+     String rule,
+     String ruleset,
+     int priority,
+     String externalInfoUrl
+){}

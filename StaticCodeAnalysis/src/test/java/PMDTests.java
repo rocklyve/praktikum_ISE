@@ -40,8 +40,8 @@ public class PMDTests {
         ObjectMapper objectMapper = new ObjectMapper();
         issues = objectMapper.readValue(new File(pmdReportFilePath), PMDTestResult.class);
         int countViolations = 0;
-        for (PMDTestResultFile file: issues.files) {
-            countViolations += file.violations.size();
+        for (PMDTestResultFile file: issues.files()) {
+            countViolations += file.violations().size();
         }
         System.out.println("CountViolations: " + countViolations);
     }
@@ -70,7 +70,6 @@ public class PMDTests {
     @DisplayName("Test ConcreteClassInsteadOfInterface")
     @Test
     void testConcreteClassInsteadOfInterface() {
-//        List<String> relevantRules = List.of("LooseCoupling"));
         List<String> relevantRules = List.of("LooseCoupling");
         checkOccurringIssues(findOccurringIssues(relevantRules));
     }
@@ -386,11 +385,11 @@ public class PMDTests {
         }
         String mergedMessage = newLine;
         for (PMDTestResultFile file : occurringIssues) {
-            for (PMDTestViolation violation : file.violations) {
-                String fileName = file.filename.split(pmdReportInputFilePath)[1];
+            for (PMDTestViolation violation : file.violations()) {
+                String fileName = file.filename().split(pmdReportInputFilePath)[1];
                 mergedMessage +=
-                        "Issue: " + violation.rule + " with message: " + violation.description +
-                                " File: " + fileName + ", Line: " + violation.beginline + " " + newLine;
+                        "Issue: " + violation.rule() + " with message: " + violation.description() +
+                                " File: " + fileName + ", Line: " + violation.beginline() + " " + newLine;
             }
         }
 
@@ -401,18 +400,20 @@ public class PMDTests {
 
     private List<PMDTestResultFile> findOccurringIssues(List<String> relevantRules) {
         // remove irrelevant violations
-        return issues.files.stream()
-                .filter(file -> file.violations.stream()
-                        .anyMatch(violation -> relevantRules.contains(violation.rule)))
+        return issues.files().stream()
+                .filter(file -> file.violations().stream()
+                        .anyMatch(violation -> relevantRules.contains(violation.rule())))
                 .map(file -> {
-                    PMDTestResultFile newFile = new PMDTestResultFile();
-                    newFile.filename = file.filename;
-                    newFile.violations = file.violations.stream()
-                            .filter(violation -> relevantRules.contains(violation.rule))
-                            .collect(Collectors.toList());
+
+                    PMDTestResultFile newFile = new PMDTestResultFile(
+                            file.filename(),
+                            file.violations().stream()
+                                    .filter(violation -> relevantRules.contains(violation.rule()))
+                                    .collect(Collectors.toList())
+                    );
                     return newFile;
                 })
-                .filter(file -> !file.violations.isEmpty())
+                .filter(file -> !file.violations().isEmpty())
                 .collect(Collectors.toList());
     }
 
