@@ -116,13 +116,13 @@ public class PMDTests {
         issues.files.stream().map(file -> filterDuplicatedViolations(file)).collect(Collectors.toList());
     }
 
-//    @DisplayName("Test NonFinalAttributesShouldBeFinal")
-//    @Test
-//    void testNonFinalAttributesShouldBeFinal() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField", "UncommentedEmptyConstructor"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
+    @DisplayName("Test NonFinalAttributesShouldBeFinal")
+    @Test
+    void testNonFinalAttributesShouldBeFinal() {
+        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("SuspiciousConstantFieldName"));
+        checkOccurringIssues(findOccurringIssues(relevantRules));
+    }
+
 //    @DisplayName("Test SystemDependentLineBreak")
 //    @Test
 //    void testSystemDependentLineBreak() {

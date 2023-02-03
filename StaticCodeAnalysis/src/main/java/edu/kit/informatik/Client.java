@@ -6,7 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public final class Client {
 
-    private static final int ITERATIONS = 10;
+    public static int ITERATIONS = 10;
 
     private static final int RANDOM_FLOOR = 5;
 
