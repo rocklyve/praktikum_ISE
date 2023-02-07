@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonarsource.sonarlint.core.StandaloneSonarLintEngineImpl;
 import org.sonarsource.sonarlint.core.analysis.api.ClientInputFile;
 import org.sonarsource.sonarlint.core.client.api.common.analysis.Issue;
@@ -18,29 +20,31 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class SonarQubeTests {
     public static final String newLine = System.lineSeparator();
+    public static final String JAVA_CLASS_PATH = "java.class.path";
+    public static final String SONAR_JAVA_PLUGIN = "sonar-java-plugin";
+    private static final String RULE_PREFIX = "java:S";
+    private static final String PROJECT_ENTRY_PATH = "src/main/java/edu/kit/informatik/";
+    private static final String JAVA_FILE_PREFIX = ".java";
     private static ArrayList<Issue> issues;
-    private static final String rulePrefix = "java:S";
-    private static final String projectEntryPath = "src/main/java/edu/kit/informatik/";
-    private static final String javaFilePrefix = ".java";
+    static Logger logger = LoggerFactory.getLogger(SonarQubeTests.class);
 
     @BeforeAll
     public static void setUpBeforeClass() throws Exception {
         issues = new ArrayList<Issue>();
 
         Path javaPlugin = getJavaPlugin();
-        var path = Path.of(projectEntryPath).toAbsolutePath();
+        var path = Path.of(PROJECT_ENTRY_PATH).toAbsolutePath();
         var javaFiles = getFiles(path);
 
         StandaloneGlobalConfiguration configuration = StandaloneGlobalConfiguration.builder().addEnabledLanguage(Language.JAVA).addPlugins(javaPlugin).setWorkDir(path).build();
         StandaloneSonarLintEngine standaloneSonarLintEngine = new StandaloneSonarLintEngineImpl(configuration);
         StandaloneAnalysisConfiguration sac = StandaloneAnalysisConfiguration.builder().setBaseDir(path).addInputFiles(javaFiles).build();
-        standaloneSonarLintEngine.analyze(sac, SonarQubeTests::listen, (formattedMessage, level) -> System.out.println(formattedMessage), null);
+        standaloneSonarLintEngine.analyze(sac, SonarQubeTests::listen, (formattedMessage, level) -> logger.info(formattedMessage), null);
         standaloneSonarLintEngine.stop();
     }
 
@@ -61,14 +65,14 @@ public class SonarQubeTests {
     @DisplayName("Test RawType")
     @Test
     void testRawType() {
-        List<String> relevantIssueNumbers = List.of(rulePrefix + "3740");
+        List<String> relevantIssueNumbers = List.of(RULE_PREFIX + "3740");
         checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
     @DisplayName("Test ConcreteClassInsteadOfInterface")
     @Test
     void testConcreteClassInsteadOfInterface() {
-        List<String> relevantIssueNumbers = List.of(rulePrefix + "1319");
+        List<String> relevantIssueNumbers = List.of(RULE_PREFIX + "1319");
         checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
@@ -76,8 +80,8 @@ public class SonarQubeTests {
     @Test
     void testAssertInsteadOfIfLoop() {
         List<String> relevantIssueNumbers = List.of(
-             rulePrefix + "5960",
-            rulePrefix + "4274"
+             RULE_PREFIX + "5960",
+            RULE_PREFIX + "4274"
         );
         checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
@@ -106,7 +110,7 @@ public class SonarQubeTests {
     @DisplayName("Test Code Duplication")
     @Test
     void testCodeDuplication() {
-        List<String> relevantIssueNumbers = List.of(rulePrefix + "4144");
+        List<String> relevantIssueNumbers = List.of(RULE_PREFIX + "4144");
         checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
@@ -199,7 +203,7 @@ public class SonarQubeTests {
     @DisplayName("Test UtilityClass")
     @Test
     void testUtilityClass() {
-        List<String> relevantIssueNumbers = List.of(rulePrefix + "1118");
+        List<String> relevantIssueNumbers = List.of(RULE_PREFIX + "1118");
         checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
@@ -235,9 +239,9 @@ public class SonarQubeTests {
     @Test
     void testUnusedElement() {
         List<String> relevantIssueNumbers = List.of(
-            rulePrefix + "1144",
-            rulePrefix + "1068",
-            rulePrefix + "1481"
+            RULE_PREFIX + "1144",
+            RULE_PREFIX + "1068",
+            RULE_PREFIX + "1481"
         );
         checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
@@ -308,14 +312,14 @@ public class SonarQubeTests {
     @DisplayName("Test StaticAttributeOfInstanceAttribute")
     @Test
     void testStaticAttributeOfInstanceAttribute() {
-        List<String> relevantIssueNumbers = List.of(rulePrefix + "1170");
+        List<String> relevantIssueNumbers = List.of(RULE_PREFIX + "1170");
         checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
     @DisplayName("Test FinalModifier")
     @Test
     void testFinalModifier() {
-        List<String> relevantIssueNumbers = List.of(rulePrefix + "3008");
+        List<String> relevantIssueNumbers = List.of(RULE_PREFIX + "3008");
         checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
@@ -343,7 +347,7 @@ public class SonarQubeTests {
     @DisplayName("Test ClassInsteadOfInterface")
     @Test
     void testClassInsteadOfInterface() {
-        List<String> relevantIssueNumbers = List.of(rulePrefix + "1319");
+        List<String> relevantIssueNumbers = List.of(RULE_PREFIX + "1319");
         checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
@@ -358,9 +362,9 @@ public class SonarQubeTests {
     @Test
     void testEmptyBlock() {
         List<String> relevantIssueNumbers = List.of(
-            rulePrefix + "2094",
-            rulePrefix + "1186",
-            rulePrefix + "108"
+            RULE_PREFIX + "2094",
+            RULE_PREFIX + "1186",
+            RULE_PREFIX + "108"
         );
         checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
@@ -404,10 +408,10 @@ public class SonarQubeTests {
     }
 
     private static Path getJavaPlugin() {
-        String classpath = System.getProperty("java.class.path");
+        String classpath = System.getProperty(JAVA_CLASS_PATH);
         String[] classPathValues = classpath.split(File.pathSeparator);
         for (String classPath : classPathValues) {
-            if (classPath.contains("sonar-java-plugin"))
+            if (classPath.contains(SONAR_JAVA_PLUGIN))
                 return Path.of(classPath);
         }
         throw new IllegalStateException("Java Plugin not found!");
@@ -416,7 +420,7 @@ public class SonarQubeTests {
     private static List<ClientInputFile> getFiles(Path path) throws IOException {
         final var list = new ArrayList<ClientInputFile>();
         Files.walk(path).forEach(filePath -> {
-            if (filePath.getFileName().toString().endsWith(javaFilePrefix)) {
+            if (filePath.getFileName().toString().endsWith(JAVA_FILE_PREFIX)) {
                 list.add(new SonarFile(path, filePath));
             }
         });
@@ -427,5 +431,6 @@ public class SonarQubeTests {
     private static void listen(Issue i) {
         issues.add(i);
         System.err.println(i);
+        logger.debug("Issue added: ", issues);
     }
 }

@@ -6,8 +6,10 @@ public class LineBreakP {
 
         System.out.println("This is a multi line");
         System.out.println("Text");
-        // the upcoming line will not be valid while building...
-//        System.out.println("""This is a multi line
-//                Text""");
+
+        System.out.println("""
+                This is a multiline
+                Text
+                """);
     }
 }

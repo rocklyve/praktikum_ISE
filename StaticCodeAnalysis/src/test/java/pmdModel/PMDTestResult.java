@@ -9,6 +9,7 @@ public record PMDTestResult(
         String timestamp,
         List<String> suppressedViolations,
         List<String> configurationErrors,
+        List<String> processingErrors,
         List<PMDTestResultFile> files
 ) {}
 

@@ -1,5 +1,9 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 import junit.framework.Assert;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pmdModel.PMDTestResult;
 import pmdModel.PMDTestResultFile;
 import pmdModel.PMDTestViolation;
@@ -9,8 +13,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,29 +23,30 @@ import net.sourceforge.pmd.PMDConfiguration;
 
 public class PMDTests {
     public static final String newLine = System.lineSeparator();
-    private static final String pmdReportInputFilePath = "src/main/java/edu/kit/informatik/";
-    private static final String pmdRuleSetFilePath = "rulesets/java/quickstart.xml";
-    private static final String pmdReportFilePath = "src/resources/pmd-report.json";
-    private static final String pmdReportFileFormat = "json";
+    private static final String PMD_REPORT_INPUT_FILE_PATH = "src/main/java/edu/kit/informatik/";
+    private static final String PMD_RULE_SET_FILE_PATH = "rulesets/java/quickstart.xml";
+    private static final String PMD_REPORT_FILE_PATH = "src/resources/pmd-report.json";
+    private static final String PMD_REPORT_FILE_FORMAT = "json";
     static PMDTestResult issues;
+    private static Logger logger = LoggerFactory.getLogger(PMDTests.class);
 
     @BeforeAll
     public static void setUpBeforeClass() throws Exception {
         PMDConfiguration configuration = new PMDConfiguration();
-        configuration.setInputPaths(pmdReportInputFilePath);
-        configuration.addRuleSet(pmdRuleSetFilePath);
-        configuration.setReportFormat(pmdReportFileFormat);
-        configuration.setReportFile(pmdReportFilePath);
+        configuration.setInputPaths(PMD_REPORT_INPUT_FILE_PATH);
+        configuration.addRuleSet(PMD_RULE_SET_FILE_PATH);
+        configuration.setReportFormat(PMD_REPORT_FILE_FORMAT);
+        configuration.setReportFile(PMD_REPORT_FILE_PATH);
 
         PMD.runPmd(configuration);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        issues = objectMapper.readValue(new File(pmdReportFilePath), PMDTestResult.class);
+        issues = objectMapper.readValue(new File(PMD_REPORT_FILE_PATH), PMDTestResult.class);
         int countViolations = 0;
         for (PMDTestResultFile file: issues.files()) {
             countViolations += file.violations().size();
         }
-        System.out.println("CountViolations: " + countViolations);
+        logger.info("CountViolations: " + countViolations);
     }
 
 //    @DisplayName("Test NonFinalAttributesShouldBeFinal")
@@ -68,10 +71,10 @@ public class PMDTests {
 //    }
 
     @DisplayName("Test ConcreteClassInsteadOfInterface")
-    @Test
-    void testConcreteClassInsteadOfInterface() {
-        List<String> relevantRules = List.of("LooseCoupling");
-        checkOccurringIssues(findOccurringIssues(relevantRules));
+    @ParameterizedTest(name = "{index} => relevantRule={0}")
+    @ValueSource(strings = {"EmptyCatchBlock"})
+    void testConcreteClassInsteadOfInterface(String relevantRule) {
+        checkOccurringIssues(findOccurringIssues(List.of(relevantRule)));
     }
 
 //    @DisplayName("Test AssertInsteadOfIfLoop")
@@ -145,10 +148,10 @@ public class PMDTests {
 //    }
 
     @DisplayName("Test ExceptionsForControlFlow")
-    @Test
-    void testExceptionsForControlFlow() {
-        List<String> relevantRules = List.of("EmptyCatchBlock");
-        checkOccurringIssues(findOccurringIssues(relevantRules));
+    @ParameterizedTest(name = "{index} => relevantRule={0}")
+    @ValueSource(strings = {"EmptyCatchBlock"})
+    void testExceptionsForControlFlow(String relevantRule) {
+        checkOccurringIssues(findOccurringIssues(List.of(relevantRule)));
     }
 
 //    @DisplayName("Test TryCatchBlock")
@@ -386,7 +389,7 @@ public class PMDTests {
         String mergedMessage = newLine;
         for (PMDTestResultFile file : occurringIssues) {
             for (PMDTestViolation violation : file.violations()) {
-                String fileName = file.filename().split(pmdReportInputFilePath)[1];
+                String fileName = file.filename().split(PMD_REPORT_INPUT_FILE_PATH)[1];
                 mergedMessage +=
                         "Issue: " + violation.rule() + " with message: " + violation.description() +
                                 " File: " + fileName + ", Line: " + violation.beginline() + " " + newLine;
@@ -419,6 +422,6 @@ public class PMDTests {
 
     @AfterAll
     public static void tearDownAfterClass() {
-        System.out.println("over");
+        logger.info("over");
     }
 }
