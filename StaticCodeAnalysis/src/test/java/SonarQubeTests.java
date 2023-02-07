@@ -28,7 +28,10 @@ public class SonarQubeTests {
     public static final String JAVA_CLASS_PATH = "java.class.path";
     public static final String SONAR_JAVA_PLUGIN = "sonar-java-plugin";
     private static final String RULE_PREFIX = "java:S";
-    private static final String PROJECT_ENTRY_PATH = "src/main/java/edu/kit/informatik/";
+    private static final String PROJECT_ENTRY_PATH =
+            Path.of("src", "main", "java", "edu", "kit", "informatik")
+            .normalize()
+            .toString();
     private static final String JAVA_FILE_PREFIX = ".java";
     private static ArrayList<Issue> issues;
     static Logger logger = LoggerFactory.getLogger(SonarQubeTests.class);

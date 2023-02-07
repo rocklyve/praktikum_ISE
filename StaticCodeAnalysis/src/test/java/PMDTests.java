@@ -13,6 +13,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,9 +24,18 @@ import net.sourceforge.pmd.PMDConfiguration;
 
 public class PMDTests {
     public static final String newLine = System.lineSeparator();
-    private static final String PMD_REPORT_INPUT_FILE_PATH = "src/main/java/edu/kit/informatik/";
-    private static final String PMD_RULE_SET_FILE_PATH = "rulesets/java/quickstart.xml";
-    private static final String PMD_REPORT_FILE_PATH = "src/resources/pmd-report.json";
+    private static final String PMD_REPORT_INPUT_FILE_PATH =
+            Path.of("src", "main", "java", "edu", "kit", "informatik")
+                    .normalize()
+                    .toString();
+    private static final String PMD_RULE_SET_FILE_PATH =
+            Path.of("rulesets", "java", "quickstart.xml")
+                    .normalize()
+                    .toString();
+    private static final String PMD_REPORT_FILE_PATH =
+            Path.of("src", "resources", "pmd-report.json")
+                    .normalize()
+                    .toString();
     private static final String PMD_REPORT_FILE_FORMAT = "json";
     static PMDTestResult issues;
     private static Logger logger = LoggerFactory.getLogger(PMDTests.class);
