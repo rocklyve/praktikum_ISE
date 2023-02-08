@@ -197,14 +197,14 @@ public class PMDTests {
 //        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
 //        checkOccurringIssues(findOccurringIssues(relevantRules));
 //    }
-//
-//    @DisplayName("Test HardcodedLogic")
-//    @Test
-//    void testHardcodedLogic() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
+
+    @DisplayName("Test HardcodedLogic")
+    @Test
+    void testHardcodedLogic() {
+        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("AvoidLiteralsInIfCondition"));
+        checkOccurringIssues(findOccurringIssues(relevantRules));
+    }
+
 //    @DisplayName("Test StringReferences")
 //    @Test
 //    void testStringReferences() {
