@@ -345,7 +345,7 @@ public class PMDTests {
     @DisplayName("Test FinalModifier")
     @Test
     void testFinalModifier() {
-        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("MethodArgumentCouldBeFinal"));
+        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("MethodArgumentCouldBeFinal", "LocalVariableCouldBeFinal"));
         checkOccurringIssues(findOccurringIssues(relevantRules));
     }
 
