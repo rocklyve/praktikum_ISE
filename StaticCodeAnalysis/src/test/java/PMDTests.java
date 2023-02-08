@@ -107,13 +107,6 @@ public class PMDTests {
 //        checkOccurringIssues(findOccurringIssues(relevantRules));
 //    }
 
-    @DisplayName("Test ConcreteClassInsteadOfInterface")
-    @Test
-    void testConcreteClassInsteadOfInterface() {
-        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("LooseCoupling"));
-        checkOccurringIssues(findOccurringIssues(relevantRules));
-    }
-
 //    @DisplayName("Test AssertInsteadOfIfLoop")
 //    @Test
 //    void testAssertInsteadOfIfLoop() {
@@ -384,13 +377,13 @@ public class PMDTests {
 //        checkOccurringIssues(findOccurringIssues(relevantRules));
 //    }
 //
-//    @DisplayName("Test ClassInsteadOfInterface")
-//    @Test
-//    void testClassInsteadOfInterface() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
+    @DisplayName("Test ClassInsteadOfInterface")
+    @Test
+    void testClassInsteadOfInterface() {
+        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("LooseCoupling"));
+        checkOccurringIssues(findOccurringIssues(relevantRules));
+    }
+
 //    @DisplayName("Test EnumForClosedSet")
 //    @Test
 //    void testEnumForClosedSet() {
