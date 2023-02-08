@@ -4,7 +4,11 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.apache.commons.lang3.tuple.Pair;
 
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonarsource.sonarlint.core.StandaloneSonarLintEngineImpl;
@@ -22,6 +26,9 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static junit.framework.Assert.assertEquals;
 
 public class SonarQubeTests {
     public static final String newLine = System.lineSeparator();
@@ -65,6 +72,19 @@ public class SonarQubeTests {
 //        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
 //    }
 
+    @DisplayName("Should calculate the correct sum")
+    @ParameterizedTest(name = "{index} => relevantIssueNumbers={0}")
+    @MethodSource("getTestRawTypeParameters")
+    void testRawTypeParameterizedTest(List<Pair<String, String>> relevantIssueNumbers) {
+        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers.stream().map(pair -> pair.getRight()).collect(Collectors.toList())));
+    }
+
+    private static Stream<Arguments> getTestRawTypeParameters() {
+        return Stream.of(
+                Arguments.of(List.of(Pair.of("Test RawType", RULE_PREFIX + "3740")))
+        );
+    }
+    
     @DisplayName("Test RawType")
     @Test
     void testRawType() {

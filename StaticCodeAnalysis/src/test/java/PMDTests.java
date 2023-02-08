@@ -82,7 +82,7 @@ public class PMDTests {
 
     @DisplayName("Test ConcreteClassInsteadOfInterface")
     @ParameterizedTest(name = "{index} => relevantRule={0}")
-    @ValueSource(strings = {"EmptyCatchBlock"})
+    @ValueSource(strings = {"LooseCoupling"})
     void testConcreteClassInsteadOfInterface(String relevantRule) {
         checkOccurringIssues(findOccurringIssues(List.of(relevantRule)));
     }
