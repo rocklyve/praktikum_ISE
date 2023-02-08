@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruleset name="My Custom PMD Ruleset">
+    <description>This is a custom PMD ruleset file.</description>
+    <rule name="PublicEnumInClassDetector"
+          language="java"
+          since="1.03"
+          message="Outsource public enums from classes"
+          class="src.resources.customRule.PublicEnumInClassRule">
+        <description>This rule detects public enums inside classes.</description>
+        <priority>3</priority>
+        <example>
+            <![CDATA[
+            class MyClass {
+                public enum MyEnum {
+                    VALUE1, VALUE2
+                }
+            }
+            ]]>
+        </example>
+    </rule>
+</ruleset>

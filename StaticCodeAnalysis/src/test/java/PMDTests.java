@@ -56,7 +56,7 @@ public class PMDTests {
             Map.entry("performance", Path.of("category", "java","performance.xml").toString()),
             Map.entry("security", Path.of("category", "java","security.xml").toString()),
             Map.entry("maven-pmd-plugin-default", Path.of("rulesets", "java","maven-pmd-plugin-default.xml").toString()),
-            Map.entry("custom-rules", Path.of("src", "resources","custom-pmd-ruleset.xml").toString())
+            Map.entry("custom-rules", Path.of("src", "resources","customRule", "custom-pmd-ruleset.xml").toString())
 
     );
     private static final String PMD_REPORT_INPUT_FILE_PATH =

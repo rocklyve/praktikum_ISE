@@ -12,11 +12,13 @@
 
 ## Rules
 
-// TODO: fill
+// TODO: where the rules are determined from
 
-### Source + Tools
+### Research
 
-// TODO: fill
+#### Source + Tools
+
+// TODO: which tools are used, compare Sonarqube vs PMD vs ...
 
 ### Rule table
 
@@ -50,8 +52,8 @@
 |        |                        |                                                                                                                                                                                                                                                       | UnusedPrivateField                                                                                                |                      |      | Unused private fields should be removed                                                                                            | 1068 |                                                                                         |
 |        |                        |                                                                                                                                                                                                                                                       | UnusedLocalVariable, UnusedFormalParameter                                                                        |                      |      | Unused local variables should be removed                                                                                           | 1481 |                                                                                         |
 | 22     | :x:                    | Missing `throws` statement in method signature                                                                                                                                                                                                        | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
-| 23     | :x:                    | Public enum in class                                                                                                                                                                                                                                  | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      | Maybe this could be solved easily with a custom rule                                    |
-| 24     | :x:                    | Class of constants                                                                                                                                                                                                                                    | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      | Maybe this could be solved easily with a custom rule                                    |
+| 23     | :x: ?customRule?       | Public enum in class                                                                                                                                                                                                                                  | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 24     | :x: ?customRule?       | Class of constants                                                                                                                                                                                                                                    | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
 | 25     | :x:                    | System dependent line break                                                                                                                                                                                                                           | :x: N/A                                                                                                           | N/ A in all rulesets |      | :x: N/A                                                                                                                            |      |                                                                                         |
 | 26     |                        | Trivial JavaDoc                                                                                                                                                                                                                                       | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
 | 27     | :x:                    | Bad naming                                                                                                                                                                                                                                            |                                                                                                                   |                      |      | Method names should comply with a naming convention, default regex: `^[a-z][a-zA-Z0-9]*$:`                                         | 100  |                                                                                         |
@@ -93,5 +95,14 @@
 
 https://pmd.github.io/latest/pmd_userdocs_making_rulesets.html#referencing-a-single-rule
 
+I wrote a custom rule `custom-pmd-ruleset.xml` and added it to the ruleset list in th PMDTest.
+Inside the `custom-pmd-ruleset.xml` I referenced a custom JAVA class `PublicEnumInClassRule` which extends the `AbstractJavaRule` class.
+
+By now, the rule is not recognized by PMD. I think I have to add the rule as a maven plugin (dependency) as a jar file.
+This link will help me maybe: https://stackoverflow.com/questions/43601640/classnotfoundexception-using-custom-java-rule-for-pmd-ruleset.
+
+
 ### Custom Rulesets for Sonarqube
+
+https://docs.sonarqube.org/9.6/extension-guide/adding-coding-rules/
 
