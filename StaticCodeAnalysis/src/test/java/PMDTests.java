@@ -302,7 +302,7 @@ public class PMDTests {
     @Test
     void testUnusedElement() {
         ArrayList<String> relevantRules = new ArrayList<String>(
-                Arrays.asList("UnusedPrivateField", "UnusedPrivateMethod", "UnusedLocalVariable")
+                Arrays.asList("UnusedPrivateField", "UnusedPrivateMethod", "UnusedLocalVariable", "UnusedFormalParameter")
         );
         checkOccurringIssues(findOccurringIssues(relevantRules));
     }
