@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -54,6 +55,10 @@ public class PMDTests {
     private static final String PMD_RULE_SET_FILE_PATH_CATEGORY_PERFORMANCE = "category/java/performance.xml";
     private static final String PMD_RULE_SET_FILE_PATH_CATEGORY_SECURITY = "category/java/security.xml";
 //    private static final String PMD_RULE_SET_FILE_PATH_JAVA_FULL = "rulesets/java/maven-pmd-plugin-default.xml";
+
+    private static final String CUSTOM_RULE = Path.of("src", "resources", "custom-pmd-ruleset.xml")
+            .normalize()
+            .toString();
     private static final String PMD_REPORT_FILE_PATH = "src/resources/pmd-report.json";
     private static final String PMD_REPORT_FILE_FORMAT = "json";
 
@@ -101,7 +106,8 @@ public class PMDTests {
                 PMD_RULE_SET_FILE_PATH_CATEGORY_ERROR_PRONE,
                 PMD_RULE_SET_FILE_PATH_CATEGORY_MULTI_THREADING,
                 PMD_RULE_SET_FILE_PATH_CATEGORY_PERFORMANCE,
-                PMD_RULE_SET_FILE_PATH_CATEGORY_SECURITY
+                PMD_RULE_SET_FILE_PATH_CATEGORY_SECURITY,
+                CUSTOM_RULE
         ));
 
         configuration.setReportFormat(PMD_REPORT_FILE_FORMAT);

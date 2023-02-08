@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ruleset name="My Custom PMD Ruleset">
+    <description>This is a custom PMD ruleset file.</description>
+    <rule name="AssignmentInOperand"
+          language="java"
+          since="1.03"
+          message="Avoid assignments in operands"
+          class="net.sourceforge.pmd.lang.java.rule.errorprone.AssignmentInOperandRule"
+          externalInfoUrl="https://pmd.github.io/pmd-6.49.0/pmd_rules_java_errorprone.html#assignmentinoperand">
+        <description>
+            Avoid assignments in operands; this can make code more complicated and harder to read.
+        </description>
+        <priority>3</priority>
+        <example>
+            <![CDATA[
+public void bar() {
+    int x = 2;
+    if ((x = getX()) == 3) {
+      System.out.println("3!");
+    }
+}
+]]>
+        </example>
+    </rule>
+</ruleset>
