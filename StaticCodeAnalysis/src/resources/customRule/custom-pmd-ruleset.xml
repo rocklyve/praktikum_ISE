@@ -18,4 +18,37 @@
             ]]>
         </example>
     </rule>
+    <rule name="OnlyConstantsDetector"
+          language="java"
+          since="1.03"
+          message="Classes that only have constants are discouraged.
+                Consider using an interface or an enum instead."
+          class="src.resources.customRule.ClassOfConstants">
+        <description>This rule detects classes that only have constants.</description>
+        <priority>3</priority>
+        <example>
+            <![CDATA[
+      class MyClass {
+        public static final int CONSTANT1 = 1;
+        public static final int CONSTANT2 = 2;
+      }
+      ]]>
+        </example>
+    </rule>
+    <rule name="AssertStatementFirstInPublicFunctionRule"
+          language="java"
+          since="1.03"
+          message="Public functions with only an assert statement as their first are discouraged.
+                Consider using an assert statement in the test instead."
+          class="src.resources.customRule.AssertStatementFirstInFunctionRule">
+        <description>This rule detects functions with only one statement, which is an assert statement.</description>
+        <priority>3</priority>
+        <example>
+            <![CDATA[
+            void myFunction() {
+                assert (1 == 1);
+            }
+            ]]>
+        </example>
+    </rule>
 </ruleset>
