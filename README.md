@@ -16,9 +16,71 @@
 
 ### Research
 
-#### Source + Tools
+One of the first tasks was to find out which tools are available for static code analysis. 
+There are a lot of tools out there which will now be compared in detail:
 
-// TODO: which tools are used, compare Sonarqube vs PMD vs ...
+#### PMD
+
+##### Usage + installation procedure + size
+
+MAVEN: There is a maven plugin (https://maven.apache.org/plugins/maven-pmd-plugin/usage.html), where you are easily able to integrate pmd into your java project.
+
+It's easy to run PMD inside of java -> https://pmd.github.io/latest/pmd_userdocs_tools_java_api.html
+
+##### Feature Set + Parameters
+
+Toolset: https://pmd.sourceforge.io/pmd-6.51.0/pmd_rules_java.html
+
+attention: Local attribute
+For final -> LocalVariableCouldBeFinal parameter (A local variable assigned only once can be declared final).
+
+Report can be collected with performAnalysisAndCollectReport() (https://docs.pmd-code.org/apidocs/pmd-core/6.44.0/net/sourceforge/pmd/PmdAnalysis.html#performAnalysis())
+
+##### Extendability
+
+You can write on rules, take a look here: https://pmd.github.io/latest/pmd_userdocs_extending_writing_pmd_rules.html
+A host server is needed, so you have to run a self hosted server for any analyzation procedures.
+
+#### SonarCube
+
+##### Usage + installation procedure + size
+
+MAVEN: Integration: https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-maven/
+
+I only had a short period of time to take a look into it, but it seems that sonarcube has all it's analyzation tools inside the server.
+
+(Maybe Solution: SonarLint -> https://docs.sonarqube.org/latest/images/dev-cycle.png)
+
+#### Spotbugs
+
+##### Usage + installation procedure + size
+
+MAVEN: supported https://spotbugs.github.io/spotbugs-maven-plugin/
+
+##### Feature Set + Parameters
+
+has a lot of useful features and can be extended
+
+##### Extendability
+
+own detectors via jar file or repository
+
+#### Git Maven Plugin
+
+##### Usage + installation procedure + size
+
+Seems to be a plugin only, where you cannot extract the information that easy.
+
+#### UC Code Detector
+
+##### Usage + installation procedure + size
+
+Seems to be a plugin only, where you cannot extract the information that easy.
+
+#### Other tools
+
+EMMA https://emma.sourceforge.net/
+EclEMMA https://www.eclemma.org/
 
 ### Rule table
 
