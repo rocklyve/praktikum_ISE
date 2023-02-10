@@ -1,92 +1,89 @@
-# DavidLaubenstein
+# Static Code Analysis by David Laubenstein
 
+## Introduction
 
-
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://git.scc.kit.edu/i43/stud/praktika/wise2223/davidlaubenstein.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://git.scc.kit.edu/i43/stud/praktika/wise2223/davidlaubenstein/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+// TODO: fill
 
 ## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+// TODO: fill
 
 ## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+// TODO: fill
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+## Rules
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+// TODO: fill
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+### Source + Tools
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+// TODO: fill
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+### Rule table
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+| Number | Rule | Sonarqube (https://rules.sonarsource.com/java) | Link | Note | PMD (https://pmd.github.io/latest/pmd_rules_java.html) | Link | Note |
+|---|---|---|---|---|---|---|---|
+|  |  |  |  |  |  |  |  |
+| 1 | Visibility as low as possible for methods / attributes (private > public > protected) (known exemptions: - Constructors of utility classes must always be private - Constructors of abstract classes can be protected - Constants can also be public) |  |  |  |  |  |  |
+| 2 | Code duplication | Methods should not have identical implementations | 4144 | Does not find example, only simple code duplications | :x: N/A |  |  |
+| 3 | Code duplication: Repetitions Fixable by Inheritance | :x: N/A |  |  | :x: N/A |  |  |
+| 4 | Inheritance instead of Enums | :x: N/A |  |  | :x: N/A |  |  |
+| 5 | Operations instead of domain | :x: N/A |  |  | :x: N/A |  |  |
+| 6 | Hardcoded logic | :x: N/A |  |  | :x: N/A |  |  |
+| 7 | Stringreferenzen | Don’t think that’s possible |  |  |  |  |  |
+| 8 | RawType | Raw types should not be used | 3740 |  |  |  |  |
+| 9 | Exceptions for control flow | :x: N/A |  | Indicator can be an empty catch clause… this can be detected | :x: N/A |  |  |
+|  | Empty Catch Block |  |  |  | EmptyCatchBlock |  |  |
+| 10 | Try/catch Blöcke | :x: N/A |  |  |  |  |  |
+| 11 | Unspecified Error Message | :x: N/A |  |  | :x: N/A |  |  |
+| 12 | Wrong Loop Type | :x: N/A |  |  | :x: N/A |  |  |
+| 13 | Unnecessary complexity | :x: N/A |  |  |  |  |  |
+|  |  |  |  |  |  |  |  |
+| 14 | Clumsy Solution | :x: N/A |  |  | :x: N/A |  |  |
+| 15 | Parsing Integer Values | :x: N/A |  |  | :x: N/A |  |  |
+| 16 | Utility Class | Utility classes should not have public constructors | 1118 | PMD could be more precise here | UseUtilityClass |  |  |
+| 17 | Unsafe Cast | :x: N/A |  |  | :x: N/A |  |  |
+| 18 | Empty Constructor | :x: N/A |  |  | UnnecessaryConstructor |  |  |
+|  |  |  |  |  | UncommentedEmptyConstructor |  |  |
+| 19 | Meaningless constants | :x: N/A |  |  | :x: N/A |  |  |
+| 20 | Scanner (use multiple scanner objects for a single stream of forgetting to close the scanner) | :x: N/A |  |  | :x: N/A |  |  |
+| 21 | Unused Element (Attribute or (helper) Method) | Unused private method should be removed | 1144 |  | UnusedPrivateMethod |  |  |
+|  |  | Unused public methods -> :x: N/A |  |  | Unused public methods -> :x: N/A |  |  |
+|  |  | Unused private fields should be removed | 1068 |  | UnusedPrivateField |  |  |
+|  |  | Unused local variables should be removed | 1481 |  | UnusedLocalVariable |  |  |
+| 22 | Missing `throws` statement in method signature | :x: N/A |  |  | :x: N/A |  |  |
+| 23 | Public enum in class | :x: N/A |  | Maybe this could be solved easily with a custom rule | :x: N/A |  |  |
+| 24 | Class of constants | :x: N/A |  | Maybe this could be solved easily with a custom rule | :x: N/A |  |  |
+| 25 | System dependent line break | :x: N/A |  |  | :x: N/A |  |  |
+| 26 | Trivial JavaDoc | :x: N/A |  |  | :x: N/A |  |  |
+| 27 | Ssssssssssss | Method names should comply with a naming convention, default regex: `^[a-z][a-zA-Z0-9]*$:` | 100 |  |  |  |  |
+| 28 | Don’t think that’s possible | Class names should comply with a naming convention | 101 |  |  |  |  |
+|  | Maybe try with blacklists | Interface names should comply with a naming convention | 114 |  |  |  |  |
+|  | Focus not that much | Constant names should comply with a naming convention | 115 |  |  |  |  |
+|  |  | Field names should comply with a naming convention | 116 |  |  |  |  |
+|  |  | Local variable and method parameter names should comply with a naming convention | 117 |  |  |  |  |
+|  |  | Abstract class names should comply with a naming convention | 118 |  |  |  |  |
+|  |  | Type parameter names should comply with a naming convention | 119 |  |  |  |  |
+|  |  | Package names should comply with a naming convention | 120 |  |  |  |  |
+|  |  | Static non-final field names should comply with a naming convention | 3008 |  |  |  |  |
+| 29 | Data Encapsulation Violation | :x: N/A |  |  | :x: N/A |  |  |
+| 30 | Separation of Logic and Interaction | :x: N/A |  |  | :x: N/A |  |  |
+| 31 | Too complex code | :x: N/A |  |  |  |  |  |
+| 32 | Static methods (auch eher ausklammern) | :x: N/A |  | Not that good, because this is the suggestion to use the parameter as a local variable. | SingularField |  |  |
+| 33 | Static Attribute/Instance Attribute | Public constants and fields initialized at declaration should be "static final" rather than merely "final" | 1170 |  |  |  |  |
+| 34 | Final Modifier | RECHECK -> if part exists, it’s okay |  |  |  |  |  |
+|  |  | Static non-final field names should comply with a naming convention | 3008 |  |  |  |  |
+| 35 | Assert vs IF | Assertions should not be used in production code | 5960 |  |  |  |  |
+|  |  |  | 4274 |  |  |  |  |
+| 36 | Java API with toString / equals | Don’t think that’s possible |  |  |  |  |  |
+| 37 | Object -> do not use the type `Object`, if it’s possible to set it more precise | :x: N/A |  |  | :x: N/A |  |  |
+| 38 | Class instead of Interface -> Use interface implementation | Declarations should use Java collection interfaces such as "List" rather than specific implementation classes such as "LinkedList" | 1319 |  | LooseCoupling |  |  |
+| 39 | Enum for closed sets | :x: N/A |  |  |  |  |  |
+| 40 | Empty Block - Undocumented or unnecessary empty block | Classes should not be empty | 2094 |  |  |  |  |
+| 41 |  | Methods should not be empty | 1186 |  |  |  |  |
+|  |  | Nested blocks of code should not be empty | 108 |  |  |  |  |
+| 43 | Package - Javacode should be structured in meaningful packages |  |  |  |  |  |  |
+| 44 | Dynamic Binding -> use dynamic binding with interitence |  |  |  |  |  |  |
+|  |  |  |  |  |  |  |  |
+|  |  |  |  |  |  |  |  |
+|  |  |  |  |  |  |  |  |
+|  | CUSTOM RULESET | https://docs.sonarqube.org/9.6/extension-guide/adding-coding-rules/ |  |  | https://pmd.github.io/latest/pmd_userdocs_extending_writing_pmd_rules.html |  |  |
