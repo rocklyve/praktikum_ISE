@@ -1,5 +1,6 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 import junit.framework.Assert;
+import net.sourceforge.pmd.PMDException;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -61,8 +63,8 @@ public class PMDTests {
             Map.entry("multithreading", Path.of("category", "java","multithreading.xml")),
             Map.entry("performance", Path.of("category", "java","performance.xml")),
             Map.entry("security", Path.of("category", "java","security.xml")),
-            Map.entry("maven-pmd-plugin-default", Path.of("rulesets", "java","maven-pmd-plugin-default.xml")),
-            Map.entry("custom-rules", Path.of("customRule", "custom-pmd-ruleset.xml"))
+//            Map.entry("maven-pmd-plugin-default", Path.of("rulesets", "java","maven-pmd-plugin-default.xml")),
+            Map.entry("custom-rules", Path.of( "custom-pmd-ruleset.xml"))
 
     ).entrySet().stream().map(
             element -> Map.entry(element.getKey(), element.getValue().normalize().toString())
@@ -71,7 +73,7 @@ public class PMDTests {
             Path.of("src", "main","java", "edu", "kit", "informatik")
                     .toString();
     private static final String PMD_REPORT_FILE_PATH =
-            Path.of("src", "resources", "pmd-report.json")
+            Path.of("target", "pmd-results", "pmd-report.json")
                     .toString();
     private static final String PMD_REPORT_FILE_FORMAT = "json";
 
@@ -92,11 +94,6 @@ public class PMDTests {
 
         ObjectMapper objectMapper = new ObjectMapper();
         issues = objectMapper.readValue(new File(PMD_REPORT_FILE_PATH), PMDTestResult.class);
-        int countViolations = 0;
-        for (PMDTestResultFile file: issues.files()) {
-            countViolations += file.violations().size();
-        }
-        logger.info("CountViolations: " + countViolations);
     }
 
     @DisplayName("Test Codebase")
@@ -135,7 +132,7 @@ public class PMDTests {
 //                Arguments.of(Pair.of("Test Scanner", List.of(RULE_PREFIX + ))),
                 Arguments.of(Pair.of("Test UnusedElement",
                         List.of("UnusedPrivateField", "UnusedPrivateMethod", "UnusedLocalVariable", "UnusedFormalParameter"))
-                )
+                ),
 //                Arguments.of(Pair.of("Test MissingThrowsInMethodSignature", List.of(RULE_PREFIX + ))),
 //                Arguments.of(Pair.of("Test PublicEnumInClass", List.of(RULE_PREFIX + ))),
 //                Arguments.of(Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
@@ -146,7 +143,7 @@ public class PMDTests {
 //                Arguments.of(Pair.of("Test TooComplexCode", List.of(RULE_PREFIX + ))),
 //                Arguments.of(Pair.of("Test StaticMethods", List.of(RULE_PREFIX + ))),
 //                Arguments.of(Pair.of("Test StaticAttributeOfInstanceAttribute", List.of())),
-                Arguments.of(Pair.of("Test FinalModifier", List.of("MethodArgumentCouldBeFinal", "LocalVariableCouldBeFinal"))),
+                Arguments.of(Pair.of("Test FinalModifier", List.of("MethodArgumentCouldBeFinal", "LocalVariableCouldBeFinal")))
 //                Arguments.of(Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
 //                Arguments.of(Pair.of("Test ToStringVsEquals", List.of(RULE_PREFIX + ))),
 //                Arguments.of(Pair.of("Test DoNotUseObject", List.of(RULE_PREFIX + ))),
