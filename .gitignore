@@ -83,3 +83,8 @@ nb-configuration.xml
 ## OS X
 ##############################
 .DS_Store
+
+##############################
+## OWN STUFF
+##############################
+StaticCodeAnalysis/src/resources/pmd-report.json

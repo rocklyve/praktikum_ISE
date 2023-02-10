@@ -2,9 +2,6 @@ package pmdModel;
 
 import java.util.List;
 
-public class PMDTestResultFile {
-    public String filename;
-    public List<PMDTestViolation> violations;
-}
+public record PMDTestResultFile(String filename, List<PMDTestViolation> violations) {}
 
 

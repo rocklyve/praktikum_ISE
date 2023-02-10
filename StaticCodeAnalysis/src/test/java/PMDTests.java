@@ -1,5 +1,12 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 import junit.framework.Assert;
+import org.apache.commons.lang3.tuple.Pair;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pmdModel.PMDTestResult;
 import pmdModel.PMDTestResultFile;
 import pmdModel.PMDTestViolation;
@@ -15,6 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import net.sourceforge.pmd.PMD;
 import net.sourceforge.pmd.PMDConfiguration;
@@ -69,6 +77,7 @@ public class PMDTests {
     private static final String PMD_REPORT_FILE_FORMAT = "json";
 
     static PMDTestResult issues;
+    private static Logger logger = LoggerFactory.getLogger(PMDTests.class);
 
     @BeforeAll
     public static void setUpBeforeClass() throws Exception {
@@ -84,334 +93,72 @@ public class PMDTests {
 
         ObjectMapper objectMapper = new ObjectMapper();
         issues = objectMapper.readValue(new File(PMD_REPORT_FILE_PATH), PMDTestResult.class);
-        issues.files.stream().map(file -> filterDuplicatedViolations(file)).collect(Collectors.toList());
+        int countViolations = 0;
+        for (PMDTestResultFile file: issues.files()) {
+            countViolations += file.violations().size();
+        }
+        logger.info("CountViolations: " + countViolations);
     }
 
-    @DisplayName("Test NonFinalAttributesShouldBeFinal")
-    @Test
-    void testNonFinalAttributesShouldBeFinal() {
-        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("SuspiciousConstantFieldName"));
-        checkOccurringIssues(findOccurringIssues(relevantRules));
+    @DisplayName("Test Codebase")
+    @ParameterizedTest(name = "{index} => relevantIssueNumbers={0}")
+    @MethodSource("getTestTypeParameters")
+    void testCodeBase(Pair<String, List<String>> relevantIssueNumbers) {
+        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers.getRight()));
     }
 
-//    @DisplayName("Test SystemDependentLineBreak")
-//    @Test
-//    void testSystemDependentLineBreak() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test RawType")
-//    @Test
-//    void testRawType() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-
-//    @DisplayName("Test AssertInsteadOfIfLoop")
-//    @Test
-//    void testAssertInsteadOfIfLoop() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test ObjectInsteadOfConcreteClass")
-//    @Test
-//    void testObjectInsteadOfConcreteClass() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test PublicEnumInsideClassAndNotInSeparateFile")
-//    @Test
-//    void testPublicEnumInsideClassAndNotInSeparateFile() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test VisibilityAsLowAsPossible")
-//    @Test
-//    void testVisibilityAsLowAsPossible() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test Code Duplication")
-//    @Test
-//    void testCodeDuplication() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test CodeDuplicationRepetitionsFixableByInheritance")
-//    @Test
-//    void testCodeDuplicationRepetitionsFixableByInheritance() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test InheritanceInsteadOfEnums")
-//    @Test
-//    void testInheritanceInsteadOfEnums() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test OperationsInsteadOfDomain")
-//    @Test
-//    void testOperationsInsteadOfDomain() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-
-    @DisplayName("Test HardcodedLogic")
-    @Test
-    void testHardcodedLogic() {
-        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("AvoidLiteralsInIfCondition"));
-        checkOccurringIssues(findOccurringIssues(relevantRules));
-    }
-
-//    @DisplayName("Test StringReferences")
-//    @Test
-//    void testStringReferences() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-
-    @DisplayName("Test ExceptionsForControlFlow")
-    @Test
-    void testExceptionsForControlFlow() {
-        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("EmptyCatchBlock"));
-        checkOccurringIssues(findOccurringIssues(relevantRules));
-    }
-
-//    @DisplayName("Test TryCatchBlock")
-//    @Test
-//    void testTryCatchBlock() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test UnspecifiedErrorMessage")
-//    @Test
-//    void testUnspecifiedErrorMessage() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-
-
-    @DisplayName("Test WrongLoopType")
-    @Test
-    void testWrongLoopType() {
-        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("ForLoopCanBeForeach", "ForLoopShouldBeWhileLoop"));
-        checkOccurringIssues(findOccurringIssues(relevantRules));
-    }
-
-
-//    @DisplayName("Test UnnecessaryComplexity")
-//    @Test
-//    void testUnnecessaryComplexity() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test ClumsySolution")
-//    @Test
-//    void testClumsySolution() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test ParsingIntegerValues")
-//    @Test
-//    void testParsingIntegerValues() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-
-    @DisplayName("Test UtilityClass")
-    @Test
-    void testUtilityClass() {
-        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UseUtilityClass"));
-        checkOccurringIssues(findOccurringIssues(relevantRules));
-    }
-
-//    @DisplayName("Test UnsafeCast")
-//    @Test
-//    void testUnsafeCast() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-
-    @DisplayName("Test EmptyConstructor")
-    @Test
-    void testEmptyConstructor() {
-        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UncommentedEmptyConstructor", "UnnecessaryConstructor"));
-        checkOccurringIssues(findOccurringIssues(relevantRules));
-    }
-
-//    @DisplayName("Test MeaninglessConstant")
-//    @Test
-//    void testMeaninglessConstant() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test Scanner")
-//    @Test
-//    void testScanner() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-
-    @DisplayName("Test UnusedElement")
-    @Test
-    void testUnusedElement() {
-        ArrayList<String> relevantRules = new ArrayList<String>(
-                Arrays.asList("UnusedPrivateField", "UnusedPrivateMethod", "UnusedLocalVariable", "UnusedFormalParameter")
+    private static Stream<Arguments> getTestTypeParameters() {
+        return Stream.of(
+//                Arguments.of(List.of(Pair.of("Test testNonFinalAttributesShouldBeFinal", List.of()))),
+//                Arguments.of(List.of(Pair.of("Test SystemDependentLineBreak", List.of()))),
+//                Arguments.of(Pair.of("Test RawType", List.of())),
+                Arguments.of(Pair.of("Test ConcreteClassInsteadOfInterface", List.of("LooseCoupling"))),
+//                Arguments.of(Pair.of("Test AssertInsteadOfIfLoop", List.of())),
+//                Arguments.of(Pair.of("Test ObjectInsteadOfConcreteClass", List.of())),
+//                Arguments.of(Pair.of("Test PublicEnumInsideClassAndNotInSeparateFile", List.of()),
+//                Arguments.of(Pair.of("Test VisibilityAsLowAsPossible", List.of())),
+//                Arguments.of(Pair.of("Test Code Duplication", List.of())),
+//                Arguments.of(Pair.of("Test CodeDuplicationRepetitionsFixableByInheritance", List.of())),
+//                Arguments.of(Pair.of("Test InheritanceInsteadOfEnums", List.of())),
+//                Arguments.of(Pair.of("Test OperationsInsteadOfDomain", List.of())),
+//                Arguments.of(Pair.of("Test HardcodedLogic", List.of())),
+//                Arguments.of(Pair.of("Test StringReferences", List.of())),
+                Arguments.of(Pair.of("Test ExceptionsForControlFlow", List.of("EmptyCatchBlock"))),
+//                Arguments.of(Pair.of("Test TryCatchBlock", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test UnspecifiedErrorMessage", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test WrongLoopType", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test UnnecessaryComplexity", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test ClumsySolution", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
+                Arguments.of(Pair.of("Test UtilityClass", List.of("UseUtilityClass"))),
+//                Arguments.of(Pair.of("Test UnsafeCast", List.of(RULE_PREFIX + ))),
+                Arguments.of(Pair.of("Test EmptyConstructor", List.of("UncommentedEmptyConstructor", "UnnecessaryConstructor"))),
+//                Arguments.of(Pair.of("Test MeaninglessConstant", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test Scanner", List.of(RULE_PREFIX + ))),
+                Arguments.of(Pair.of("Test UnusedElement",
+                        List.of("UnusedPrivateField", "UnusedPrivateMethod", "UnusedLocalVariable"))
+                )
+//                Arguments.of(Pair.of("Test MissingThrowsInMethodSignature", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test PublicEnumInClass", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test TrivialJavaDoc", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test BadNaming", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test DataEncapsulationViolation", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test SeparationOfLogicAndInteraction", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test TooComplexCode", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test StaticMethods", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test StaticAttributeOfInstanceAttribute", List.of())),
+//                Arguments.of(Pair.of("Test FinalModifier", List.of())),
+//                Arguments.of(Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test ToStringVsEquals", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test DoNotUseObject", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test ClassInsteadOfInterface", List.of())),
+//                Arguments.of(Pair.of("Test EnumForClosedSet", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test EmptyBlock", List.of())),
+//                Arguments.of(Pair.of("Test PackageUsage", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test DynamicBinding", List.of(RULE_PREFIX + ))),
         );
-        checkOccurringIssues(findOccurringIssues(relevantRules));
     }
-
-//    @DisplayName("Test MissingThrowsInMethodSignature")
-//    @Test
-//    void testMissingThrowsInMethodSignature() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test PublicEnumInClass")
-//    @Test
-//    void testPublicEnumInClass() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test ParsingIntegerValues")
-//    @Test
-//    void testClassOfConstants() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test TrivialJavaDoc")
-//    @Test
-//    void testTrivialJavaDoc() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test BadNaming")
-//    @Test
-//    void testBadNaming() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test DataEncapsulationViolation")
-//    @Test
-//    void testDataEncapsulationViolation() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test SeparationOfLogicAndInteraction")
-//    @Test
-//    void testSeparationOfLogicAndInteraction() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test TooComplexCode")
-//    @Test
-//    void testTooComplexCode() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test StaticMethods")
-//    @Test
-//    void testStaticMethods() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test StaticAttributeOfInstanceAttribute")
-//    @Test
-//    void testStaticAttributeOfInstanceAttribute() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-
-    @DisplayName("Test FinalModifier")
-    @Test
-    void testFinalModifier() {
-        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("MethodArgumentCouldBeFinal", "LocalVariableCouldBeFinal"));
-        checkOccurringIssues(findOccurringIssues(relevantRules));
-    }
-
-//    @DisplayName("Test AssertVsIf")
-//    @Test
-//    void testAssertVsIf() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test ParsingIntegerValues")
-//    @Test
-//    void testJavaAPI() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test ToStringVsEquals")
-//    @Test
-//    void testToStringVsEquals() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test DoNotUseObject")
-//    @Test
-//    void testDoNotUseObject() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-    @DisplayName("Test ClassInsteadOfInterface")
-    @Test
-    void testClassInsteadOfInterface() {
-        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("LooseCoupling"));
-        checkOccurringIssues(findOccurringIssues(relevantRules));
-    }
-
-//    @DisplayName("Test EnumForClosedSet")
-//    @Test
-//    void testEnumForClosedSet() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test EmptyBlock")
-//    @Test
-//    void testEmptyBlock() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test PackageUsage")
-//    @Test
-//    void testPackageUsage() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
-//
-//    @DisplayName("Test DynamicBinding")
-//    @Test
-//    void testDynamicBinding() {
-//        ArrayList<String> relevantRules = new ArrayList<String>(Arrays.asList("UnusedPrivateField"));
-//        checkOccurringIssues(findOccurringIssues(relevantRules));
-//    }
 
     private static void checkOccurringIssues(List<PMDTestResultFile> occurringIssues) {
         if (occurringIssues.isEmpty()) {
@@ -432,20 +179,22 @@ public class PMDTests {
         Assert.fail(finalMergedMessage);
     }
 
-    private List<PMDTestResultFile> findOccurringIssues(ArrayList<String> relevantRules) {
+    private List<PMDTestResultFile> findOccurringIssues(List<String> relevantRules) {
         // remove irrelevant violations
-        return issues.files.stream()
-                .filter(file -> file.violations.stream()
-                        .anyMatch(violation -> relevantRules.contains(violation.rule)))
+        return issues.files().stream()
+                .filter(file -> file.violations().stream()
+                        .anyMatch(violation -> relevantRules.contains(violation.rule())))
                 .map(file -> {
-                    PMDTestResultFile newFile = new PMDTestResultFile();
-                    newFile.filename = file.filename;
-                    newFile.violations = file.violations.stream()
-                            .filter(violation -> relevantRules.contains(violation.rule))
-                            .collect(Collectors.toList());
+
+                    PMDTestResultFile newFile = new PMDTestResultFile(
+                            file.filename(),
+                            file.violations().stream()
+                                    .filter(violation -> relevantRules.contains(violation.rule()))
+                                    .collect(Collectors.toList())
+                    );
                     return newFile;
                 })
-                .filter(file -> !file.violations.isEmpty())
+                .filter(file -> !file.violations().isEmpty())
                 .collect(Collectors.toList());
     }
 
@@ -458,6 +207,6 @@ public class PMDTests {
 
     @AfterAll
     public static void tearDownAfterClass() {
-        System.out.println("over");
+        logger.info("over");
     }
 }
