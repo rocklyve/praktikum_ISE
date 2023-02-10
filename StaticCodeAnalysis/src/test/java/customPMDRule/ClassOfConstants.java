@@ -10,7 +10,6 @@ public class ClassOfConstants extends AbstractJavaRule {
     public Object visit(ASTClassOrInterfaceDeclaration node, Object data) {
         int fieldCount = 0;
         int constantCount = 0;
-        int methodCount = 0;
 
         for (ASTFieldDeclaration field : node.findDescendantsOfType(ASTFieldDeclaration.class)) {
             fieldCount++;
@@ -19,11 +18,7 @@ public class ClassOfConstants extends AbstractJavaRule {
             }
         }
 
-        for(ASTMethodDeclaration method : node.findDescendantsOfType(ASTMethodDeclaration.class)) {
-            methodCount++;
-        }
-
-        if (fieldCount != 0 && methodCount == 0 && fieldCount == constantCount) {
+        if (node.findDescendantsOfType(ASTMethodDeclaration.class).isEmpty() && fieldCount != 0 && fieldCount == constantCount) {
             addViolation(data, node);
         }
 

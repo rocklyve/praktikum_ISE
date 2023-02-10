@@ -38,13 +38,12 @@ public class PMDTests {
             Map.entry("performance", Path.of("category", "java","performance.xml")),
             Map.entry("security", Path.of("category", "java","security.xml")),
             Map.entry("custom-rules", Path.of( "custom-pmd-ruleset.xml"))
-
     ).entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().normalize().toString()));
     private static final String PMD_REPORT_INPUT_FILE_PATH =
             Path.of("src", "main","java", "edu", "kit", "informatik")
                     .toString();
     private static final String PMD_REPORT_FILE_PATH =
-            Path.of("target", "pmd-results", "pmd-report.json")
+            Path.of("target", "pmd-report", "pmd-report.json")
                     .toString();
     private static final String PMD_REPORT_FILE_FORMAT = "json";
 

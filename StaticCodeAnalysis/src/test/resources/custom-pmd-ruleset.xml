@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <ruleset name="My Custom PMD Ruleset">
     <description>This is a custom PMD ruleset file.</description>
-    <rule name="PublicEnumInClassDetector"
+    <rule name="PublicEnumInsideClassOrInterface"
           language="java"
           since="1.03"
-          message="Outsource public enums from classes"
-          class="customPMDRule.PublicEnumInClassRule">
+          message="Outsource public enums from classes or interfaces"
+          class="customPMDRule.PublicEnumInClassOrInterfaceRule">
         <description>This rule detects public enums inside classes.</description>
         <priority>3</priority>
         <example>
@@ -18,7 +18,7 @@
             ]]>
         </example>
     </rule>
-    <rule name="OnlyConstantsDetector"
+    <rule name="ClassOfConstants"
           language="java"
           since="1.03"
           message="Classes that only have constants are discouraged. Consider using an interface or an enum instead."
@@ -34,7 +34,7 @@
       ]]>
         </example>
     </rule>
-    <rule name="AssertStatementFirstInPublicFunctionRule"
+    <rule name="AssertStatementFirstInPublicFunction"
           language="java"
           since="1.03"
           message="Public functions with only an assert statement as their first are discouraged.
