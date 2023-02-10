@@ -1,4 +1,4 @@
-package src.resources.customRule;
+package customRule;
 
 import net.sourceforge.pmd.lang.ast.Node;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
@@ -11,9 +11,11 @@ public class AssertStatementFirstInPublicFunctionRule extends AbstractJavaRule {
         if (!node.isPublic()) {
             return data;
         }
+        // here > 0
         if (node.jjtGetNumChildren() == 1) {
             Node firstStatement = node.jjtGetChild(0);
             if (firstStatement instanceof ASTStatement) {
+                // TODO: can we check, if this is an assert statement?
                 if (firstStatement.getImage().startsWith("assert")) {
                     addViolation(data, firstStatement);
                 }

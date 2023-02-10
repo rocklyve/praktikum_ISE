@@ -20,8 +20,9 @@ import net.sourceforge.pmd.PMD;
 import net.sourceforge.pmd.PMDConfiguration;
 
 public class PMDTests {
-    public static final String newLine = System.lineSeparator();
+    public static final String NEW_LINE = System.lineSeparator();
     private static final Map<String, String> PMD_RULE_SET_FILE_PATHS = Map.ofEntries(
+            // TODO: remove .toString() and Path.normalize().toString() afterwards
             Map.entry("j2ee", Path.of("rulesets", "java", "j2ee.xml").toString()),
             Map.entry("sunsecure", Path.of("rulesets", "java", "sunsecure.xml").toString()),
             Map.entry("design", Path.of("rulesets", "java","design.xml").toString()),
@@ -56,9 +57,9 @@ public class PMDTests {
             Map.entry("performance", Path.of("category", "java","performance.xml").toString()),
             Map.entry("security", Path.of("category", "java","security.xml").toString()),
             Map.entry("maven-pmd-plugin-default", Path.of("rulesets", "java","maven-pmd-plugin-default.xml").toString()),
-            Map.entry("custom-rules", Path.of("src", "resources","customRule", "custom-pmd-ruleset.xml").toString())
+            Map.entry("custom-rules", Path.of("customRule", "custom-pmd-ruleset.xml").toString())
 
-    );
+    ); // TODO: here with map
     private static final String PMD_REPORT_INPUT_FILE_PATH =
             Path.of("src", "main","java", "edu", "kit", "informatik")
                     .toString();
@@ -416,13 +417,13 @@ public class PMDTests {
         if (occurringIssues.isEmpty()) {
             return;
         }
-        String mergedMessage = newLine;
+        String mergedMessage = NEW_LINE;
         for (PMDTestResultFile file : occurringIssues) {
             for (PMDTestViolation violation : file.violations) {
                 String fileName = file.filename.split(PMD_REPORT_INPUT_FILE_PATH)[1];
                 mergedMessage +=
                         "Issue: " + violation.rule + " with message: " + violation.description +
-                                " File: " + fileName + ", Line: " + violation.beginline + " " + newLine;
+                                " File: " + fileName + ", Line: " + violation.beginline + " " + NEW_LINE;
             }
         }
 
@@ -449,6 +450,7 @@ public class PMDTests {
     }
 
     static PMDTestResultFile filterDuplicatedViolations(PMDTestResultFile file) {
+        // TODO: use Set here
         List<PMDTestViolation> filteredList = file.violations.stream().distinct().collect(Collectors.toList());
         file.violations = filteredList;
         return file;

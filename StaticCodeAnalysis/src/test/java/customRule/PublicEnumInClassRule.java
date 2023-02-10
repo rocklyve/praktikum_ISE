@@ -1,4 +1,4 @@
-package src.resources.customRule;
+package customRule;
 
 import net.sourceforge.pmd.lang.ast.Node;
 import net.sourceforge.pmd.lang.java.ast.ASTClassOrInterfaceDeclaration;
@@ -12,6 +12,8 @@ public class PublicEnumInClassRule extends AbstractJavaRule {
                 addViolation(data, child);
             }
         }
-        return data;
+        return super.visit(node, data);
     }
+
+    // todo: use visit over all enums, look if they are public and if they are in a class.
 }

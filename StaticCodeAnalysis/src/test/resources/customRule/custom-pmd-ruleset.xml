@@ -5,7 +5,7 @@
           language="java"
           since="1.03"
           message="Outsource public enums from classes"
-          class="src.resources.customRule.PublicEnumInClassRule">
+          class="customRule.PublicEnumInClassRule">
         <description>This rule detects public enums inside classes.</description>
         <priority>3</priority>
         <example>
@@ -23,7 +23,7 @@
           since="1.03"
           message="Classes that only have constants are discouraged.
                 Consider using an interface or an enum instead."
-          class="src.resources.customRule.ClassOfConstants">
+          class="customRule.ClassOfConstants">
         <description>This rule detects classes that only have constants.</description>
         <priority>3</priority>
         <example>
@@ -40,7 +40,7 @@
           since="1.03"
           message="Public functions with only an assert statement as their first are discouraged.
                 Consider using an assert statement in the test instead."
-          class="src.resources.customRule.AssertStatementFirstInFunctionRule">
+          class="customRule.AssertStatementFirstInPublicFunctionRule">
         <description>This rule detects functions with only one statement, which is an assert statement.</description>
         <priority>3</priority>
         <example>

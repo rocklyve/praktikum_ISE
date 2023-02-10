@@ -32,7 +32,10 @@ public class SonarQubeTests {
 
     @BeforeAll
     public static void setUpBeforeClass() throws Exception {
-        issues = new ArrayList<Issue>();
+        issues = new ArrayList<>();
+
+        // TODO: saveActions plugin, or other cleanup
+        // TODO: or with eclipse cleanup
 
         Path javaPlugin = getJavaPlugin();
         var path = Path.of(projectEntryPath, packagePath).toAbsolutePath();
@@ -42,6 +45,7 @@ public class SonarQubeTests {
         StandaloneSonarLintEngine standaloneSonarLintEngine = new StandaloneSonarLintEngineImpl(configuration);
         StandaloneAnalysisConfiguration sac = StandaloneAnalysisConfiguration.builder().setBaseDir(path).addInputFiles(javaFiles).build();
         standaloneSonarLintEngine.analyze(sac, SonarQubeTests::listen, (formattedMessage, level) -> System.out.println(formattedMessage), null);
+//        standaloneSonarLintEngine.analyze(sac, this::listen, (formattedMessage, level) -> System.out.println(formattedMessage), null);
         standaloneSonarLintEngine.stop();
     }
 
