@@ -21,8 +21,7 @@
     <rule name="OnlyConstantsDetector"
           language="java"
           since="1.03"
-          message="Classes that only have constants are discouraged.
-                Consider using an interface or an enum instead."
+          message="Classes that only have constants are discouraged. Consider using an interface or an enum instead."
           class="customPMDRule.ClassOfConstants">
         <description>This rule detects classes that only have constants.</description>
         <priority>3</priority>
