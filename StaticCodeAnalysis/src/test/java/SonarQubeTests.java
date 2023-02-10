@@ -45,7 +45,7 @@ public class SonarQubeTests {
 
     @BeforeAll
     public static void setUpBeforeClass() throws Exception {
-        issues = new ArrayList<Issue>();
+        issues = new ArrayList<>();
 
         Path javaPlugin = getJavaPlugin();
         var path = Path.of(PROJECT_ENTRY_PATH).toAbsolutePath();
@@ -58,353 +58,67 @@ public class SonarQubeTests {
         standaloneSonarLintEngine.stop();
     }
 
-//    @DisplayName("Test NonFinalAttributesShouldBeFinal")
-//    @Test
-//    void testNonFinalAttributesShouldBeFinal() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test SystemDependentLineBreak")
-//    @Test
-//    void testSystemDependentLineBreak() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-    @DisplayName("Should calculate the correct sum")
+    @DisplayName("Test Codebase")
     @ParameterizedTest(name = "{index} => relevantIssueNumbers={0}")
-    @MethodSource("getTestRawTypeParameters")
-    void testRawTypeParameterizedTest(List<Pair<String, String>> relevantIssueNumbers) {
-        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers.stream().map(pair -> pair.getRight()).collect(Collectors.toList())));
+    @MethodSource("getTestTypeParameters")
+    void testCodeBase(Pair<String, List<String>> relevantIssueNumbers) {
+        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers.getRight()));
     }
 
-    private static Stream<Arguments> getTestRawTypeParameters() {
+    private static Stream<Arguments> getTestTypeParameters() {
         return Stream.of(
-                Arguments.of(List.of(Pair.of("Test RawType", RULE_PREFIX + "3740")))
+//                Arguments.of(Pair.of("Test testNonFinalAttributesShouldBeFinal", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test SystemDependentLineBreak", List.of(RULE_PREFIX + ))),
+                Arguments.of(Pair.of("Test RawType", List.of(RULE_PREFIX + "3740"))),
+                Arguments.of(Pair.of("Test ConcreteClassInsteadOfInterface", List.of(RULE_PREFIX + "1319"))),
+                Arguments.of(Pair.of("Test AssertInsteadOfIfLoop", List.of(RULE_PREFIX + "5960", RULE_PREFIX + "4274"))),
+//                Arguments.of(Pair.of("Test ObjectInsteadOfConcreteClass", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test PublicEnumInsideClassAndNotInSeparateFile", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test VisibilityAsLowAsPossible", List.of(RULE_PREFIX + ))),
+                Arguments.of(Pair.of("Test Code Duplication", List.of(RULE_PREFIX + "4144"))),
+//                Arguments.of((Pair.of("Test CodeDuplicationRepetitionsFixableByInheritance", List.of(RULE_PREFIX + ))),
+//                Arguments.of((Pair.of("Test InheritanceInsteadOfEnums", List.of(RULE_PREFIX + ))),
+//                Arguments.of((Pair.of("Test OperationsInsteadOfDomain", List.of(RULE_PREFIX + ))),
+//                Arguments.of((Pair.of("Test HardcodedLogic", List.of(RULE_PREFIX + ))),
+//                Arguments.of((Pair.of("Test StringReferences", List.of(RULE_PREFIX + ))),
+//                Arguments.of((Pair.of("Test ExceptionsForControlFlow", List.of(RULE_PREFIX + ))),
+//                Arguments.of((Pair.of("Test TryCatchBlock", List.of(RULE_PREFIX + ))),
+//                Arguments.of((Pair.of("Test UnspecifiedErrorMessage", List.of(RULE_PREFIX + )))),
+//                Arguments.of((Pair.of("Test WrongLoopType", List.of(RULE_PREFIX + ))),
+//                Arguments.of((Pair.of("Test UnnecessaryComplexity", List.of(RULE_PREFIX + ))),
+//                Arguments.of((Pair.of("Test ClumsySolution", List.of(RULE_PREFIX + ))),
+//                Arguments.of((Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
+                Arguments.of(Pair.of("Test UtilityClass", List.of(RULE_PREFIX + "1118"))),
+//                Arguments.of(Pair.of("Test UnsafeCast", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test EmptyConstructor", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test MeaninglessConstant", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test Scanner", List.of(RULE_PREFIX + ))),
+                Arguments.of(Pair.of("Test UnusedElement",
+                        List.of(RULE_PREFIX + "1144", RULE_PREFIX + "1068", RULE_PREFIX + "1481"))
+                ),
+//                Arguments.of(Pair.of("Test MissingThrowsInMethodSignature", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test PublicEnumInClass", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test TrivialJavaDoc", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test BadNaming", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test DataEncapsulationViolation", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test SeparationOfLogicAndInteraction", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test TooComplexCode", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test StaticMethods", List.of(RULE_PREFIX + ))),
+                Arguments.of(Pair.of("Test StaticAttributeOfInstanceAttribute", List.of(RULE_PREFIX + "1170"))),
+                Arguments.of(Pair.of("Test FinalModifier", List.of(RULE_PREFIX + "3008"))),
+//                Arguments.of(Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test ToStringVsEquals", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test DoNotUseObject", List.of(RULE_PREFIX + ))),
+                Arguments.of(Pair.of("Test ClassInsteadOfInterface", List.of(RULE_PREFIX + "1319"))),
+//                Arguments.of(Pair.of("Test EnumForClosedSet", List.of(RULE_PREFIX + ))),
+                Arguments.of(Pair.of("Test EmptyBlock",
+                        List.of(RULE_PREFIX + "2094", RULE_PREFIX + "1186", RULE_PREFIX + "108"))
+                )
+//                Arguments.of(Pair.of("Test PackageUsage", List.of(RULE_PREFIX + ))),
+//                Arguments.of(Pair.of("Test DynamicBinding", List.of(RULE_PREFIX + ))),
         );
     }
-    
-    @DisplayName("Test RawType")
-    @Test
-    void testRawType() {
-        List<String> relevantIssueNumbers = List.of(RULE_PREFIX + "3740");
-        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-    }
-
-    @DisplayName("Test ConcreteClassInsteadOfInterface")
-    @Test
-    void testConcreteClassInsteadOfInterface() {
-        List<String> relevantIssueNumbers = List.of(RULE_PREFIX + "1319");
-        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-    }
-
-    @DisplayName("Test AssertInsteadOfIfLoop")
-    @Test
-    void testAssertInsteadOfIfLoop() {
-        List<String> relevantIssueNumbers = List.of(
-             RULE_PREFIX + "5960",
-            RULE_PREFIX + "4274"
-        );
-        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-    }
-
-//    @DisplayName("Test ObjectInsteadOfConcreteClass")
-//    @Test
-//    void testObjectInsteadOfConcreteClass() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test PublicEnumInsideClassAndNotInSeparateFile")
-//    @Test
-//    void testPublicEnumInsideClassAndNotInSeparateFile() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test VisibilityAsLowAsPossible")
-//    @Test
-//    void testVisibilityAsLowAsPossible() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-    @DisplayName("Test Code Duplication")
-    @Test
-    void testCodeDuplication() {
-        List<String> relevantIssueNumbers = List.of(RULE_PREFIX + "4144");
-        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-    }
-
-//    @DisplayName("Test CodeDuplicationRepetitionsFixableByInheritance")
-//    @Test
-//    void testCodeDuplicationRepetitionsFixableByInheritance() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test InheritanceInsteadOfEnums")
-//    @Test
-//    void testInheritanceInsteadOfEnums() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test OperationsInsteadOfDomain")
-//    @Test
-//    void testOperationsInsteadOfDomain() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test HardcodedLogic")
-//    @Test
-//    void testHardcodedLogic() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test StringReferences")
-//    @Test
-//    void testStringReferences() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test ExceptionsForControlFlow")
-//    @Test
-//    void testExceptionsForControlFlow() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test TryCatchBlock")
-//    @Test
-//    void testTryCatchBlock() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test UnspecifiedErrorMessage")
-//    @Test
-//    void testUnspecifiedErrorMessage() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-
-//    @DisplayName("Test WrongLoopType")
-//    @Test
-//    void testWrongLoopType() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-
-//    @DisplayName("Test UnnecessaryComplexity")
-//    @Test
-//    void testUnnecessaryComplexity() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test ClumsySolution")
-//    @Test
-//    void testClumsySolution() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test ParsingIntegerValues")
-//    @Test
-//    void testParsingIntegerValues() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-    @DisplayName("Test UtilityClass")
-    @Test
-    void testUtilityClass() {
-        List<String> relevantIssueNumbers = List.of(RULE_PREFIX + "1118");
-        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-    }
-
-//    @DisplayName("Test UnsafeCast")
-//    @Test
-//    void testUnsafeCast() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test EmptyConstructor")
-//    @Test
-//    void testEmptyConstructor() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test MeaninglessConstant")
-//    @Test
-//    void testMeaninglessConstant() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test Scanner")
-//    @Test
-//    void testScanner() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-    @DisplayName("Test UnusedElement")
-    @Test
-    void testUnusedElement() {
-        List<String> relevantIssueNumbers = List.of(
-            RULE_PREFIX + "1144",
-            RULE_PREFIX + "1068",
-            RULE_PREFIX + "1481"
-        );
-        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-    }
-
-//    @DisplayName("Test MissingThrowsInMethodSignature")
-//    @Test
-//    void testMissingThrowsInMethodSignature() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test PublicEnumInClass")
-//    @Test
-//    void testPublicEnumInClass() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test ParsingIntegerValues")
-//    @Test
-//    void testClassOfConstants() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test TrivialJavaDoc")
-//    @Test
-//    void testTrivialJavaDoc() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test BadNaming")
-//    @Test
-//    void testBadNaming() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test DataEncapsulationViolation")
-//    @Test
-//    void testDataEncapsulationViolation() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test SeparationOfLogicAndInteraction")
-//    @Test
-//    void testSeparationOfLogicAndInteraction() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test TooComplexCode")
-//    @Test
-//    void testTooComplexCode() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test StaticMethods")
-//    @Test
-//    void testStaticMethods() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-    @DisplayName("Test StaticAttributeOfInstanceAttribute")
-    @Test
-    void testStaticAttributeOfInstanceAttribute() {
-        List<String> relevantIssueNumbers = List.of(RULE_PREFIX + "1170");
-        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-    }
-
-    @DisplayName("Test FinalModifier")
-    @Test
-    void testFinalModifier() {
-        List<String> relevantIssueNumbers = List.of(RULE_PREFIX + "3008");
-        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-    }
-
-//    @DisplayName("Test ParsingIntegerValues")
-//    @Test
-//    void testJavaAPI() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test ToStringVsEquals")
-//    @Test
-//    void testToStringVsEquals() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test DoNotUseObject")
-//    @Test
-//    void testDoNotUseObject() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-    @DisplayName("Test ClassInsteadOfInterface")
-    @Test
-    void testClassInsteadOfInterface() {
-        List<String> relevantIssueNumbers = List.of(RULE_PREFIX + "1319");
-        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-    }
-
-//    @DisplayName("Test EnumForClosedSet")
-//    @Test
-//    void testEnumForClosedSet() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-    @DisplayName("Test EmptyBlock")
-    @Test
-    void testEmptyBlock() {
-        List<String> relevantIssueNumbers = List.of(
-            RULE_PREFIX + "2094",
-            RULE_PREFIX + "1186",
-            RULE_PREFIX + "108"
-        );
-        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-    }
-
-//    @DisplayName("Test PackageUsage")
-//    @Test
-//    void testPackageUsage() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
-
-//    @DisplayName("Test DynamicBinding")
-//    @Test
-//    void testDynamicBinding() {
-//        List<String> relevantIssueNumbers = List.of(rulePrefix + "");
-//        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
-//    }
 
     @AfterAll
     public static void tearDownAfterClass() {
