@@ -1,7 +1,7 @@
 package pmdModel;
 
-import java.util.List;
+import java.util.Set;
 
-public record PMDTestResultFile(String filename, List<PMDTestViolation> violations) {}
+public record PMDTestResultFile(String filename, Set<PMDTestViolation> violations) {}
 
 

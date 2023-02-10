@@ -17,10 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,44 +27,46 @@ import net.sourceforge.pmd.PMDConfiguration;
 public class PMDTests {
     public static final String NEW_LINE = System.lineSeparator();
     private static final Map<String, String> PMD_RULE_SET_FILE_PATHS = Map.ofEntries(
-            // TODO: remove .toString() and Path.normalize().toString() afterwards
-            Map.entry("j2ee", Path.of("rulesets", "java", "j2ee.xml").toString()),
-            Map.entry("sunsecure", Path.of("rulesets", "java", "sunsecure.xml").toString()),
-            Map.entry("design", Path.of("rulesets", "java","design.xml").toString()),
-            Map.entry("finalizers", Path.of("rulesets", "java","finalizers.xml").toString()),
-            Map.entry("controversial", Path.of("rulesets", "java","controversial.xml").toString()),
-            Map.entry("unnecessary", Path.of("rulesets", "java","unnecessary.xml").toString()),
-            Map.entry("logging-jakarta-commons", Path.of("rulesets", "java","logging-jakarta-commons.xml").toString()),
-            Map.entry("quickstart", Path.of("rulesets", "java","quickstart.xml").toString()),
-            Map.entry("javabeans", Path.of("rulesets", "java","javabeans.xml").toString()),
-            Map.entry("optimizations", Path.of("rulesets", "java","optimizations.xml").toString()),
-            Map.entry("strings", Path.of("rulesets", "java","strings.xml").toString()),
-            Map.entry("strictexception", Path.of("rulesets", "java","strictexception.xml").toString()),
-            Map.entry("imports", Path.of("rulesets", "java","imports.xml").toString()),
-            Map.entry("junit", Path.of("rulesets", "java","junit.xml").toString()),
-            Map.entry("codesize", Path.of("rulesets", "java","codesize.xml").toString()),
-            Map.entry("braces", Path.of("rulesets", "java","braces.xml").toString()),
-//            Map.entry("coupling", Path.of("rulesets", "java","coupling.xml").toString()),
-            Map.entry("naming", Path.of("rulesets", "java","naming.xml").toString()),
-            Map.entry("clone", Path.of("rulesets", "java","clone.xml").toString()),
-            Map.entry("logging-java", Path.of("rulesets", "java","logging-java.xml").toString()),
-            Map.entry("typeresolution", Path.of("rulesets", "java","typeresolution.xml").toString()),
-            Map.entry("metrics", Path.of("rulesets", "java","metrics.xml").toString()),
-            Map.entry("unusedcode", Path.of("rulesets", "java","unusedcode.xml").toString()),
-//            Map.entry("comments", Path.of("rulesets", "java","comments.xml").toString()),
-            Map.entry("basic", Path.of("rulesets", "java","basic.xml").toString()),
-            Map.entry("empty", Path.of("rulesets", "java","empty.xml").toString()),
-            Map.entry("codestyle", Path.of("category", "java","codestyle.xml").toString()),
-            Map.entry("bestpractices", Path.of("category", "java","bestpractices.xml").toString()),
-            Map.entry("documentation", Path.of("category", "java","documentation.xml").toString()),
-            Map.entry("errorprone", Path.of("category", "java","errorprone.xml").toString()),
-            Map.entry("multithreading", Path.of("category", "java","multithreading.xml").toString()),
-            Map.entry("performance", Path.of("category", "java","performance.xml").toString()),
-            Map.entry("security", Path.of("category", "java","security.xml").toString()),
-            Map.entry("maven-pmd-plugin-default", Path.of("rulesets", "java","maven-pmd-plugin-default.xml").toString()),
-            Map.entry("custom-rules", Path.of("customRule", "custom-pmd-ruleset.xml").toString())
+//            Map.entry("j2ee", Path.of("rulesets", "java", "j2ee.xml")),
+//            Map.entry("sunsecure", Path.of("rulesets", "java", "sunsecure.xml")),
+//            Map.entry("rulesetDesign", Path.of("rulesets", "java","design.xml")),
+//            Map.entry("finalizers", Path.of("rulesets", "java","finalizers.xml")),
+//            Map.entry("controversial", Path.of("rulesets", "java","controversial.xml")),
+//            Map.entry("unnecessary", Path.of("rulesets", "java","unnecessary.xml")),
+//            Map.entry("logging-jakarta-commons", Path.of("rulesets", "java","logging-jakarta-commons.xml")),
+//            Map.entry("quickstart", Path.of("rulesets", "java","quickstart.xml")),
+//            Map.entry("javabeans", Path.of("rulesets", "java","javabeans.xml")),
+//            Map.entry("optimizations", Path.of("rulesets", "java","optimizations.xml")),
+//            Map.entry("strings", Path.of("rulesets", "java","strings.xml")),
+//            Map.entry("strictexception", Path.of("rulesets", "java","strictexception.xml")),
+//            Map.entry("imports", Path.of("rulesets", "java","imports.xml")),
+//            Map.entry("junit", Path.of("rulesets", "java","junit.xml")),
+//            Map.entry("codesize", Path.of("rulesets", "java","codesize.xml")),
+//            Map.entry("braces", Path.of("rulesets", "java","braces.xml")),
+////            Map.entry("coupling", Path.of("rulesets", "java","coupling.xml")),
+//            Map.entry("naming", Path.of("rulesets", "java","naming.xml")),
+//            Map.entry("clone", Path.of("rulesets", "java","clone.xml")),
+//            Map.entry("logging-java", Path.of("rulesets", "java","logging-java.xml")),
+//            Map.entry("typeresolution", Path.of("rulesets", "java","typeresolution.xml")),
+//            Map.entry("metrics", Path.of("rulesets", "java","metrics.xml")),
+//            Map.entry("unusedcode", Path.of("rulesets", "java","unusedcode.xml")),
+////            Map.entry("comments", Path.of("rulesets", "java","comments.xml")),
+//            Map.entry("basic", Path.of("rulesets", "java","basic.xml")),
+//            Map.entry("empty", Path.of("rulesets", "java","empty.xml")),
+            Map.entry("codestyle", Path.of("category", "java","codestyle.xml")),
+            Map.entry("design", Path.of("category", "java","design.xml")),
+            Map.entry("bestpractices", Path.of("category", "java","bestpractices.xml")),
+            Map.entry("documentation", Path.of("category", "java","documentation.xml")),
+            Map.entry("errorprone", Path.of("category", "java","errorprone.xml")),
+            Map.entry("multithreading", Path.of("category", "java","multithreading.xml")),
+            Map.entry("performance", Path.of("category", "java","performance.xml")),
+            Map.entry("security", Path.of("category", "java","security.xml")),
+            Map.entry("maven-pmd-plugin-default", Path.of("rulesets", "java","maven-pmd-plugin-default.xml")),
+            Map.entry("custom-rules", Path.of("customRule", "custom-pmd-ruleset.xml"))
 
-    ); // TODO: here with map
+    ).entrySet().stream().map(
+            element -> Map.entry(element.getKey(), element.getValue().normalize().toString())
+    ).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     private static final String PMD_REPORT_INPUT_FILE_PATH =
             Path.of("src", "main","java", "edu", "kit", "informatik")
                     .toString();
@@ -109,7 +108,6 @@ public class PMDTests {
 
     private static Stream<Arguments> getTestTypeParameters() {
         return Stream.of(
-//                Arguments.of(List.of(Pair.of("Test testNonFinalAttributesShouldBeFinal", List.of()))),
 //                Arguments.of(List.of(Pair.of("Test SystemDependentLineBreak", List.of()))),
 //                Arguments.of(Pair.of("Test RawType", List.of())),
                 Arguments.of(Pair.of("Test ConcreteClassInsteadOfInterface", List.of("LooseCoupling"))),
@@ -121,12 +119,12 @@ public class PMDTests {
 //                Arguments.of(Pair.of("Test CodeDuplicationRepetitionsFixableByInheritance", List.of())),
 //                Arguments.of(Pair.of("Test InheritanceInsteadOfEnums", List.of())),
 //                Arguments.of(Pair.of("Test OperationsInsteadOfDomain", List.of())),
-//                Arguments.of(Pair.of("Test HardcodedLogic", List.of())),
+                Arguments.of(Pair.of("Test HardcodedLogic", List.of("AvoidLiteralsInIfCondition"))),
 //                Arguments.of(Pair.of("Test StringReferences", List.of())),
                 Arguments.of(Pair.of("Test ExceptionsForControlFlow", List.of("EmptyCatchBlock"))),
 //                Arguments.of(Pair.of("Test TryCatchBlock", List.of(RULE_PREFIX + ))),
 //                Arguments.of(Pair.of("Test UnspecifiedErrorMessage", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test WrongLoopType", List.of(RULE_PREFIX + ))),
+                Arguments.of(Pair.of("Test WrongLoopType", List.of("ForLoopCanBeForeach", "ForLoopShouldBeWhileLoop"))),
 //                Arguments.of(Pair.of("Test UnnecessaryComplexity", List.of(RULE_PREFIX + ))),
 //                Arguments.of(Pair.of("Test ClumsySolution", List.of(RULE_PREFIX + ))),
 //                Arguments.of(Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
@@ -136,7 +134,7 @@ public class PMDTests {
 //                Arguments.of(Pair.of("Test MeaninglessConstant", List.of(RULE_PREFIX + ))),
 //                Arguments.of(Pair.of("Test Scanner", List.of(RULE_PREFIX + ))),
                 Arguments.of(Pair.of("Test UnusedElement",
-                        List.of("UnusedPrivateField", "UnusedPrivateMethod", "UnusedLocalVariable"))
+                        List.of("UnusedPrivateField", "UnusedPrivateMethod", "UnusedLocalVariable", "UnusedFormalParameter"))
                 )
 //                Arguments.of(Pair.of("Test MissingThrowsInMethodSignature", List.of(RULE_PREFIX + ))),
 //                Arguments.of(Pair.of("Test PublicEnumInClass", List.of(RULE_PREFIX + ))),
@@ -148,7 +146,7 @@ public class PMDTests {
 //                Arguments.of(Pair.of("Test TooComplexCode", List.of(RULE_PREFIX + ))),
 //                Arguments.of(Pair.of("Test StaticMethods", List.of(RULE_PREFIX + ))),
 //                Arguments.of(Pair.of("Test StaticAttributeOfInstanceAttribute", List.of())),
-//                Arguments.of(Pair.of("Test FinalModifier", List.of())),
+                Arguments.of(Pair.of("Test FinalModifier", List.of("MethodArgumentCouldBeFinal", "LocalVariableCouldBeFinal"))),
 //                Arguments.of(Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
 //                Arguments.of(Pair.of("Test ToStringVsEquals", List.of(RULE_PREFIX + ))),
 //                Arguments.of(Pair.of("Test DoNotUseObject", List.of(RULE_PREFIX + ))),
@@ -166,11 +164,11 @@ public class PMDTests {
         }
         String mergedMessage = NEW_LINE;
         for (PMDTestResultFile file : occurringIssues) {
-            for (PMDTestViolation violation : file.violations) {
-                String fileName = file.filename.split(PMD_REPORT_INPUT_FILE_PATH)[1];
+            for (PMDTestViolation violation : file.violations()) {
+                String fileName = file.filename().split(PMD_REPORT_INPUT_FILE_PATH)[1];
                 mergedMessage +=
-                        "Issue: " + violation.rule + " with message: " + violation.description +
-                                " File: " + fileName + ", Line: " + violation.beginline + " " + NEW_LINE;
+                        "Issue: " + violation.rule() + " with message: " + violation.description() +
+                                " File: " + fileName + ", Line: " + violation.beginline() + " " + NEW_LINE;
             }
         }
 
@@ -190,19 +188,12 @@ public class PMDTests {
                             file.filename(),
                             file.violations().stream()
                                     .filter(violation -> relevantRules.contains(violation.rule()))
-                                    .collect(Collectors.toList())
+                                    .collect(Collectors.toSet())
                     );
                     return newFile;
                 })
                 .filter(file -> !file.violations().isEmpty())
                 .collect(Collectors.toList());
-    }
-
-    static PMDTestResultFile filterDuplicatedViolations(PMDTestResultFile file) {
-        // TODO: use Set here
-        List<PMDTestViolation> filteredList = file.violations.stream().distinct().collect(Collectors.toList());
-        file.violations = filteredList;
-        return file;
     }
 
     @AfterAll
