@@ -39,9 +39,7 @@ public class PMDTests {
             Map.entry("security", Path.of("category", "java","security.xml")),
             Map.entry("custom-rules", Path.of( "custom-pmd-ruleset.xml"))
 
-    ).entrySet().stream().map(
-            element -> Map.entry(element.getKey(), element.getValue().normalize().toString())
-    ).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    ).entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().normalize().toString()));
     private static final String PMD_REPORT_INPUT_FILE_PATH =
             Path.of("src", "main","java", "edu", "kit", "informatik")
                     .toString();
