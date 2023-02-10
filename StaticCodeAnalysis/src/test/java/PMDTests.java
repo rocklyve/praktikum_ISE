@@ -29,32 +29,6 @@ import net.sourceforge.pmd.PMDConfiguration;
 public class PMDTests {
     public static final String NEW_LINE = System.lineSeparator();
     private static final Map<String, String> PMD_RULE_SET_FILE_PATHS = Map.ofEntries(
-//            Map.entry("j2ee", Path.of("rulesets", "java", "j2ee.xml")),
-//            Map.entry("sunsecure", Path.of("rulesets", "java", "sunsecure.xml")),
-//            Map.entry("rulesetDesign", Path.of("rulesets", "java","design.xml")),
-//            Map.entry("finalizers", Path.of("rulesets", "java","finalizers.xml")),
-//            Map.entry("controversial", Path.of("rulesets", "java","controversial.xml")),
-//            Map.entry("unnecessary", Path.of("rulesets", "java","unnecessary.xml")),
-//            Map.entry("logging-jakarta-commons", Path.of("rulesets", "java","logging-jakarta-commons.xml")),
-//            Map.entry("quickstart", Path.of("rulesets", "java","quickstart.xml")),
-//            Map.entry("javabeans", Path.of("rulesets", "java","javabeans.xml")),
-//            Map.entry("optimizations", Path.of("rulesets", "java","optimizations.xml")),
-//            Map.entry("strings", Path.of("rulesets", "java","strings.xml")),
-//            Map.entry("strictexception", Path.of("rulesets", "java","strictexception.xml")),
-//            Map.entry("imports", Path.of("rulesets", "java","imports.xml")),
-//            Map.entry("junit", Path.of("rulesets", "java","junit.xml")),
-//            Map.entry("codesize", Path.of("rulesets", "java","codesize.xml")),
-//            Map.entry("braces", Path.of("rulesets", "java","braces.xml")),
-////            Map.entry("coupling", Path.of("rulesets", "java","coupling.xml")),
-//            Map.entry("naming", Path.of("rulesets", "java","naming.xml")),
-//            Map.entry("clone", Path.of("rulesets", "java","clone.xml")),
-//            Map.entry("logging-java", Path.of("rulesets", "java","logging-java.xml")),
-//            Map.entry("typeresolution", Path.of("rulesets", "java","typeresolution.xml")),
-//            Map.entry("metrics", Path.of("rulesets", "java","metrics.xml")),
-//            Map.entry("unusedcode", Path.of("rulesets", "java","unusedcode.xml")),
-////            Map.entry("comments", Path.of("rulesets", "java","comments.xml")),
-//            Map.entry("basic", Path.of("rulesets", "java","basic.xml")),
-//            Map.entry("empty", Path.of("rulesets", "java","empty.xml")),
             Map.entry("codestyle", Path.of("category", "java","codestyle.xml")),
             Map.entry("design", Path.of("category", "java","design.xml")),
             Map.entry("bestpractices", Path.of("category", "java","bestpractices.xml")),
@@ -63,7 +37,6 @@ public class PMDTests {
             Map.entry("multithreading", Path.of("category", "java","multithreading.xml")),
             Map.entry("performance", Path.of("category", "java","performance.xml")),
             Map.entry("security", Path.of("category", "java","security.xml")),
-//            Map.entry("maven-pmd-plugin-default", Path.of("rulesets", "java","maven-pmd-plugin-default.xml")),
             Map.entry("custom-rules", Path.of( "custom-pmd-ruleset.xml"))
 
     ).entrySet().stream().map(
