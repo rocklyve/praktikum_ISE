@@ -5,7 +5,8 @@ public class Child extends wrongEnumP {
         super(balance);
     }
 
-    double getEntryFee() {
+    @Override
+	double getEntryFee() {
         return 7.5;
     }
 }

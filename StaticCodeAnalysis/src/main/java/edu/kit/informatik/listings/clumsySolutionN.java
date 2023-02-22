@@ -1,8 +1,8 @@
 package edu.kit.informatik.listings;
 
-import java.util.Random;
-
 import static org.apache.commons.lang3.ArrayUtils.isSorted;
+
+import java.util.Random;
 
 public class clumsySolutionN {
 	public int[] foo(int[] toSort){

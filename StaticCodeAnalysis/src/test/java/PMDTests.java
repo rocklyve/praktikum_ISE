@@ -1,30 +1,29 @@
-import com.fasterxml.jackson.databind.ObjectMapper;
-import junit.framework.Assert;
-import net.sourceforge.pmd.PMDException;
-import org.apache.commons.lang3.tuple.Pair;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import pmdModel.PMDTestResult;
-import pmdModel.PMDTestResultFile;
-import pmdModel.PMDTestViolation;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import java.io.File;
-import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.tuple.Pair;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import junit.framework.Assert;
 import net.sourceforge.pmd.PMD;
 import net.sourceforge.pmd.PMDConfiguration;
+import pmdModel.PMDTestResult;
+import pmdModel.PMDTestResultFile;
+import pmdModel.PMDTestViolation;
 
 public class PMDTests {
     public static final String NEW_LINE = System.lineSeparator();
@@ -39,6 +38,7 @@ public class PMDTests {
             Map.entry("security", Path.of("category", "java","security.xml")),
             Map.entry("custom-rules", Path.of( "custom-pmd-ruleset.xml"))
     ).entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().normalize().toString()));
+
     private static final String PMD_REPORT_INPUT_FILE_PATH =
             Path.of("src", "main","java", "edu", "kit", "informatik")
                     .toString();
@@ -53,7 +53,7 @@ public class PMDTests {
     @BeforeAll
     public static void setUpBeforeClass() throws Exception {
         PMDConfiguration configuration = new PMDConfiguration();
-        configuration.setInputPaths(PMD_REPORT_INPUT_FILE_PATH);
+        configuration.addInputPath(PMD_REPORT_INPUT_FILE_PATH);
 
         configuration.setRuleSets(new ArrayList<>(PMD_RULE_SET_FILE_PATHS.values()));
 
@@ -105,6 +105,7 @@ public class PMDTests {
                 ),
 //                Arguments.of(Pair.of("Test MissingThrowsInMethodSignature", List.of(RULE_PREFIX + ))),
 //                Arguments.of(Pair.of("Test PublicEnumInClass", List.of(RULE_PREFIX + ))),
+                Arguments.of(Pair.of("Test ClassOfConstants", List.of("ClassOfConstants"))),
 //                Arguments.of(Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
 //                Arguments.of(Pair.of("Test TrivialJavaDoc", List.of(RULE_PREFIX + ))),
 //                Arguments.of(Pair.of("Test BadNaming", List.of(RULE_PREFIX + ))),

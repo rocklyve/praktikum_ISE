@@ -1,8 +1,7 @@
 package edu.kit.informatik;
 
-import org.apache.jasper.util.UniqueAttributesImpl;
-
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
 public class MergeSort implements SortStrategy {
     /**
@@ -10,7 +9,8 @@ public class MergeSort implements SortStrategy {
      *
      * @param input the List of Dates to be sorted
      */
-    public void performSort(List<Date> input) {
+    @Override
+	public void performSort(List<Date> input) {
         mergesort(input, 0, input.size() - 1);
     }
 

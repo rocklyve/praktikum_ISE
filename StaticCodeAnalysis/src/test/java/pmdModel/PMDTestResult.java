@@ -1,6 +1,5 @@
 package pmdModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public record PMDTestResult(

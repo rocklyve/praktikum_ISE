@@ -1,7 +1,5 @@
 package edu.kit.informatik.listings;
 
-import java.io.InvalidClassException;
-
 public final class publicprivateN {
     public String title;
     long isbn;

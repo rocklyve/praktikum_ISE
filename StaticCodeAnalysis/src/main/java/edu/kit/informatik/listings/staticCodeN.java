@@ -1,8 +1,8 @@
 package edu.kit.informatik.listings;
 
-import edu.kit.informatik.Product;
-
 import java.util.List;
+
+import edu.kit.informatik.Product;
 
 public class staticCodeN {
     private static int idCounter = 0;

@@ -1,6 +1,7 @@
 package edu.kit.informatik;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
 public class BubbleSort implements SortStrategy {
 
@@ -9,7 +10,8 @@ public class BubbleSort implements SortStrategy {
      *
      * @param input the List of Dates to be sorted
      */
-    public void performSort(List<Date> input) {
+    @Override
+	public void performSort(List<Date> input) {
 
         for (int i = input.size() - 1; i >= 0; i--) {
             for (int j = 0; j < i; j++) {
