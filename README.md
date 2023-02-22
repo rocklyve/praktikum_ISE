@@ -2,17 +2,24 @@
 
 ## Introduction
 
-// TODO: fill
+This project represents a static code analysis tool, which is able to detect code smells and other problems in java code.
+The main part of this project are the tests, which will recursivly search for all java files in a given directory and analyze them towards multiple rules.
+The own rules are given by the supervisors, as they are part of the lecture "Programmieren", which is part of the first bachelor semester.
+The task was to map existing rules from existing frameworks to the own rules, which are given by the supervisors.
+The rules are listed in the rules section and mapped to a given rule, if a rule is existing.
+The rules are based on the Sonarqube and PMD ruleset, which are sets of rules for static code analysis.
+Furthermore, custom rules where written for rules, which are not existing in the rulesets, but slightly easy to implement.
 
-## Installation
-// TODO: fill
-
-## Usage
-// TODO: fill
+## Installation + Usage
+To run the tests, you need to have maven and java17 installed on your machine.
+Choose your IDE and import the project as a maven project.
+Afterwards, execute the tests in the IDE.
 
 ## Rules
 
-// TODO: where the rules are determined from
+The rules are based on the rulesets from Sonarqube and PMD. 
+They both have a lot of rules, which are not needed for this project.
+The exercise was to map the existing rules with the own rules from the lecture "Programmieren".
 
 ### Research
 
@@ -157,8 +164,12 @@ EclEMMA https://www.eclemma.org/
 
 https://pmd.github.io/latest/pmd_userdocs_making_rulesets.html#referencing-a-single-rule
 
-I wrote a custom rule `custom-pmd-ruleset.xml` and added it to the ruleset list in th PMDTest.
-Inside the `custom-pmd-ruleset.xml` I referenced a custom JAVA class `PublicEnumInClassRule` which extends the `AbstractJavaRule` class.
+Custom rules can be written in PMD and are created in the file: `custom-pmd-ruleset.xml`. 
+This file is added to the ruleset list in the PMDTest.
+Inside the `src/test/resources/custom-pmd-ruleset.xml` file, a rule can be created with `<rule>RULE CONTENT</rule>`.
+In every rule, a description `class` exists, which references to a java class the rule will be executed or validated. 
+For example, a custom JAVA class `PublicEnumInClassRule` which extends the `AbstractJavaRule` class is created and will verify, that public enums inside classes are not allowed.
+All java classes of the custom rules are located in the `src/test/java/customPMDRule/` folder.
 
 By now, the rule is not recognized by PMD. I think I have to add the rule as a maven plugin (dependency) as a jar file.
 This link will help me maybe: https://stackoverflow.com/questions/43601640/classnotfoundexception-using-custom-java-rule-for-pmd-ruleset.
@@ -167,4 +178,6 @@ This link will help me maybe: https://stackoverflow.com/questions/43601640/class
 ### Custom Rulesets for Sonarqube
 
 https://docs.sonarqube.org/9.6/extension-guide/adding-coding-rules/
+
+Also it's possible to create own rules with Sonarqube, but they will be not mentioned here, because PMD can cover all requirements.
 
