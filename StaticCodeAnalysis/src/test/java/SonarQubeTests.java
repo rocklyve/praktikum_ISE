@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,7 +26,6 @@ import org.sonarsource.sonarlint.core.client.api.standalone.StandaloneSonarLintE
 import org.sonarsource.sonarlint.core.commons.Language;
 
 import edu.kit.informatik.SonarFile;
-import junit.framework.Assert;
 
 public class SonarQubeTests {
     public static final String newLine = System.lineSeparator();
@@ -137,7 +137,7 @@ public class SonarQubeTests {
                        " File: " + issue.getInputFile().relativePath() + ", Line: " + issue.getStartLine() + " " + newLine;
             }
             String finalMergedMessage = "Found " + occurringIssues.size()+ " issues: full text: " + mergedMessage;
-            occurringIssues.forEach(issue -> Assert.fail(finalMergedMessage));
+            occurringIssues.forEach(issue -> Assertions.fail(finalMergedMessage));
         }
     }
 

@@ -1,13 +1,17 @@
 import java.io.File;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import net.sourceforge.pmd.PmdAnalysis;
+import net.sourceforge.pmd.Report;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,7 +22,6 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import junit.framework.Assert;
 import net.sourceforge.pmd.PMD;
 import net.sourceforge.pmd.PMDConfiguration;
 import pmdModel.PMDTestResult;
@@ -27,6 +30,7 @@ import pmdModel.PMDTestViolation;
 
 public class PMDTests {
     public static final String NEW_LINE = System.lineSeparator();
+
     private static final Map<String, String> PMD_RULE_SET_FILE_PATHS = Map.ofEntries(
             Map.entry("codestyle", Path.of("category", "java","codestyle.xml")),
             Map.entry("design", Path.of("category", "java","design.xml")),
@@ -41,9 +45,11 @@ public class PMDTests {
 
     private static final String PMD_REPORT_INPUT_FILE_PATH =
             Path.of("src", "main","java", "edu", "kit", "informatik")
+                    .normalize()
                     .toString();
     private static final String PMD_REPORT_FILE_PATH =
             Path.of("target", "pmd-report", "pmd-report.json")
+                    .normalize()
                     .toString();
     private static final String PMD_REPORT_FILE_FORMAT = "json";
 
@@ -61,6 +67,13 @@ public class PMDTests {
         configuration.setReportFile(PMD_REPORT_FILE_PATH);
 
         PMD.runPmd(configuration);
+//        try (PmdAnalysis pmd = PmdAnalysis.create(configuration)) {
+//            // optional: add more rulesets
+////            Report report = pmd.performAnalysisAndCollectReport();
+//            pmd.performAnalysis();
+//        } catch (Exception e) {
+//            logger.error("Error while running PMD", e);
+//        }
 
         ObjectMapper objectMapper = new ObjectMapper();
         issues = objectMapper.readValue(new File(PMD_REPORT_FILE_PATH), PMDTestResult.class);
@@ -142,7 +155,7 @@ public class PMDTests {
 
         String finalMergedMessage = "Found " + occurringIssues.size()+ " issues: full text: " + mergedMessage;
         // assert fail outside of
-        Assert.fail(finalMergedMessage);
+        Assertions.fail(finalMergedMessage);
     }
 
     private List<PMDTestResultFile> findOccurringIssues(List<String> relevantRules) {
