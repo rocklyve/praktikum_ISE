@@ -95,7 +95,7 @@ public class PMDTests {
                 // but only if they are the first statement
                 Arguments.of(Pair.of("Test AssertInsteadOfIfLoop", List.of("AssertStatementFirstInPublicFunction"))),
 //                Arguments.of(Pair.of("Test ObjectInsteadOfConcreteClass", List.of())),
-//                Arguments.of(Pair.of("Test PublicEnumInsideClassAndNotInSeparateFile", List.of()),
+                Arguments.of(Pair.of("Test PublicEnumInsideClassAndNotInSeparateFile", List.of("PublicEnumInsideClassOrInterface"))),
 //                Arguments.of(Pair.of("Test VisibilityAsLowAsPossible", List.of())),
 //                Arguments.of(Pair.of("Test Code Duplication", List.of())),
 //                Arguments.of(Pair.of("Test CodeDuplicationRepetitionsFixableByInheritance", List.of())),
