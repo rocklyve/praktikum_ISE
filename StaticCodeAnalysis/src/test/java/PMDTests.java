@@ -91,7 +91,9 @@ public class PMDTests {
 //                Arguments.of(List.of(Pair.of("Test SystemDependentLineBreak", List.of()))),
 //                Arguments.of(Pair.of("Test RawType", List.of())),
                 Arguments.of(Pair.of("Test ConcreteClassInsteadOfInterface", List.of("LooseCoupling"))),
-//                Arguments.of(Pair.of("Test AssertInsteadOfIfLoop", List.of())),
+                // this is a custom rule, which detects assert statements in public functions,
+                // but only if they are the first statement
+                Arguments.of(Pair.of("Test AssertInsteadOfIfLoop", List.of("AssertStatementFirstInPublicFunction"))),
 //                Arguments.of(Pair.of("Test ObjectInsteadOfConcreteClass", List.of())),
 //                Arguments.of(Pair.of("Test PublicEnumInsideClassAndNotInSeparateFile", List.of()),
 //                Arguments.of(Pair.of("Test VisibilityAsLowAsPossible", List.of())),

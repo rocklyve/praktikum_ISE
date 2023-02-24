@@ -164,6 +164,10 @@ EclEMMA https://www.eclemma.org/
 
 https://pmd.github.io/latest/pmd_userdocs_making_rulesets.html#referencing-a-single-rule
 
+and 
+
+https://pmd.github.io/latest/pmd_userdocs_extending_writing_rules_intro.html
+
 Custom rules can be written in PMD and are created in the file: `custom-pmd-ruleset.xml`. 
 This file is added to the ruleset list in the PMDTest.
 Inside the `src/test/resources/custom-pmd-ruleset.xml` file, a rule can be created with `<rule>RULE CONTENT</rule>`.
