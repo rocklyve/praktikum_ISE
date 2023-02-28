@@ -68,56 +68,23 @@ public class SonarQubeTests {
 
     private static Stream<Arguments> getTestTypeParameters() {
         return Stream.of(
-//                Arguments.of(Pair.of("Test testNonFinalAttributesShouldBeFinal", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test SystemDependentLineBreak", List.of(RULE_PREFIX + ))),
                 Arguments.of(Pair.of("Test RawType", List.of(RULE_PREFIX + "3740"))),
                 Arguments.of(Pair.of("Test ConcreteClassInsteadOfInterface", List.of(RULE_PREFIX + "1319"))),
-                Arguments.of(Pair.of("Test AssertInsteadOfIfLoop", List.of(RULE_PREFIX + "5960", RULE_PREFIX + "4274"))),
-//                Arguments.of(Pair.of("Test ObjectInsteadOfConcreteClass", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test PublicEnumInsideClassAndNotInSeparateFile", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test VisibilityAsLowAsPossible", List.of(RULE_PREFIX + ))),
+                // for AssertVSIF, there are existing rules, but they detect all asserts, in the
+                // "Programmieren" lecture, only asserts at a start of a public method should not be allowed, this is
+                // now solved as a custom pmd rule
+//                Arguments.of(Pair.of("Test AssertInsteadOfIfLoop", List.of(RULE_PREFIX + "5960", RULE_PREFIX + "4274"))),
                 Arguments.of(Pair.of("Test Code Duplication", List.of(RULE_PREFIX + "4144"))),
-//                Arguments.of((Pair.of("Test CodeDuplicationRepetitionsFixableByInheritance", List.of(RULE_PREFIX + ))),
-//                Arguments.of((Pair.of("Test InheritanceInsteadOfEnums", List.of(RULE_PREFIX + ))),
-//                Arguments.of((Pair.of("Test OperationsInsteadOfDomain", List.of(RULE_PREFIX + ))),
-//                Arguments.of((Pair.of("Test HardcodedLogic", List.of(RULE_PREFIX + ))),
-//                Arguments.of((Pair.of("Test StringReferences", List.of(RULE_PREFIX + ))),
-//                Arguments.of((Pair.of("Test ExceptionsForControlFlow", List.of(RULE_PREFIX + ))),
-//                Arguments.of((Pair.of("Test TryCatchBlock", List.of(RULE_PREFIX + ))),
-//                Arguments.of((Pair.of("Test UnspecifiedErrorMessage", List.of(RULE_PREFIX + )))),
-//                Arguments.of((Pair.of("Test WrongLoopType", List.of(RULE_PREFIX + ))),
-//                Arguments.of((Pair.of("Test UnnecessaryComplexity", List.of(RULE_PREFIX + ))),
-//                Arguments.of((Pair.of("Test ClumsySolution", List.of(RULE_PREFIX + ))),
-//                Arguments.of((Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
                 Arguments.of(Pair.of("Test UtilityClass", List.of(RULE_PREFIX + "1118"))),
-//                Arguments.of(Pair.of("Test UnsafeCast", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test EmptyConstructor", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test MeaninglessConstant", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test Scanner", List.of(RULE_PREFIX + ))),
                 Arguments.of(Pair.of("Test UnusedElement",
                         List.of(RULE_PREFIX + "1144", RULE_PREFIX + "1068", RULE_PREFIX + "1481"))
                 ),
-//                Arguments.of(Pair.of("Test MissingThrowsInMethodSignature", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test PublicEnumInClass", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test TrivialJavaDoc", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test BadNaming", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test DataEncapsulationViolation", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test SeparationOfLogicAndInteraction", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test TooComplexCode", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test StaticMethods", List.of(RULE_PREFIX + ))),
                 Arguments.of(Pair.of("Test StaticAttributeOfInstanceAttribute", List.of(RULE_PREFIX + "1170"))),
                 Arguments.of(Pair.of("Test FinalModifier", List.of(RULE_PREFIX + "3008"))),
-//                Arguments.of(Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test ToStringVsEquals", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test DoNotUseObject", List.of(RULE_PREFIX + ))),
                 Arguments.of(Pair.of("Test ClassInsteadOfInterface", List.of(RULE_PREFIX + "1319"))),
-//                Arguments.of(Pair.of("Test EnumForClosedSet", List.of(RULE_PREFIX + ))),
                 Arguments.of(Pair.of("Test EmptyBlock",
                         List.of(RULE_PREFIX + "2094", RULE_PREFIX + "1186", RULE_PREFIX + "108"))
                 )
-//                Arguments.of(Pair.of("Test PackageUsage", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test DynamicBinding", List.of(RULE_PREFIX + ))),
         );
     }
 

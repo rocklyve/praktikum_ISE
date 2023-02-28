@@ -69,8 +69,8 @@ public class PMDTests {
         PMD.runPmd(configuration);
 //        try (PmdAnalysis pmd = PmdAnalysis.create(configuration)) {
 //            // optional: add more rulesets
-////            Report report = pmd.performAnalysisAndCollectReport();
-//            pmd.performAnalysis();
+//            Report report = pmd.performAnalysisAndCollectReport();
+//            // optional: now the report should be mapped to the issues attribute
 //        } catch (Exception e) {
 //            logger.error("Error while running PMD", e);
 //        }

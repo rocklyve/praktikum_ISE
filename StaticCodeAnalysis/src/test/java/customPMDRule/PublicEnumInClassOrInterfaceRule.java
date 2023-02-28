@@ -1,7 +1,6 @@
 package customPMDRule;
 
 import net.sourceforge.pmd.lang.java.ast.ASTClassOrInterfaceBodyDeclaration;
-import net.sourceforge.pmd.lang.java.ast.ASTClassOrInterfaceDeclaration;
 import net.sourceforge.pmd.lang.java.ast.ASTEnumDeclaration;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 
