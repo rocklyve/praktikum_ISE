@@ -59,6 +59,15 @@ public class SonarQubeTests {
         standaloneSonarLintEngine.stop();
     }
 
+    /**
+     * This is a parameterized test method for testing a codebase. It takes in a Pair object of
+     * a String and a List of Strings as a parameter, where the String represents relevant
+     * issue numbers and the List of Strings represents the test type parameters. The method
+     * uses these parameters to find occurring issues and checks them against expected results
+     * using the checkOccurringIssues method.
+     * @param relevantIssueNumbers a Pair object containing a String of relevant issue numbers
+     * and a List of Strings representing test type parameters
+     * */
     @DisplayName("Test Codebase")
     @ParameterizedTest(name = "{index} => relevantIssueNumbers={0}")
     @MethodSource("getTestTypeParameters")

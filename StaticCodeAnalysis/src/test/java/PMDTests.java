@@ -67,22 +67,24 @@ public class PMDTests {
         configuration.setReportFile(PMD_REPORT_FILE_PATH);
 
         PMD.runPmd(configuration);
-//        try (PmdAnalysis pmd = PmdAnalysis.create(configuration)) {
-//            // optional: add more rulesets
-//            Report report = pmd.performAnalysisAndCollectReport();
-//            // optional: now the report should be mapped to the issues attribute
-//        } catch (Exception e) {
-//            logger.error("Error while running PMD", e);
-//        }
 
         ObjectMapper objectMapper = new ObjectMapper();
         issues = objectMapper.readValue(new File(PMD_REPORT_FILE_PATH), PMDTestResult.class);
     }
 
+    /**
+     * This is a parameterized test method for testing a codebase. It takes in a Pair object of
+     * a String and a List of Strings as a parameter, where the String represents relevant
+     * issue numbers and the List of Strings represents the test type parameters. The method
+     * uses these parameters to find occurring issues and checks them against expected results
+     * using the checkOccurringIssues method.
+     * @param relevantIssueNumbers a Pair object containing a String of relevant issue numbers
+     * and a List of Strings representing test type parameters
+     * */
     @DisplayName("Test Codebase")
     @ParameterizedTest(name = "{index} => relevantIssueNumbers={0}")
     @MethodSource("getTestTypeParameters")
-    void testCodeBase(Pair<String, List<String>> relevantIssueNumbers) {
+    public void testCodeBase(Pair<String, List<String>> relevantIssueNumbers) {
         checkOccurringIssues(findOccurringIssues(relevantIssueNumbers.getRight()));
     }
 
