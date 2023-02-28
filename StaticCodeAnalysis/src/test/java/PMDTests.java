@@ -81,6 +81,7 @@ public class PMDTests {
      * @param relevantIssueNumbers a Pair object containing a String of relevant issue numbers
      * and a List of Strings representing test type parameters
      * */
+    // TODO: also reference the left part of the pair, so that the name of the test is also displayed
     @DisplayName("Test Codebase")
     @ParameterizedTest(name = "{index} => relevantIssueNumbers={0}")
     @MethodSource("getTestTypeParameters")
@@ -90,13 +91,15 @@ public class PMDTests {
 
     private static Stream<Arguments> getTestTypeParameters() {
         return Stream.of(
-//                Arguments.of(List.of(Pair.of("Test SystemDependentLineBreak", List.of()))),
+                // This is a custom rule, which detects, if any code in the codebase has system dependent line breaks
+                Arguments.of(Pair.of("Test SystemDependentLineBreak", List.of("SystemDependentLineBreakNotAllowed"))),
 //                Arguments.of(Pair.of("Test RawType", List.of())),
                 Arguments.of(Pair.of("Test ConcreteClassInsteadOfInterface", List.of("LooseCoupling"))),
                 // this is a custom rule, which detects assert statements in public functions,
                 // but only if they are the first statement
                 Arguments.of(Pair.of("Test AssertInsteadOfIfLoop", List.of("AssertStatementFirstInPublicFunction"))),
 //                Arguments.of(Pair.of("Test ObjectInsteadOfConcreteClass", List.of())),
+                // this is a custom rule, which detects, if there are public enums inside of classes or interfaces
                 Arguments.of(Pair.of("Test PublicEnumInsideClassAndNotInSeparateFile", List.of("PublicEnumInsideClassOrInterface"))),
 //                Arguments.of(Pair.of("Test VisibilityAsLowAsPossible", List.of())),
 //                Arguments.of(Pair.of("Test Code Duplication", List.of())),
@@ -122,6 +125,7 @@ public class PMDTests {
                 ),
 //                Arguments.of(Pair.of("Test MissingThrowsInMethodSignature", List.of(RULE_PREFIX + ))),
 //                Arguments.of(Pair.of("Test PublicEnumInClass", List.of(RULE_PREFIX + ))),
+                // this is a custom pmd rule, which detects, if classes only keeps constants, but no other attributes and functions
                 Arguments.of(Pair.of("Test ClassOfConstants", List.of("ClassOfConstants"))),
 //                Arguments.of(Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
 //                Arguments.of(Pair.of("Test TrivialJavaDoc", List.of(RULE_PREFIX + ))),

@@ -132,7 +132,7 @@ This rule table includes all custom rules from the lecture "Programmieren" and m
 | 22     | :x:                           | Missing `throws` statement in method signature                                                                                                                                                                                                        | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
 | 23     | :white_check_mark: (OWN RULE) | Public enum in class                                                                                                                                                                                                                                  | PublicEnumInsideClassOrInterface (OWN RULE)                                                                       |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
 | 24     | :white_check_mark: (OWN RULE) | Class of constants                                                                                                                                                                                                                                    | ClassOfConstants (OWN RULE)                                                                                       |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
-| 25     | :x:                           | System dependent line break                                                                                                                                                                                                                           | :x: N/A                                                                                                           | N/ A in all rulesets |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 25     | :white_check_mark: (OWN RULE) | System dependent line break                                                                                                                                                                                                                           | SystemDependentLineBreakNotAllowed (OWN RULE)                                                                     | N/ A in all rulesets |      | :x: N/A                                                                                                                            |      |                                                                                         |
 | 26     |                               | Trivial JavaDoc                                                                                                                                                                                                                                       | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
 | 27     | :x:                           | Bad naming                                                                                                                                                                                                                                            |                                                                                                                   |                      |      | Method names should comply with a naming convention, default regex: `^[a-z][a-zA-Z0-9]*$:`                                         | 100  |                                                                                         |
 |        |                               |                                                                                                                                                                                                                                                       |                                                                                                                   |                      |      | Class names should comply with a naming convention                                                                                 | 101  |                                                                                         |
@@ -218,24 +218,6 @@ public class TryCatchBlockSizeRule extends AbstractJavaRule {
     }
 }
 ```
-
-#### System dependent line breaks
-
-```java
-public class LineBreakRule extends AbstractJavaRule {
-  @Override
-  public Object visit(ASTCompilationUnit node, Object data) {
-    String[] lines = node.getImage().split("\\r?\\n|\\r");
-    for (int i = 0; i < lines.length; i++) {
-      if (lines[i].contains("\r\n")) {
-        addViolation(data, new RuleViolation(getRule(), node.getBeginLine() + i));
-      }
-    }
-    return super.visit(node, data);
-  }
-}
-```
-
 
 ### Custom Rulesets for Sonarqube
 

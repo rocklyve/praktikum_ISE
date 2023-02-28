@@ -27,11 +27,11 @@
         <priority>3</priority>
         <example>
             <![CDATA[
-      class MyClass {
-        public static final int CONSTANT1 = 1;
-        public static final int CONSTANT2 = 2;
-      }
-      ]]>
+            class MyClass {
+                public static final int CONSTANT1 = 1;
+                public static final int CONSTANT2 = 2;
+            }
+            ]]>
         </example>
     </rule>
     <rule name="AssertStatementFirstInPublicFunction"
@@ -46,6 +46,23 @@
             <![CDATA[
             void myFunction() {
                 assert (1 == 1);
+            }
+            ]]>
+        </example>
+    </rule>
+    <rule name="SystemDependentLineBreakNotAllowed"
+          language="java"
+          since="1.03"
+          message="System dependent linebreaks are not allowed."
+          class="customPMDRule.LineBreakRule">
+        <description>This rule is not allowing system dependent linebreaks in the code.</description>
+        <priority>3</priority>
+        <example>
+            <![CDATA[
+            public class MyClass {
+                public static void main(String[] args) {
+                    System.out.println("Hello World!\r\n");
+                }
             }
             ]]>
         </example>
