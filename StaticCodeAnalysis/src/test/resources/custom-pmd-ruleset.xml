@@ -67,4 +67,24 @@
             ]]>
         </example>
     </rule>
+    <rule name="TooLongTryBlockStatement"
+          language="java"
+          since="1.03"
+          message="Try block too long and/or contains non-relevant statements."
+          class="customPMDRule.TryCatchBlockSizeRule">
+        <description>Detects a try block that is too long and contains non-relevant statements.</description>
+        <priority>3</priority>
+        <example>
+            <![CDATA[
+            public void foo() {
+                try {
+                    // Too many statements
+                    ...
+                } catch (Exception e) {
+                    ...
+                }
+            }
+            ]]>
+        </example>
+    </rule>
 </ruleset>

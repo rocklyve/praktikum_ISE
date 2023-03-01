@@ -109,7 +109,7 @@ public class PMDTests {
                 Arguments.of(Pair.of("Test HardcodedLogic", List.of("AvoidLiteralsInIfCondition"))),
 //                Arguments.of(Pair.of("Test StringReferences", List.of())),
                 Arguments.of(Pair.of("Test ExceptionsForControlFlow", List.of("EmptyCatchBlock"))),
-//                Arguments.of(Pair.of("Test TryCatchBlock", List.of(RULE_PREFIX + ))),
+                Arguments.of(Pair.of("Test TryCatchBlock", List.of("TooLongTryBlockStatement"))),
 //                Arguments.of(Pair.of("Test UnspecifiedErrorMessage", List.of(RULE_PREFIX + ))),
                 Arguments.of(Pair.of("Test WrongLoopType", List.of("ForLoopCanBeForeach", "ForLoopShouldBeWhileLoop"))),
 //                Arguments.of(Pair.of("Test UnnecessaryComplexity", List.of(RULE_PREFIX + ))),
