@@ -70,9 +70,9 @@
     <rule name="TooLongTryBlockStatement"
           language="java"
           since="1.03"
-          message="Try block too long and/or contains non-relevant statements."
+          message="Try block too long."
           class="customPMDRule.TryCatchBlockSizeRule">
-        <description>Detects a try block that is too long and contains non-relevant statements.</description>
+        <description>Detects a try block that is too long.</description>
         <priority>3</priority>
         <example>
             <![CDATA[
