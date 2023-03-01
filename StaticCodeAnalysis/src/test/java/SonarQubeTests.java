@@ -71,28 +71,28 @@ public class SonarQubeTests {
     @DisplayName("Test Codebase")
     @ParameterizedTest(name = "{index} => relevantIssueNumbers={0}")
     @MethodSource("getTestTypeParameters")
-    void testCodeBase(Pair<String, List<String>> relevantIssueNumbers) {
-        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers.getRight()));
+    void testCodeBase(String description, List<String> relevantIssueNumbers) {
+        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
     private static Stream<Arguments> getTestTypeParameters() {
         return Stream.of(
-                Arguments.of(Pair.of("Test RawType", List.of(RULE_PREFIX + "3740"))),
-                Arguments.of(Pair.of("Test ConcreteClassInsteadOfInterface", List.of(RULE_PREFIX + "1319"))),
+                Arguments.of("Test RawType", List.of(RULE_PREFIX + "3740")),
+                Arguments.of("Test ConcreteClassInsteadOfInterface", List.of(RULE_PREFIX + "1319")),
                 // for AssertVSIF, there are existing rules, but they detect all asserts, in the
                 // "Programmieren" lecture, only asserts at a start of a public method should not be allowed, this is
                 // now solved as a custom pmd rule
-//                Arguments.of(Pair.of("Test AssertInsteadOfIfLoop", List.of(RULE_PREFIX + "5960", RULE_PREFIX + "4274"))),
-                Arguments.of(Pair.of("Test Code Duplication", List.of(RULE_PREFIX + "4144"))),
-                Arguments.of(Pair.of("Test UtilityClass", List.of(RULE_PREFIX + "1118"))),
-                Arguments.of(Pair.of("Test UnusedElement",
-                        List.of(RULE_PREFIX + "1144", RULE_PREFIX + "1068", RULE_PREFIX + "1481"))
+//                Arguments.of("Test AssertInsteadOfIfLoop", List.of(RULE_PREFIX + "5960", RULE_PREFIX + "4274")),
+                Arguments.of("Test Code Duplication", List.of(RULE_PREFIX + "4144")),
+                Arguments.of("Test UtilityClass", List.of(RULE_PREFIX + "1118")),
+                Arguments.of("Test UnusedElement",
+                        List.of(RULE_PREFIX + "1144", RULE_PREFIX + "1068", RULE_PREFIX + "1481")
                 ),
-                Arguments.of(Pair.of("Test StaticAttributeOfInstanceAttribute", List.of(RULE_PREFIX + "1170"))),
-                Arguments.of(Pair.of("Test FinalModifier", List.of(RULE_PREFIX + "3008"))),
-                Arguments.of(Pair.of("Test ClassInsteadOfInterface", List.of(RULE_PREFIX + "1319"))),
-                Arguments.of(Pair.of("Test EmptyBlock",
-                        List.of(RULE_PREFIX + "2094", RULE_PREFIX + "1186", RULE_PREFIX + "108"))
+                Arguments.of("Test StaticAttributeOfInstanceAttribute", List.of(RULE_PREFIX + "1170")),
+                Arguments.of("Test FinalModifier", List.of(RULE_PREFIX + "3008")),
+                Arguments.of("Test ClassInsteadOfInterface", List.of(RULE_PREFIX + "1319")),
+                Arguments.of("Test EmptyBlock",
+                        List.of(RULE_PREFIX + "2094", RULE_PREFIX + "1186", RULE_PREFIX + "108")
                 )
         );
     }

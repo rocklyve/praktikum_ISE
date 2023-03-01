@@ -1,14 +1,11 @@
 import java.io.File;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import net.sourceforge.pmd.PmdAnalysis;
-import net.sourceforge.pmd.Report;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
@@ -85,65 +82,65 @@ public class PMDTests {
     @DisplayName("Test Codebase")
     @ParameterizedTest(name = "{index} => relevantIssueNumbers={0}")
     @MethodSource("getTestTypeParameters")
-    public void testCodeBase(Pair<String, List<String>> relevantIssueNumbers) {
-        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers.getRight()));
+    public void testCodeBase(String description, List<String> relevantIssueNumbers) {
+        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
     private static Stream<Arguments> getTestTypeParameters() {
         return Stream.of(
                 // This is a custom rule, which detects, if any code in the codebase has system dependent line breaks
-                Arguments.of(Pair.of("Test SystemDependentLineBreak", List.of("SystemDependentLineBreakNotAllowed"))),
-//                Arguments.of(Pair.of("Test RawType", List.of())),
-                Arguments.of(Pair.of("Test ConcreteClassInsteadOfInterface", List.of("LooseCoupling"))),
+                Arguments.of("Test SystemDependentLineBreak", List.of("SystemDependentLineBreakNotAllowed")),
+//                Arguments.of("Test RawType", List.of()),
+                Arguments.of("Test ConcreteClassInsteadOfInterface", List.of("LooseCoupling")),
                 // this is a custom rule, which detects assert statements in public functions,
                 // but only if they are the first statement
-                Arguments.of(Pair.of("Test AssertInsteadOfIfLoop", List.of("AssertStatementFirstInPublicFunction"))),
-//                Arguments.of(Pair.of("Test ObjectInsteadOfConcreteClass", List.of())),
+                Arguments.of("Test AssertInsteadOfIfLoop", List.of("AssertStatementFirstInPublicFunction")),
+//                Arguments.of("Test ObjectInsteadOfConcreteClass", List.of()),
                 // this is a custom rule, which detects, if there are public enums inside of classes or interfaces
-                Arguments.of(Pair.of("Test PublicEnumInsideClassAndNotInSeparateFile", List.of("PublicEnumInsideClassOrInterface"))),
-//                Arguments.of(Pair.of("Test VisibilityAsLowAsPossible", List.of())),
-//                Arguments.of(Pair.of("Test Code Duplication", List.of())),
-//                Arguments.of(Pair.of("Test CodeDuplicationRepetitionsFixableByInheritance", List.of())),
-//                Arguments.of(Pair.of("Test InheritanceInsteadOfEnums", List.of())),
-//                Arguments.of(Pair.of("Test OperationsInsteadOfDomain", List.of())),
-                Arguments.of(Pair.of("Test HardcodedLogic", List.of("AvoidLiteralsInIfCondition"))),
-//                Arguments.of(Pair.of("Test StringReferences", List.of())),
-                Arguments.of(Pair.of("Test ExceptionsForControlFlow", List.of("EmptyCatchBlock"))),
-                Arguments.of(Pair.of("Test TryCatchBlock", List.of("TooLongTryBlockStatement"))),
-//                Arguments.of(Pair.of("Test UnspecifiedErrorMessage", List.of(RULE_PREFIX + ))),
-                Arguments.of(Pair.of("Test WrongLoopType", List.of("ForLoopCanBeForeach", "ForLoopShouldBeWhileLoop"))),
-//                Arguments.of(Pair.of("Test UnnecessaryComplexity", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test ClumsySolution", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
-                Arguments.of(Pair.of("Test UtilityClass", List.of("UseUtilityClass"))),
-//                Arguments.of(Pair.of("Test UnsafeCast", List.of(RULE_PREFIX + ))),
-                Arguments.of(Pair.of("Test EmptyConstructor", List.of("UncommentedEmptyConstructor", "UnnecessaryConstructor"))),
-//                Arguments.of(Pair.of("Test MeaninglessConstant", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test Scanner", List.of(RULE_PREFIX + ))),
-                Arguments.of(Pair.of("Test UnusedElement",
-                        List.of("UnusedPrivateField", "UnusedPrivateMethod", "UnusedLocalVariable", "UnusedFormalParameter"))
+                Arguments.of("Test PublicEnumInsideClassAndNotInSeparateFile", List.of("PublicEnumInsideClassOrInterface")),
+//                Arguments.of("Test VisibilityAsLowAsPossible", List.of()),
+//                Arguments.of("Test Code Duplication", List.of()),
+//                Arguments.of("Test CodeDuplicationRepetitionsFixableByInheritance", List.of()),
+//                Arguments.of("Test InheritanceInsteadOfEnums", List.of()),
+//                Arguments.of("Test OperationsInsteadOfDomain", List.of()),
+                Arguments.of("Test HardcodedLogic", List.of("AvoidLiteralsInIfCondition")),
+//                Arguments.of("Test StringReferences", List.of()),
+                Arguments.of("Test ExceptionsForControlFlow", List.of("EmptyCatchBlock")),
+                Arguments.of("Test TryCatchBlock", List.of("TooLongTryBlockStatement")),
+//                Arguments.of("Test UnspecifiedErrorMessage", List.of(RULE_PREFIX + )),
+                Arguments.of("Test WrongLoopType", List.of("ForLoopCanBeForeach", "ForLoopShouldBeWhileLoop")),
+//                Arguments.of("Test UnnecessaryComplexity", List.of(RULE_PREFIX + )),
+//                Arguments.of("Test ClumsySolution", List.of(RULE_PREFIX + )),
+//                Arguments.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + )),
+                Arguments.of("Test UtilityClass", List.of("UseUtilityClass")),
+//                Arguments.of("Test UnsafeCast", List.of(RULE_PREFIX + )),
+                Arguments.of("Test EmptyConstructor", List.of("UncommentedEmptyConstructor", "UnnecessaryConstructor")),
+//                Arguments.of("Test MeaninglessConstant", List.of(RULE_PREFIX + )),
+//                Arguments.of("Test Scanner", List.of(RULE_PREFIX + )),
+                Arguments.of("Test UnusedElement",
+                        List.of("UnusedPrivateField", "UnusedPrivateMethod", "UnusedLocalVariable", "UnusedFormalParameter")
                 ),
-//                Arguments.of(Pair.of("Test MissingThrowsInMethodSignature", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test PublicEnumInClass", List.of(RULE_PREFIX + ))),
+//                Arguments.of("Test MissingThrowsInMethodSignature", List.of(RULE_PREFIX + )),
+//                Arguments.of("Test PublicEnumInClass", List.of(RULE_PREFIX + )),
                 // this is a custom pmd rule, which detects, if classes only keeps constants, but no other attributes and functions
-                Arguments.of(Pair.of("Test ClassOfConstants", List.of("ClassOfConstants"))),
-//                Arguments.of(Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test TrivialJavaDoc", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test BadNaming", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test DataEncapsulationViolation", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test SeparationOfLogicAndInteraction", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test TooComplexCode", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test StaticMethods", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test StaticAttributeOfInstanceAttribute", List.of())),
-                Arguments.of(Pair.of("Test FinalModifier", List.of("MethodArgumentCouldBeFinal", "LocalVariableCouldBeFinal")))
-//                Arguments.of(Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test ToStringVsEquals", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test DoNotUseObject", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test ClassInsteadOfInterface", List.of())),
-//                Arguments.of(Pair.of("Test EnumForClosedSet", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test EmptyBlock", List.of())),
-//                Arguments.of(Pair.of("Test PackageUsage", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test DynamicBinding", List.of(RULE_PREFIX + ))),
+                Arguments.of("Test ClassOfConstants", List.of("ClassOfConstants")),
+//                Arguments.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + )),
+//                Arguments.of("Test TrivialJavaDoc", List.of(RULE_PREFIX + )),
+//                Arguments.of("Test BadNaming", List.of(RULE_PREFIX + )),
+//                Arguments.of("Test DataEncapsulationViolation", List.of(RULE_PREFIX + )),
+//                Arguments.of("Test SeparationOfLogicAndInteraction", List.of(RULE_PREFIX + )),
+//                Arguments.of("Test TooComplexCode", List.of(RULE_PREFIX + )),
+//                Arguments.of("Test StaticMethods", List.of(RULE_PREFIX + )),
+//                Arguments.of("Test StaticAttributeOfInstanceAttribute", List.of()),
+                Arguments.of("Test FinalModifier", List.of("MethodArgumentCouldBeFinal", "LocalVariableCouldBeFinal"))
+//                Arguments.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + )),
+//                Arguments.of("Test ToStringVsEquals", List.of(RULE_PREFIX + )),
+//                Arguments.of("Test DoNotUseObject", List.of(RULE_PREFIX + )),
+//                Arguments.of("Test ClassInsteadOfInterface", List.of()),
+//                Arguments.of("Test EnumForClosedSet", List.of(RULE_PREFIX + )),
+//                Arguments.of("Test EmptyBlock", List.of()),
+//                Arguments.of("Test PackageUsage", List.of(RULE_PREFIX + )),
+//                Arguments.of("Test DynamicBinding", List.of(RULE_PREFIX + )),
         );
     }
 

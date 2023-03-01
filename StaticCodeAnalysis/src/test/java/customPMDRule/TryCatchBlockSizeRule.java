@@ -13,7 +13,7 @@ public class TryCatchBlockSizeRule extends AbstractJavaRule {
     * The maximum length for try-catch blocks. If you modify this value, please also adjust
     * the value in the custom-pmd-ruleset.xml file in the description of the rule.
     */
-    private static final int MAX_LENGTH = 20;
+    private static final int MAX_LENGTH = 10;
 
     /**
      Visits an ASTTryStatement node and checks if the length of the try block exceeds the maximum length.
