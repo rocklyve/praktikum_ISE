@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -38,7 +37,13 @@ public class PMDTests {
             Map.entry("performance", Path.of("category", "java","performance.xml")),
             Map.entry("security", Path.of("category", "java","security.xml")),
             Map.entry("custom-rules", Path.of( "custom-pmd-ruleset.xml"))
-    ).entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().normalize().toString()));
+    ).entrySet().stream().collect(
+            Collectors.toMap(
+                    // this `.replace("\\", "/")` is necessary because the PMD API does not work with Windows paths
+                    // thats because the framework will always require forward slashes there
+                    Map.Entry::getKey, e -> e.getValue().normalize().toString().replace("\\", "/")
+            )
+    );
 
     private static final String PMD_REPORT_INPUT_FILE_PATH =
             Path.of("src", "main","java", "edu", "kit", "informatik")
@@ -75,12 +80,11 @@ public class PMDTests {
      * issue numbers and the List of Strings represents the test type parameters. The method
      * uses these parameters to find occurring issues and checks them against expected results
      * using the checkOccurringIssues method.
-     * @param relevantIssueNumbers a Pair object containing a String of relevant issue numbers
-     * and a List of Strings representing test type parameters
+     * @param description a String representing the description of the test
+     * @param relevantIssueNumbers containing a List of Strings with relevant issue numbers
      * */
-    // TODO: also reference the left part of the pair, so that the name of the test is also displayed
     @DisplayName("Test Codebase")
-    @ParameterizedTest(name = "{index} => relevantIssueNumbers={0}")
+    @ParameterizedTest(name = "{index} => relevant rule: \"{0}\"")
     @MethodSource("getTestTypeParameters")
     public void testCodeBase(String description, List<String> relevantIssueNumbers) {
         checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));

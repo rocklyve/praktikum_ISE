@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -44,9 +43,6 @@ public class SonarQubeTests {
     public static void setUpBeforeClass() throws Exception {
         issues = new ArrayList<>();
 
-        // TODO: saveActions plugin, or other cleanup
-        // TODO: or with eclipse cleanup
-
         Path javaPlugin = getJavaPlugin();
         var path = Path.of(PROJECT_ENTRY_PATH).toAbsolutePath();
         var javaFiles = getFiles(path);
@@ -65,11 +61,11 @@ public class SonarQubeTests {
      * issue numbers and the List of Strings represents the test type parameters. The method
      * uses these parameters to find occurring issues and checks them against expected results
      * using the checkOccurringIssues method.
-     * @param relevantIssueNumbers a Pair object containing a String of relevant issue numbers
-     * and a List of Strings representing test type parameters
+     * @param description containing a String with the description of the test
+     * @param relevantIssueNumbers containing a List of String with relevant issue numbers
      * */
     @DisplayName("Test Codebase")
-    @ParameterizedTest(name = "{index} => relevantIssueNumbers={0}")
+    @ParameterizedTest(name = "{index} => relevant rule: \"{0}\"")
     @MethodSource("getTestTypeParameters")
     void testCodeBase(String description, List<String> relevantIssueNumbers) {
         checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
