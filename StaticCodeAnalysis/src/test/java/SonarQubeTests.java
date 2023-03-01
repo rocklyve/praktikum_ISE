@@ -104,7 +104,6 @@ public class SonarQubeTests {
 
     private static void checkOccurringIssues(List<Issue> occurringIssues) {
         if (occurringIssues.isEmpty()) {
-            return;
         } else {
             String mergedMessage = newLine;
             for (Issue issue : occurringIssues) {

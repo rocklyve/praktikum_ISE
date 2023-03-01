@@ -54,7 +54,7 @@ public class PMDTests {
     private static final String PMD_REPORT_FILE_FORMAT = "json";
 
     static PMDTestResult issues;
-    private static Logger logger = LoggerFactory.getLogger(PMDTests.class);
+    private static final Logger logger = LoggerFactory.getLogger(PMDTests.class);
 
     @BeforeAll
     public static void setUpBeforeClass() throws Exception {
