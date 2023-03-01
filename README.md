@@ -15,6 +15,21 @@ To run the tests, you need to have maven and java17 installed on your machine.
 Choose your IDE and import the project as a maven project.
 Afterwards, execute the tests in the IDE.
 
+## Tests + Results
+The tests are located in the `src/test/java` folder. 
+For both PMD and Sonarqube, there are tests for the rules existing for the corresponding tool.
+For each of the two tools, a `@BeforeAll` method is called, which will initialize the tool and analyze the files to test.
+The results are mapped into an `issues` object. 
+For the Sonarqube tests, the results are available as a `Result` object, which is afterwards mapped to the `issues` object.
+For the PMD tests, the results are written to a `json` file, which is afterwards mapped to the `issues` object.
+
+After the `@BeforeAll` method is finished, the tests can be executed, 
+which will iterate trough the `issues` object and check if there are issues for the test scenario.
+
+Due to the tests being parameterized tests, each test execution will get the relevant rules from the `getTestTypeParameters` function as a Stream.
+
+After all tests are executed, the `@AfterAll` method will be called, which deletes the `issues` object. 
+
 ## Rules
 
 The rules are based on the rulesets from Sonarqube and PMD. 
@@ -169,59 +184,28 @@ This rule table includes all custom rules from the lecture "Programmieren" and m
 
 ## Custom Rulesets
 
-### Custom Rulesets for PMD
+### Custom rulesets for PMD
 
-https://pmd.github.io/latest/pmd_userdocs_making_rulesets.html#referencing-a-single-rule
+Custom rules can be written in PMD with the Java AST (Abstract Syntax Tree).
+Therefore you have to create a `XML` file and create a new rule. 
+For more details here, take a look into the resources. 
+In this `XML` file, you create a `<ruleset>`, which keeps all the `<rule>` into it.
+In every rule, a description `class` exists, which references to a java class the rule will be executed or validated.
+For example, a custom JAVA class `PublicEnumInClassRule` which extends the `AbstractJavaRule` class 
+is created and will verify, that public enums inside classes are not allowed.
+Every class extends the `AbstractJavaRule` class, where the `visit` method is implemented.
+For more details, take a look into the directory `src/main/java/customPMDRule/`.
 
-and 
-
-https://pmd.github.io/latest/pmd_userdocs_extending_writing_rules_intro.html
-
-Custom rules can be written in PMD and are created in the file: `custom-pmd-ruleset.xml`. 
+The custom rules are created in the file: `custom-pmd-ruleset.xml`.
 This file is added to the ruleset list in the PMDTest.
-Inside the `src/test/resources/custom-pmd-ruleset.xml` file, a rule can be created with `<rule>RULE CONTENT</rule>`.
-In every rule, a description `class` exists, which references to a java class the rule will be executed or validated. 
-For example, a custom JAVA class `PublicEnumInClassRule` which extends the `AbstractJavaRule` class is created and will verify, that public enums inside classes are not allowed.
-All java classes of the custom rules are located in the `src/test/java/customPMDRule/` folder.
+Afterwards the rules will be executed and the results will be integrated in the test scenarios.
 
-By now, the rule is not recognized by PMD. I think I have to add the rule as a maven plugin (dependency) as a jar file.
-This link will help me maybe: https://stackoverflow.com/questions/43601640/classnotfoundexception-using-custom-java-rule-for-pmd-ruleset.
-
-### Ideas for more custom rules
-
-#### Try-Catch-Block
-
-```java
-public class TryCatchBlockSizeRule extends AbstractJavaRule {
-
-    private static final int MAX_BLOCK_SIZE = 5;
-
-    @Override
-    public Object visit(ASTTryStatement node, Object data) {
-        List<ASTStatement> tryStatements = node.getTryBlock().findDescendantsOfType(ASTStatement.class);
-        List<ASTStatement> catchStatements = node.getCatchBlocks().stream()
-                .flatMap(b -> b.findDescendantsOfType(ASTStatement.class).stream())
-                .collect(Collectors.toList());
-
-        List<ASTStatement> relevantStatements = tryStatements.stream()
-                .filter(s -> !s.isDescendantOf(ASTCatchStatement.class))
-                .filter(s -> !(s instanceof ASTEmptyStatement))
-                .filter(s -> !(s instanceof ASTBlockStatement))
-                .collect(Collectors.toList());
-
-        int totalStatements = relevantStatements.size() + catchStatements.size();
-        if (totalStatements > MAX_BLOCK_SIZE) {
-            addViolation(data, node);
-        }
-
-        return super.visit(node, data);
-    }
-}
-```
+Resources:
+* https://pmd.github.io/latest/pmd_userdocs_making_rulesets.html#referencing-a-single-rule
+* https://pmd.github.io/latest/pmd_userdocs_extending_writing_rules_intro.html
 
 ### Custom Rulesets for Sonarqube
 
 https://docs.sonarqube.org/9.6/extension-guide/adding-coding-rules/
 
 Also it's possible to create own rules with Sonarqube, but they will be not mentioned here, because PMD can cover all requirements.
-
