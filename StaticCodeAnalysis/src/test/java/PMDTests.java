@@ -6,10 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -24,6 +21,7 @@ import pmdModel.PMDTestResult;
 import pmdModel.PMDTestResultFile;
 import pmdModel.PMDTestViolation;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PMDTests {
     public static final String NEW_LINE = System.lineSeparator();
 
@@ -55,11 +53,11 @@ public class PMDTests {
                     .toString();
     private static final String PMD_REPORT_FILE_FORMAT = "json";
 
-    static PMDTestResult issues;
+    PMDTestResult issues;
     private static final Logger logger = LoggerFactory.getLogger(PMDTests.class);
 
     @BeforeAll
-    public static void setUpBeforeClass() throws Exception {
+    public void setUpBeforeClass() throws Exception {
         PMDConfiguration configuration = new PMDConfiguration();
         configuration.addInputPath(PMD_REPORT_INPUT_FILE_PATH);
 
@@ -90,7 +88,7 @@ public class PMDTests {
         checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
-    private static Stream<Arguments> getTestTypeParameters() {
+    private Stream<Arguments> getTestTypeParameters() {
         return Stream.of(
                 // This is a custom rule, which detects, if any code in the codebase has system dependent line breaks
                 Arguments.of("Test SystemDependentLineBreak", List.of("SystemDependentLineBreakNotAllowed")),
@@ -115,7 +113,7 @@ public class PMDTests {
         );
     }
 
-    private static void checkOccurringIssues(List<PMDTestResultFile> occurringIssues) {
+    private void checkOccurringIssues(List<PMDTestResultFile> occurringIssues) {
         if (occurringIssues.isEmpty()) {
             return;
         }
@@ -154,7 +152,7 @@ public class PMDTests {
     }
 
     @AfterAll
-    public static void tearDownAfterClass() {
+    public void tearDownAfterClass() {
         logger.info("over");
     }
 }
