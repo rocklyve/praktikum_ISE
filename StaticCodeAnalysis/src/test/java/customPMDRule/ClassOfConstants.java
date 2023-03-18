@@ -30,7 +30,7 @@ public class ClassOfConstants extends AbstractJavaRule {
                 constantCount++;
             }
         }
-        
+
         boolean containsConstructor = !node.findDescendantsOfType(ASTConstructorDeclaration.class).isEmpty();
         boolean containsMethods = !node.findDescendantsOfType(ASTMethodDeclaration.class).isEmpty();
         if (!containsConstructor

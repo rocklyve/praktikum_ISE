@@ -24,18 +24,24 @@ public class AssertStatementFirstInPublicFunctionRule extends AbstractJavaRule {
      */
     @Override
     public Object visit(ASTMethodDeclaration node, Object data) {
-        // Check if the method is public and check if there is a first statement
-        // the node inside a ASTMethodDeclaration has 3 children,
-        // the ResultType, the MethodDeclarator and a Block, containing the MethodBody
-        // inside the Block, every statement is packed into a BlockStatement,
-        // therefore we have to get the child of the BlockStatement
-         if (node.isPublic()
-                && node.getNumChildren() > 2
-                && node.getChild(2).getNumChildren() > 0
-                && node.getChild(2).getChild(0).getNumChildren() > 0
+        /**
+         * Check if the method is public and check if there is a first statement
+         * the node inside a ASTMethodDeclaration has 3 children,
+         * the ResultType, the MethodDeclarator and a Block, containing the MethodBody
+         * inside the Block, every statement is packed into a BlockStatement,
+         * therefore we have to get the child of the BlockStatement
+         */
+        final int methodBodyIndex = 2;
+        final int blockIndex = 0;
+        final int statementIndex = 0;
+
+        if (node.isPublic()
+                && node.getNumChildren() > methodBodyIndex
+                && node.getChild(methodBodyIndex).getNumChildren() > blockIndex
+                && node.getChild(methodBodyIndex).getChild(blockIndex).getNumChildren() > statementIndex
         ) {
             // Get the first statement of the method
-            Node firstChild = node.getChild(2).getChild(0).getChild(0);
+            Node firstChild = node.getChild(methodBodyIndex).getChild(blockIndex).getChild(statementIndex);
             if (firstChild instanceof ASTAssertStatement) {
                 addViolation(data, node);
             }
