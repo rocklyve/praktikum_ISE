@@ -1,6 +1,7 @@
 package customPMDRule;
 
 import net.sourceforge.pmd.lang.java.ast.ASTClassOrInterfaceDeclaration;
+import net.sourceforge.pmd.lang.java.ast.ASTConstructorDeclaration;
 import net.sourceforge.pmd.lang.java.ast.ASTFieldDeclaration;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
@@ -29,8 +30,13 @@ public class ClassOfConstants extends AbstractJavaRule {
                 constantCount++;
             }
         }
-
-        if (node.findDescendantsOfType(ASTMethodDeclaration.class).isEmpty() && fieldCount != 0 && fieldCount == constantCount) {
+        
+        boolean containsConstructor = !node.findDescendantsOfType(ASTConstructorDeclaration.class).isEmpty();
+        boolean containsMethods = !node.findDescendantsOfType(ASTMethodDeclaration.class).isEmpty();
+        if (!containsConstructor
+                && !containsMethods
+                && fieldCount != 0
+                && fieldCount == constantCount) {
             addViolation(data, node);
         }
 

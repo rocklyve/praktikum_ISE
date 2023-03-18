@@ -16,11 +16,11 @@ public class TryCatchBlockSizeRule extends AbstractJavaRule {
     private static final int MAX_LENGTH = 10;
 
     /**
-     Visits an ASTTryStatement node and checks if the length of the try block exceeds the maximum length.
-     If it does, a violation is added to the report.
-     @param node the ASTTryStatement node to visit
-     @param data the context in which the node is being visited
-     @return the result of visiting the node
+     * Visits an ASTTryStatement node and checks if the length of the try block exceeds the maximum length.
+     * If it does, a violation is added to the report.
+     * @param node the ASTTryStatement node to visit
+     * @param data the context in which the node is being visited
+     * @return the result of visiting the node
      */
     @Override
     public Object visit(ASTTryStatement node, Object data) {
