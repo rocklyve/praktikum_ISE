@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,9 +14,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import net.sourceforge.pmd.PMD;
 import net.sourceforge.pmd.PMDConfiguration;
 import pmdModel.PMDTestResult;
@@ -27,7 +24,7 @@ import pmdModel.PMDTestViolation;
 public class PMDTests {
     public static final String NEW_LINE = System.lineSeparator();
 
-    private static final Map<String, String> PMD_RULE_SET_FILE_PATHS = Map.ofEntries(
+    private static final Map<String, String> PMD_RULE_SET_FILE_PATHS = rulesFromMap(Map.ofEntries(
             Map.entry("codestyle", Path.of("category", "java","codestyle.xml")),
             Map.entry("design", Path.of("category", "java","design.xml")),
             Map.entry("bestpractices", Path.of("category", "java","bestpractices.xml")),
@@ -37,13 +34,7 @@ public class PMDTests {
             Map.entry("performance", Path.of("category", "java","performance.xml")),
             Map.entry("security", Path.of("category", "java","security.xml")),
             Map.entry("custom-rules", Path.of( "custom-pmd-ruleset.xml"))
-    ).entrySet().stream().collect(
-            Collectors.toMap(
-                    // this `.replace("\\", "/")` is necessary because the PMD API does not work with Windows paths
-                    // thats because the framework will always require forward slashes there
-                    Map.Entry::getKey, e -> e.getValue().normalize().toString().replace("\\", "/")
-            )
-    );
+    ));
 
     private static final String PMD_REPORT_INPUT_FILE_PATH =
             Path.of("src", "main","java", "edu", "kit", "informatik")
@@ -151,6 +142,16 @@ public class PMDTests {
                 })
                 .filter(file -> !file.violations().isEmpty())
                 .collect(Collectors.toList());
+    }
+
+    private static Map<String, String> rulesFromMap(Map<String, Path> map) {
+        return map.entrySet().stream().collect(
+                Collectors.toMap(
+                        // this `.replace("\\", "/")` is necessary because the PMD API does not work with Windows paths
+                        // thats because the framework will always require forward slashes there
+                        Map.Entry::getKey, e -> e.getValue().normalize().toString().replace("\\", "/")
+                )
+        );
     }
 
     @AfterAll
