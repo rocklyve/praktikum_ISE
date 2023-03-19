@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="373px" preserveAspectRatio="none" style="width:731px;height:373px;background:#00000000;" version="1.1" viewBox="0 0 731 373" width="731px" zoomAndPan="magnify"><defs/><g><!--MD5=[4bdad674881c5eae372184a313339359]
+cluster Artemis--><g id="cluster_Artemis"><rect fill="none" height="172" rx="3.5" ry="3.5" style="stroke:#5C5C5C;stroke-width:1.5;" width="718" x="7" y="99.5"/><text fill="#5C5C5C" font-family="Fira Code Medium" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="57" x="337.5" y="115.0352">Artemis</text></g><!--MD5=[8f4ccce9ef6925392d533238a13bc82f]
+cluster Maven--><g id="cluster_Maven"><rect fill="none" height="105" rx="3.5" ry="3.5" style="stroke:#5C5C5C;stroke-width:1.5;" width="349" x="199" y="142.5"/><text fill="#5C5C5C" font-family="Fira Code Medium" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="46" x="350.5" y="158.0352">Maven</text></g><g id="elem_Einreichung"><ellipse cx="88.8318" cy="227.5664" fill="none" rx="65.8318" ry="15.5664" style="stroke:#5C5C5C;stroke-width:1.0;"/><text fill="#5C5C5C" font-family="Fira Code Regular" font-size="14" lengthAdjust="spacing" textLength="82" x="44.8318" y="231.5839">Einreichung</text></g><g id="elem_Korrektur"><ellipse cx="650.6499" cy="177.2637" fill="none" rx="58.6499" ry="14.7637" style="stroke:#5C5C5C;stroke-width:1.0;"/><text fill="#5C5C5C" font-family="Fira Code Regular" font-size="14" lengthAdjust="spacing" textLength="66" x="614.6499" y="181.2813">Korrektur</text></g><g id="elem_JUnit-Tests"><ellipse cx="465.4385" cy="204.2725" fill="none" rx="66.4385" ry="26.7725" style="stroke:#5C5C5C;stroke-width:1.0;"/><text fill="#000000" font-family="Fira Code Regular" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="87" x="421.6885" y="200.046">«Funktional»</text><text fill="#5C5C5C" font-family="Fira Code Regular" font-size="14" lengthAdjust="spacing" textLength="76" x="427.1885" y="216.5343">JUnit-Tests</text></g><g id="elem_Kompiliert"><ellipse cx="277.1108" cy="210.3222" fill="none" rx="62.1108" ry="14.8222" style="stroke:#5C5C5C;stroke-width:1.0;"/><text fill="#5C5C5C" font-family="Fira Code Regular" font-size="14" lengthAdjust="spacing" textLength="71" x="238.6108" y="214.3397">Kompiliert</text></g><!--MD5=[494c489cc4328319247ec2e1625e02a3]
+entity Student--><g id="elem_Student"><ellipse cx="89" cy="298" fill="none" rx="8" ry="8" style="stroke:#5C5C5C;stroke-width:2.0;"/><path d="M89,306 L89,333 M76,314 L102,314 M89,333 L76,348 M89,333 L102,348 " fill="none" style="stroke:#5C5C5C;stroke-width:2.0;"/><text fill="#5C5C5C" font-family="Fira Code Regular" font-size="14" lengthAdjust="spacing" textLength="53" x="62.5" y="364.5352">Student</text></g><!--MD5=[e87cffe958d084b05e09cd25189824f6]
+entity Tutor--><g id="elem_Tutor"><ellipse cx="650.5" cy="14" fill="none" rx="8" ry="8" style="stroke:#5C5C5C;stroke-width:2.0;"/><path d="M650.5,22 L650.5,49 M637.5,30 L663.5,30 M650.5,49 L637.5,64 M650.5,49 L663.5,64 " fill="none" style="stroke:#5C5C5C;stroke-width:2.0;"/><text fill="#5C5C5C" font-family="Fira Code Regular" font-size="14" lengthAdjust="spacing" textLength="38" x="631.5" y="80.5352">Tutor</text></g><!--MD5=[975312a3625641c612800f19f582d410]
+link Student to Einreichung--><g id="link_Student_Einreichung"><path d="M89,287.69 C89,287.69 89,249.99 89,249.99 " fill="none" id="Student-to-Einreichung" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="89,244.99,85,253.99,89,249.99,93,253.99,89,244.99" style="stroke:#454645;stroke-width:1.0;"/></g><!--MD5=[754085a313aad15743dc72a0268208dd]
+link Einreichung to Kompiliert--><g id="link_Einreichung_Kompiliert"><path d="M144.64,218.75 C144.64,218.75 217.89,218.75 217.89,218.75 " fill="none" id="Einreichung-to-Kompiliert" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="222.89,218.75,213.89,214.75,217.89,218.75,213.89,222.75,222.89,218.75" style="stroke:#454645;stroke-width:1.0;"/></g><!--MD5=[ba219b16b23324edafeed3873de80ddb]
+link Kompiliert to JUnit-Tests--><g id="link_Kompiliert_JUnit-Tests"><path d="M339.24,210.5 C339.24,210.5 393.9,210.5 393.9,210.5 " fill="none" id="Kompiliert-to-JUnit-Tests" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="398.9,210.5,389.9,206.5,393.9,210.5,389.9,214.5,398.9,210.5" style="stroke:#454645;stroke-width:1.0;"/></g><!--MD5=[ebcff4afc929ea7ac9a0e1c847462150]
+link JUnit-Tests to Korrektur--><g id="link_JUnit-Tests_Korrektur"><path d="M512.66,185 C512.66,185 592.36,185 592.36,185 " fill="none" id="JUnit-Tests-to-Korrektur" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="597.36,185,588.36,181,592.36,185,588.36,189,597.36,185" style="stroke:#454645;stroke-width:1.0;"/></g><!--MD5=[a3663c1175c3a966ae082a7aa1de7023]
+reverse link Korrektur to Tutor--><g id="link_Korrektur_Tutor"><path d="M651,155.61 C651,155.61 651,83.5 651,83.5 " fill="none" id="Korrektur-backto-Tutor" style="stroke:#454645;stroke-width:1.0;"/><polygon fill="#454645" points="651,160.61,655,151.61,651,155.61,647,151.61,651,160.61" style="stroke:#454645;stroke-width:1.0;"/><text fill="#5C5C5C" font-family="Fira Code Regular" font-size="12" lengthAdjust="spacing" textLength="53" x="597" y="132.1616">Methodik</text></g><!--MD5=[d0c87b26b0397dd624c140aff6df0e40]
+@startuml Ablauf einer Abgabe in Artemis
+
+!$PRIMARYCOLOR = "#5C5C5C"
+!$FONTNAME = "Fira Code Regular"
+!$FONTNAME_SND = "Fira Code Medium"
+'!$PRIMARYCOLOR = "#5C5C5C"
+' 586EC2
+'!theme carbon-gray
+
+!theme toy
+!procedure $primary_scheme()
+	FontColor $PRIMARYCOLOR
+	BorderColor $PRIMARYCOLOR
+	BackgroundColor transparent
+!endprocedure
+
+skinparam backgroundColor transparent
+skinparam ClassBackgroundColor transparent
+skinparam DefaultFontName $FONTNAME
+skinparam FontColor $PRIMARYCOLOR
+' skinparam style strictuml
+
+skinparam arrow {
+    $primary_scheme()
+    ArrowColor $PRIMARYCOLOR
+    FontColor $PRIMARYCOLOR
+    FontName $FONTNAME
+    FontSize 12
+}
+
+skinparam actor {
+    BackgroundColor transparent
+    BorderColor $PRIMARYCOLOR
+    FontName $FONTNAME
+    BorderThickness 2
+    FontColor $PRIMARYCOLOR
+}
+
+' skinparam participant {
+'     BackgroundColor transparent
+'     BorderColor $PRIMARYCOLOR
+'     FontColor $PRIMARYCOLOR
+'     FontName $FONTNAME
+'     BorderThickness 1.5
+' }
+
+skinparam FontColor $PRIMARYCOLOR
+skinparam SequenceLifeLineBorderColor 586EC2
+skinparam SequenceGroupHeaderFontColor 586EC2
+skinparam SequenceGroupFontColor $PRIMARYCOLOR
+skinparam SequenceGroupBorderColor $PRIMARYCOLOR
+'!theme cyborg-outline
+'!theme carbon-gray
+
+skinparam rectangle {
+	$primary_scheme()
+	BackgroundColor transparent
+    DefaultTextAlignment left
+	BorderThickness 1.5
+    FontName $FONTNAME_SND
+	StereotypeFontColor $PRIMARYCOLOR
+}
+
+' box, where the Artemis is into
+skinparam package {
+	BackgroundColor transparent
+  	BorderColor $PRIMARYCOLOR
+	FontColor $PRIMARYCOLOR
+	BorderThickness 1
+}
+
+skinparam usecase {
+	BackgroundColor transparent
+  	BorderColor $PRIMARYCOLOR
+	FontColor $PRIMARYCOLOR
+    FontName $FONTNAME
+	BorderThickness 1
+}
+
+skinparam linetype ortho
+' skinparam linetype polyline
+' skinparam linetype polyline
+
+left to right direction
+
+actor Student
+actor Tutor
+
+rectangle Artemis {
+    Student -r-> (Einreichung)
+    rectangle Maven {
+        (JUnit-Tests) as (JUnit-Tests) << Funktional >>
+        (Einreichung) - -> (Kompiliert)
+        (Kompiliert) - -> (JUnit-Tests)
+    }
+    ' (Einreichung) -> (Korrektur)
+    (JUnit-Tests) - -> (Korrektur)
+    Tutor -l-> (Korrektur) : Methodik
+}
+@enduml
+
+@startuml Ablauf einer Abgabe in Artemis
+
+
+skinparam BackgroundColor DDDDDD
+skinparam shadowing false
+skinparam RoundCorner 7
+skinparam ArrowColor 454645
+skinparam FontColor 454645
+skinparam SequenceLifeLineBorderColor 454645
+skinparam SequenceGroupHeaderFontColor 454645
+skinparam SequenceGroupFontColor 454645
+skinparam SequenceGroupBorderColor 454645
+skinparam SequenceGroupBorderThickness 1
+
+skinparam sequenceDivider {
+    BorderColor 454645
+    BorderThickness 1
+    FontColor 454645
+}
+
+skinparam participant {
+    BackgroundColor FF6F61
+    BorderColor 454645
+    FontColor White
+    BorderThickness 1.5
+}
+
+skinparam database {
+    BackgroundColor 98DDDE
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam entity {
+    BackgroundColor FFDA29
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam note {
+    BackgroundColor LightGreen
+    BorderColor 454645
+    FontColor 454645
+    BorderThickness 1
+}
+
+skinparam actor {
+    BackgroundColor 454645
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam boundary {
+    BackgroundColor FFDA29
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam control {
+    BackgroundColor FFDA29
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam collections {
+    BackgroundColor FF6F61
+    BorderColor 454645
+    FontColor 454645
+    BorderThickness 1.5
+}
+
+skinparam queue {
+    BackgroundColor FF6F61
+    BorderColor 454645
+    FontColor FFF
+    BorderThickness 1.5
+}
+
+skinparam backgroundColor transparent
+skinparam ClassBackgroundColor transparent
+skinparam DefaultFontName Fira Code Regular
+skinparam FontColor #5C5C5C
+
+skinparam arrow {
+    	FontColor #5C5C5C
+	BorderColor #5C5C5C
+	BackgroundColor transparent
+    ArrowColor #5C5C5C
+    FontColor #5C5C5C
+    FontName Fira Code Regular
+    FontSize 12
+}
+
+skinparam actor {
+    BackgroundColor transparent
+    BorderColor #5C5C5C
+    FontName Fira Code Regular
+    BorderThickness 2
+    FontColor #5C5C5C
+}
+
+
+skinparam FontColor #5C5C5C
+skinparam SequenceLifeLineBorderColor 586EC2
+skinparam SequenceGroupHeaderFontColor 586EC2
+skinparam SequenceGroupFontColor #5C5C5C
+skinparam SequenceGroupBorderColor #5C5C5C
+
+skinparam rectangle {
+		FontColor #5C5C5C
+	BorderColor #5C5C5C
+	BackgroundColor transparent
+	BackgroundColor transparent
+    DefaultTextAlignment left
+	BorderThickness 1.5
+    FontName Fira Code Medium
+	StereotypeFontColor #5C5C5C
+}
+
+skinparam package {
+	BackgroundColor transparent
+  	BorderColor #5C5C5C
+	FontColor #5C5C5C
+	BorderThickness 1
+}
+
+skinparam usecase {
+	BackgroundColor transparent
+  	BorderColor #5C5C5C
+	FontColor #5C5C5C
+    FontName Fira Code Regular
+	BorderThickness 1
+}
+
+skinparam linetype ortho
+
+left to right direction
+
+actor Student
+actor Tutor
+
+rectangle Artemis {
+    Student -r-> (Einreichung)
+    rectangle Maven {
+        (JUnit-Tests) as (JUnit-Tests) << Funktional >>
+        (Einreichung) - -> (Kompiliert)
+        (Kompiliert) - -> (JUnit-Tests)
+    }
+    (JUnit-Tests) - -> (Korrektur)
+    Tutor -l-> (Korrektur) : Methodik
+}
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 19:01:30 CEST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: DE
+--></g></svg>

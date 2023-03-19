@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="340px" preserveAspectRatio="none" style="width:194px;height:340px;background:#00000000;" version="1.1" viewBox="0 0 194 340" width="194px" zoomAndPan="magnify"><defs/><g><!--MD5=[45221d8132425adea4bfd370a498b069]
+class PMDTestViolation--><g id="elem_PMDTestViolation"><rect codeLine="34" fill="none" height="190.8828" id="PMDTestViolation" rx="3.5" ry="3.5" style="stroke:#5C5C5C;stroke-width:0.5;" width="179" x="7" y="143"/><rect fill="none" height="26.4883" rx="3.5" ry="3.5" style="stroke:none;stroke-width:0.5;" width="179" x="7" y="143"/><rect fill="none" height="3.5" style="stroke:none;stroke-width:0.5;" width="179" x="7" y="165.9883"/><rect codeLine="34" fill="none" height="190.8828" id="PMDTestViolation" rx="3.5" ry="3.5" style="stroke:#5C5C5C;stroke-width:0.5;" width="179" x="7" y="143"/><text fill="#5C5C5C" font-family="#5C5C5C" font-size="14" lengthAdjust="spacing" textLength="120" x="36.5" y="161.5352">PMDTestViolation</text><line style="stroke:#5C5C5C;stroke-width:0.5;" x1="8" x2="185" y1="169.4883" y2="169.4883"/><ellipse cx="18" cy="183.2324" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#5C5C5C" font-family="#5C5C5C" font-size="14" lengthAdjust="spacing" textLength="90" x="27" y="187.0234">beginline: int</text><ellipse cx="18" cy="199.7207" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#5C5C5C" font-family="#5C5C5C" font-size="14" lengthAdjust="spacing" textLength="116" x="27" y="203.5117">begincolumn: int</text><ellipse cx="18" cy="216.209" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#5C5C5C" font-family="#5C5C5C" font-size="14" lengthAdjust="spacing" textLength="77" x="27" y="220">endline: int</text><ellipse cx="18" cy="232.6973" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#5C5C5C" font-family="#5C5C5C" font-size="14" lengthAdjust="spacing" textLength="103" x="27" y="236.4883">endcolumn: int</text><ellipse cx="18" cy="249.1855" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#5C5C5C" font-family="#5C5C5C" font-size="14" lengthAdjust="spacing" textLength="126" x="27" y="252.9766">description: String</text><ellipse cx="18" cy="265.6738" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#5C5C5C" font-family="#5C5C5C" font-size="14" lengthAdjust="spacing" textLength="76" x="27" y="269.4648">rule: String</text><ellipse cx="18" cy="282.1621" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#5C5C5C" font-family="#5C5C5C" font-size="14" lengthAdjust="spacing" textLength="96" x="27" y="285.9531">ruleset: String</text><ellipse cx="18" cy="298.6504" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#5C5C5C" font-family="#5C5C5C" font-size="14" lengthAdjust="spacing" textLength="76" x="27" y="302.4414">priority: int</text><ellipse cx="18" cy="315.1387" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#5C5C5C" font-family="#5C5C5C" font-size="14" lengthAdjust="spacing" textLength="153" x="27" y="318.9297">externalInfoUrl: String</text><line style="stroke:#5C5C5C;stroke-width:0.5;" x1="8" x2="185" y1="325.8828" y2="325.8828"/></g><!--MD5=[630e957ba29fedd168102a9fddd7ad28]
+class PMDTestResultFile--><g id="elem_PMDTestResultFile"><rect codeLine="47" fill="none" height="58.9766" id="PMDTestResultFile" rx="3.5" ry="3.5" style="stroke:#5C5C5C;stroke-width:0.5;" width="134" x="29.5" y="7"/><rect fill="none" height="26.4883" rx="3.5" ry="3.5" style="stroke:none;stroke-width:0.5;" width="134" x="29.5" y="7"/><rect fill="none" height="3.5" style="stroke:none;stroke-width:0.5;" width="134" x="29.5" y="29.9883"/><rect codeLine="47" fill="none" height="58.9766" id="PMDTestResultFile" rx="3.5" ry="3.5" style="stroke:#5C5C5C;stroke-width:0.5;" width="134" x="29.5" y="7"/><text fill="#5C5C5C" font-family="#5C5C5C" font-size="14" lengthAdjust="spacing" textLength="125" x="34" y="25.5352">PMDTestResultFile</text><line style="stroke:#5C5C5C;stroke-width:0.5;" x1="30.5" x2="162.5" y1="33.4883" y2="33.4883"/><ellipse cx="40.5" cy="47.2324" fill="none" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#5C5C5C" font-family="#5C5C5C" font-size="14" lengthAdjust="spacing" textLength="108" x="49.5" y="51.0234">filename: String</text><line style="stroke:#5C5C5C;stroke-width:0.5;" x1="30.5" x2="162.5" y1="57.9766" y2="57.9766"/></g><!--MD5=[ac5910d605fe2352a844c07934abd119]
+link PMDTestResultFile to PMDTestViolation--><g id="link_PMDTestResultFile_PMDTestViolation"><path codeLine="51" d="M96.5,66.16 C96.5,84.95 96.5,110.77 96.5,136.66 " fill="none" id="PMDTestResultFile-to-PMDTestViolation" style="stroke:#5C5C5C;stroke-width:1.0;"/><polygon fill="#5C5C5C" points="96.5,141.38,100.5,132.38,96.5,136.38,92.5,132.38,96.5,141.38" style="stroke:#5C5C5C;stroke-width:1.0;"/><text fill="#5C5C5C" font-family="&quot;Fira Code Regular&quot;" font-size="13" lengthAdjust="spacing" textLength="89" x="97.5" y="109.5684">violations: Set</text></g><!--MD5=[125e5519424e81d3ccb635b97abc39eb]
+@startuml
+
+!$PRIMARYCOLOR = "#5C5C5C"
+' 586EC2
+' 734299
+'!theme carbon-gray
+!theme toy
+skinparam backgroundColor transparent
+skinparam classBackgroundColor transparent
+skinparam DefaultFontName "Fira Code Regular"
+skinparam FontColor $PRIMARYCOLOR
+skinparam ArrowColor $PRIMARYCOLOR
+skinparam ArrowFontColor $PRIMARYCOLOR
+skinparam entity {
+    BackgroundColor FFDA29
+    BorderColor 454645
+    FontColor $PRIMARYCOLOR
+}
+skinparam Class {
+  BackgroundColor transparent
+  BorderColor $PRIMARYCOLOR
+  FontColor $PRIMARYCOLOR
+  FontName $PRIMARYCOLOR
+}
+skinparam FontColor $PRIMARYCOLOR
+skinparam SequenceLifeLineBorderColor 586EC2
+skinparam SequenceGroupHeaderFontColor 586EC2
+skinparam SequenceGroupFontColor $PRIMARYCOLOR
+skinparam SequenceGroupBorderColor $PRIMARYCOLOR
+'!theme cyborg-outline
+'!theme carbon-gray
+
+
+hide circle
+class PMDTestViolation {
+    + beginline: int
+    + begincolumn: int
+    + endline: int
+    + endcolumn: int
+    + description: String
+    + rule: String
+    + ruleset: String
+    + priority: int
+    + externalInfoUrl: String
+}
+
+hide circle
+class PMDTestResultFile {
+    + filename: String
+}
+
+PMDTestResultFile - -> PMDTestViolation : violations: Set
+@enduml
+
+@startuml
+
+skinparam BackgroundColor DDDDDD
+skinparam shadowing false
+skinparam RoundCorner 7
+skinparam ArrowColor 454645
+skinparam FontColor 454645
+skinparam SequenceLifeLineBorderColor 454645
+skinparam SequenceGroupHeaderFontColor 454645
+skinparam SequenceGroupFontColor 454645
+skinparam SequenceGroupBorderColor 454645
+skinparam SequenceGroupBorderThickness 1
+
+skinparam sequenceDivider {
+    BorderColor 454645
+    BorderThickness 1
+    FontColor 454645
+}
+
+skinparam participant {
+    BackgroundColor FF6F61
+    BorderColor 454645
+    FontColor White
+    BorderThickness 1.5
+}
+
+skinparam database {
+    BackgroundColor 98DDDE
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam entity {
+    BackgroundColor FFDA29
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam note {
+    BackgroundColor LightGreen
+    BorderColor 454645
+    FontColor 454645
+    BorderThickness 1
+}
+
+skinparam actor {
+    BackgroundColor 454645
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam boundary {
+    BackgroundColor FFDA29
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam control {
+    BackgroundColor FFDA29
+    BorderColor 454645
+    FontColor 454645
+}
+
+skinparam collections {
+    BackgroundColor FF6F61
+    BorderColor 454645
+    FontColor 454645
+    BorderThickness 1.5
+}
+
+skinparam queue {
+    BackgroundColor FF6F61
+    BorderColor 454645
+    FontColor FFF
+    BorderThickness 1.5
+}
+skinparam backgroundColor transparent
+skinparam classBackgroundColor transparent
+skinparam DefaultFontName "Fira Code Regular"
+skinparam FontColor #5C5C5C
+skinparam ArrowColor #5C5C5C
+skinparam ArrowFontColor #5C5C5C
+skinparam entity {
+    BackgroundColor FFDA29
+    BorderColor 454645
+    FontColor #5C5C5C
+}
+skinparam Class {
+  BackgroundColor transparent
+  BorderColor #5C5C5C
+  FontColor #5C5C5C
+  FontName #5C5C5C
+}
+skinparam FontColor #5C5C5C
+skinparam SequenceLifeLineBorderColor 586EC2
+skinparam SequenceGroupHeaderFontColor 586EC2
+skinparam SequenceGroupFontColor #5C5C5C
+skinparam SequenceGroupBorderColor #5C5C5C
+
+
+hide circle
+class PMDTestViolation {
+    + beginline: int
+    + begincolumn: int
+    + endline: int
+    + endcolumn: int
+    + description: String
+    + rule: String
+    + ruleset: String
+    + priority: int
+    + externalInfoUrl: String
+}
+
+hide circle
+class PMDTestResultFile {
+    + filename: String
+}
+
+PMDTestResultFile - -> PMDTestViolation : violations: Set
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 19:01:30 CEST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: DE
+--></g></svg>
