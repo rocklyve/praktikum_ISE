@@ -21,9 +21,17 @@ public class LineBreakRule extends AbstractJavaRule {
     public Object visit(ASTCompilationUnit node, Object data) {
         for (ASTLiteral literal : node.findDescendantsOfType(ASTLiteral.class)) {
             if (literal.getImage() != null) {
+                /**
+                 * The split() method is called on the literal.getImage() string,
+                 * which contains the actual content of the Java string literal.
+                 * The regular expression "\\r?\\n|\\r" is used as the separator pattern for splitting the string.
+                 * This pattern matches any combination of a carriage return (\r) followed by a newline (\n)
+                 * or just a carriage return (\r). This allows the method to handle different line break conventions
+                 * that might be used on different operating systems.
+                 */
                 String[] lines = literal.getImage().split("\\r?\\n|\\r");
                 for (String line: lines) {
-                    if (line.contains("\\r") || line.contains("\\n")) {
+                    if (line.contains("\\r") || line.contains("\\n") || line.contains("\\s")) {
                         addViolation(data, literal);
                     }
                 }
