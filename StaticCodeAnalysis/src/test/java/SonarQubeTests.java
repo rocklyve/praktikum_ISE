@@ -1,11 +1,16 @@
-import edu.kit.informatik.SonarFile;
-import junit.framework.Assert;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.apache.commons.lang3.tuple.Pair;
-
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -18,18 +23,9 @@ import org.sonarsource.sonarlint.core.client.api.standalone.StandaloneAnalysisCo
 import org.sonarsource.sonarlint.core.client.api.standalone.StandaloneGlobalConfiguration;
 import org.sonarsource.sonarlint.core.client.api.standalone.StandaloneSonarLintEngine;
 import org.sonarsource.sonarlint.core.commons.Language;
+import edu.kit.informatik.SonarFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static junit.framework.Assert.assertEquals;
-
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SonarQubeTests {
     public static final String newLine = System.lineSeparator();
     public static final String JAVA_CLASS_PATH = "java.class.path";
@@ -40,11 +36,11 @@ public class SonarQubeTests {
             .normalize()
             .toString();
     private static final String JAVA_FILE_PREFIX = ".java";
-    private static ArrayList<Issue> issues;
-    static Logger logger = LoggerFactory.getLogger(SonarQubeTests.class);
+    private ArrayList<Issue> issues;
+    Logger logger = LoggerFactory.getLogger(SonarQubeTests.class);
 
     @BeforeAll
-    public static void setUpBeforeClass() throws Exception {
+    public void setUpBeforeClass() throws Exception {
         issues = new ArrayList<>();
 
         Path javaPlugin = getJavaPlugin();
@@ -54,80 +50,55 @@ public class SonarQubeTests {
         StandaloneGlobalConfiguration configuration = StandaloneGlobalConfiguration.builder().addEnabledLanguage(Language.JAVA).addPlugins(javaPlugin).setWorkDir(path).build();
         StandaloneSonarLintEngine standaloneSonarLintEngine = new StandaloneSonarLintEngineImpl(configuration);
         StandaloneAnalysisConfiguration sac = StandaloneAnalysisConfiguration.builder().setBaseDir(path).addInputFiles(javaFiles).build();
-        standaloneSonarLintEngine.analyze(sac, SonarQubeTests::listen, (formattedMessage, level) -> logger.info(formattedMessage), null);
+        standaloneSonarLintEngine.analyze(sac, this::listen, (formattedMessage, level) -> System.out.println(formattedMessage), null);
         standaloneSonarLintEngine.stop();
     }
 
+    /**
+     * This is a parameterized test method for testing a codebase. It takes in a Pair object of
+     * a String and a List of Strings as a parameter, where the String represents relevant
+     * issue numbers and the List of Strings represents the test type parameters. The method
+     * uses these parameters to find occurring issues and checks them against expected results
+     * using the checkOccurringIssues method.
+     * @param description containing a String with the description of the test
+     * @param relevantIssueNumbers containing a List of String with relevant issue numbers
+     * */
     @DisplayName("Test Codebase")
-    @ParameterizedTest(name = "{index} => relevantIssueNumbers={0}")
+    @ParameterizedTest(name = "{index} => relevant rule: \"{0}\"")
     @MethodSource("getTestTypeParameters")
-    void testCodeBase(Pair<String, List<String>> relevantIssueNumbers) {
-        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers.getRight()));
+    void testCodeBase(String description, List<String> relevantIssueNumbers) {
+        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
-    private static Stream<Arguments> getTestTypeParameters() {
+    private Stream<Arguments> getTestTypeParameters() {
         return Stream.of(
-//                Arguments.of(Pair.of("Test testNonFinalAttributesShouldBeFinal", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test SystemDependentLineBreak", List.of(RULE_PREFIX + ))),
-                Arguments.of(Pair.of("Test RawType", List.of(RULE_PREFIX + "3740"))),
-                Arguments.of(Pair.of("Test ConcreteClassInsteadOfInterface", List.of(RULE_PREFIX + "1319"))),
-                Arguments.of(Pair.of("Test AssertInsteadOfIfLoop", List.of(RULE_PREFIX + "5960", RULE_PREFIX + "4274"))),
-//                Arguments.of(Pair.of("Test ObjectInsteadOfConcreteClass", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test PublicEnumInsideClassAndNotInSeparateFile", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test VisibilityAsLowAsPossible", List.of(RULE_PREFIX + ))),
-                Arguments.of(Pair.of("Test Code Duplication", List.of(RULE_PREFIX + "4144"))),
-//                Arguments.of((Pair.of("Test CodeDuplicationRepetitionsFixableByInheritance", List.of(RULE_PREFIX + ))),
-//                Arguments.of((Pair.of("Test InheritanceInsteadOfEnums", List.of(RULE_PREFIX + ))),
-//                Arguments.of((Pair.of("Test OperationsInsteadOfDomain", List.of(RULE_PREFIX + ))),
-//                Arguments.of((Pair.of("Test HardcodedLogic", List.of(RULE_PREFIX + ))),
-//                Arguments.of((Pair.of("Test StringReferences", List.of(RULE_PREFIX + ))),
-//                Arguments.of((Pair.of("Test ExceptionsForControlFlow", List.of(RULE_PREFIX + ))),
-//                Arguments.of((Pair.of("Test TryCatchBlock", List.of(RULE_PREFIX + ))),
-//                Arguments.of((Pair.of("Test UnspecifiedErrorMessage", List.of(RULE_PREFIX + )))),
-//                Arguments.of((Pair.of("Test WrongLoopType", List.of(RULE_PREFIX + ))),
-//                Arguments.of((Pair.of("Test UnnecessaryComplexity", List.of(RULE_PREFIX + ))),
-//                Arguments.of((Pair.of("Test ClumsySolution", List.of(RULE_PREFIX + ))),
-//                Arguments.of((Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
-                Arguments.of(Pair.of("Test UtilityClass", List.of(RULE_PREFIX + "1118"))),
-//                Arguments.of(Pair.of("Test UnsafeCast", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test EmptyConstructor", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test MeaninglessConstant", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test Scanner", List.of(RULE_PREFIX + ))),
-                Arguments.of(Pair.of("Test UnusedElement",
-                        List.of(RULE_PREFIX + "1144", RULE_PREFIX + "1068", RULE_PREFIX + "1481"))
+                Arguments.of("Test RawType", List.of(RULE_PREFIX + "3740")),
+                Arguments.of("Test ConcreteClassInsteadOfInterface", List.of(RULE_PREFIX + "1319")),
+                // for AssertVSIF, there are existing rules, but they detect all asserts, in the
+                // "Programmieren" lecture, only asserts at a start of a public method should not be allowed, this is
+                // now solved as a custom pmd rule
+//                Arguments.of("Test AssertInsteadOfIfLoop", List.of(RULE_PREFIX + "5960", RULE_PREFIX + "4274")),
+                Arguments.of("Test Code Duplication", List.of(RULE_PREFIX + "4144")),
+                Arguments.of("Test UtilityClass", List.of(RULE_PREFIX + "1118")),
+                Arguments.of("Test UnusedElement",
+                        List.of(RULE_PREFIX + "1144", RULE_PREFIX + "1068", RULE_PREFIX + "1481")
                 ),
-//                Arguments.of(Pair.of("Test MissingThrowsInMethodSignature", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test PublicEnumInClass", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test TrivialJavaDoc", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test BadNaming", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test DataEncapsulationViolation", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test SeparationOfLogicAndInteraction", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test TooComplexCode", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test StaticMethods", List.of(RULE_PREFIX + ))),
-                Arguments.of(Pair.of("Test StaticAttributeOfInstanceAttribute", List.of(RULE_PREFIX + "1170"))),
-                Arguments.of(Pair.of("Test FinalModifier", List.of(RULE_PREFIX + "3008"))),
-//                Arguments.of(Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test ToStringVsEquals", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test DoNotUseObject", List.of(RULE_PREFIX + ))),
-                Arguments.of(Pair.of("Test ClassInsteadOfInterface", List.of(RULE_PREFIX + "1319"))),
-//                Arguments.of(Pair.of("Test EnumForClosedSet", List.of(RULE_PREFIX + ))),
-                Arguments.of(Pair.of("Test EmptyBlock",
-                        List.of(RULE_PREFIX + "2094", RULE_PREFIX + "1186", RULE_PREFIX + "108"))
+                Arguments.of("Test StaticAttributeOfInstanceAttribute", List.of(RULE_PREFIX + "1170")),
+                Arguments.of("Test FinalModifier", List.of(RULE_PREFIX + "3008")),
+                Arguments.of("Test ClassInsteadOfInterface", List.of(RULE_PREFIX + "1319")),
+                Arguments.of("Test EmptyBlock",
+                        List.of(RULE_PREFIX + "2094", RULE_PREFIX + "1186", RULE_PREFIX + "108")
                 )
-//                Arguments.of(Pair.of("Test PackageUsage", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test DynamicBinding", List.of(RULE_PREFIX + ))),
         );
     }
 
     @AfterAll
-    public static void tearDownAfterClass() {
+    public void tearDownAfterClass() {
         issues = null;
     }
 
-    private static void checkOccurringIssues(List<Issue> occurringIssues) {
+    private void checkOccurringIssues(List<Issue> occurringIssues) {
         if (occurringIssues.isEmpty()) {
-            return;
         } else {
             String mergedMessage = newLine;
             for (Issue issue : occurringIssues) {
@@ -136,7 +107,7 @@ public class SonarQubeTests {
                        " File: " + issue.getInputFile().relativePath() + ", Line: " + issue.getStartLine() + " " + newLine;
             }
             String finalMergedMessage = "Found " + occurringIssues.size()+ " issues: full text: " + mergedMessage;
-            occurringIssues.forEach(issue -> Assert.fail(finalMergedMessage));
+            occurringIssues.forEach(issue -> Assertions.fail(finalMergedMessage));
         }
     }
 
@@ -144,7 +115,7 @@ public class SonarQubeTests {
         return issues.stream().filter(issue -> relevantIssueNumbers.contains(issue.getRuleKey())).collect(Collectors.toList());
     }
 
-    private static Path getJavaPlugin() {
+    private Path getJavaPlugin() {
         String classpath = System.getProperty(JAVA_CLASS_PATH);
         String[] classPathValues = classpath.split(File.pathSeparator);
         for (String classPath : classPathValues) {
@@ -154,7 +125,7 @@ public class SonarQubeTests {
         throw new IllegalStateException("Java Plugin not found!");
     }
 
-    private static List<ClientInputFile> getFiles(Path path) throws IOException {
+    private List<ClientInputFile> getFiles(Path path) throws IOException {
         final var list = new ArrayList<ClientInputFile>();
         Files.walk(path).forEach(filePath -> {
             if (filePath.getFileName().toString().endsWith(JAVA_FILE_PREFIX)) {
@@ -165,7 +136,7 @@ public class SonarQubeTests {
         return list;
     }
 
-    private static void listen(Issue i) {
+    private void listen(Issue i) {
         issues.add(i);
         System.err.println(i);
         logger.debug("Issue added: ", issues);

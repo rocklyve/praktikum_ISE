@@ -5,5 +5,9 @@ public class LineBreakN {
         System.out.println("This is a multi line\nText");
         System.out.println("This is a multi line\r\nText");
         System.out.println("This is a multi line\rText");
+        System.out.println("""
+                This is a multiline
+                Text \s
+                """);
     }
 }

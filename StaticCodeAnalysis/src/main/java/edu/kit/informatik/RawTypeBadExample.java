@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 public class RawTypeBadExample {
-    List myList;
+    List badRawTypeUsage;
+    List<String> goodRawTypeUsage;
     Set mySet;
 }

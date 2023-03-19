@@ -1,54 +1,63 @@
-import com.fasterxml.jackson.databind.ObjectMapper;
-import junit.framework.Assert;
-import org.apache.commons.lang3.tuple.Pair;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import pmdModel.PMDTestResult;
-import pmdModel.PMDTestResultFile;
-import pmdModel.PMDTestViolation;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.sourceforge.pmd.PMD;
 import net.sourceforge.pmd.PMDConfiguration;
+import pmdModel.PMDTestResult;
+import pmdModel.PMDTestResultFile;
+import pmdModel.PMDTestViolation;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PMDTests {
-    public static final String newLine = System.lineSeparator();
+    public static final String NEW_LINE = System.lineSeparator();
+
+    private final Map<String, String> PMD_RULE_SET_FILE_PATHS = rulesFromMap(Map.ofEntries(
+            Map.entry("codestyle", Path.of("category", "java","codestyle.xml")),
+            Map.entry("design", Path.of("category", "java","design.xml")),
+            Map.entry("bestpractices", Path.of("category", "java","bestpractices.xml")),
+            Map.entry("documentation", Path.of("category", "java","documentation.xml")),
+            Map.entry("errorprone", Path.of("category", "java","errorprone.xml")),
+            Map.entry("multithreading", Path.of("category", "java","multithreading.xml")),
+            Map.entry("performance", Path.of("category", "java","performance.xml")),
+            Map.entry("security", Path.of("category", "java","security.xml")),
+            Map.entry("custom-rules", Path.of( "custom-pmd-ruleset.xml"))
+    ));
+
     private static final String PMD_REPORT_INPUT_FILE_PATH =
-            Path.of("src", "main", "java", "edu", "kit", "informatik")
-                    .normalize()
-                    .toString();
-    private static final String PMD_RULE_SET_FILE_PATH =
-            Path.of("rulesets", "java", "quickstart.xml")
+            Path.of("src", "main","java", "edu", "kit", "informatik")
                     .normalize()
                     .toString();
     private static final String PMD_REPORT_FILE_PATH =
-            Path.of("src", "resources", "pmd-report.json")
+            Path.of("target", "pmd-report", "pmd-report.json")
                     .normalize()
                     .toString();
     private static final String PMD_REPORT_FILE_FORMAT = "json";
-    static PMDTestResult issues;
-    private static Logger logger = LoggerFactory.getLogger(PMDTests.class);
+
+    PMDTestResult issues;
+    private static final Logger logger = LoggerFactory.getLogger(PMDTests.class);
 
     @BeforeAll
-    public static void setUpBeforeClass() throws Exception {
+    public void setUpBeforeClass() throws Exception {
         PMDConfiguration configuration = new PMDConfiguration();
-        configuration.setInputPaths(PMD_REPORT_INPUT_FILE_PATH);
-        configuration.addRuleSet(PMD_RULE_SET_FILE_PATH);
+        configuration.addInputPath(PMD_REPORT_INPUT_FILE_PATH);
+
+        configuration.setRuleSets(new ArrayList<>(PMD_RULE_SET_FILE_PATHS.values()));
+
         configuration.setReportFormat(PMD_REPORT_FILE_FORMAT);
         configuration.setReportFile(PMD_REPORT_FILE_PATH);
 
@@ -56,70 +65,46 @@ public class PMDTests {
 
         ObjectMapper objectMapper = new ObjectMapper();
         issues = objectMapper.readValue(new File(PMD_REPORT_FILE_PATH), PMDTestResult.class);
-        int countViolations = 0;
-        for (PMDTestResultFile file: issues.files()) {
-            countViolations += file.violations().size();
-        }
-        logger.info("CountViolations: " + countViolations);
     }
 
+    /**
+     * This is a parameterized test method for testing a codebase. It takes in a Pair object of
+     * a String and a List of Strings as a parameter, where the String represents relevant
+     * issue numbers and the List of Strings represents the test type parameters. The method
+     * uses these parameters to find occurring issues and checks them against expected results
+     * using the checkOccurringIssues method.
+     * @param description a String representing the description of the test
+     * @param relevantIssueNumbers containing a List of Strings with relevant issue numbers
+     * */
     @DisplayName("Test Codebase")
-    @ParameterizedTest(name = "{index} => relevantIssueNumbers={0}")
+    @ParameterizedTest(name = "{index} => relevant rule: \"{0}\"")
     @MethodSource("getTestTypeParameters")
-    void testCodeBase(Pair<String, List<String>> relevantIssueNumbers) {
-        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers.getRight()));
+    public void testCodeBase(String description, List<String> relevantIssueNumbers) {
+        checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
-    private static Stream<Arguments> getTestTypeParameters() {
+    private Stream<Arguments> getTestTypeParameters() {
         return Stream.of(
-//                Arguments.of(List.of(Pair.of("Test testNonFinalAttributesShouldBeFinal", List.of()))),
-//                Arguments.of(List.of(Pair.of("Test SystemDependentLineBreak", List.of()))),
-//                Arguments.of(Pair.of("Test RawType", List.of())),
-                Arguments.of(Pair.of("Test ConcreteClassInsteadOfInterface", List.of("LooseCoupling"))),
-//                Arguments.of(Pair.of("Test AssertInsteadOfIfLoop", List.of())),
-//                Arguments.of(Pair.of("Test ObjectInsteadOfConcreteClass", List.of())),
-//                Arguments.of(Pair.of("Test PublicEnumInsideClassAndNotInSeparateFile", List.of()),
-//                Arguments.of(Pair.of("Test VisibilityAsLowAsPossible", List.of())),
-//                Arguments.of(Pair.of("Test Code Duplication", List.of())),
-//                Arguments.of(Pair.of("Test CodeDuplicationRepetitionsFixableByInheritance", List.of())),
-//                Arguments.of(Pair.of("Test InheritanceInsteadOfEnums", List.of())),
-//                Arguments.of(Pair.of("Test OperationsInsteadOfDomain", List.of())),
-//                Arguments.of(Pair.of("Test HardcodedLogic", List.of())),
-//                Arguments.of(Pair.of("Test StringReferences", List.of())),
-                Arguments.of(Pair.of("Test ExceptionsForControlFlow", List.of("EmptyCatchBlock"))),
-//                Arguments.of(Pair.of("Test TryCatchBlock", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test UnspecifiedErrorMessage", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test WrongLoopType", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test UnnecessaryComplexity", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test ClumsySolution", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
-                Arguments.of(Pair.of("Test UtilityClass", List.of("UseUtilityClass"))),
-//                Arguments.of(Pair.of("Test UnsafeCast", List.of(RULE_PREFIX + ))),
-                Arguments.of(Pair.of("Test EmptyConstructor", List.of("UncommentedEmptyConstructor", "UnnecessaryConstructor"))),
-//                Arguments.of(Pair.of("Test MeaninglessConstant", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test Scanner", List.of(RULE_PREFIX + ))),
-                Arguments.of(Pair.of("Test UnusedElement",
-                        List.of("UnusedPrivateField", "UnusedPrivateMethod", "UnusedLocalVariable"))
-                )
-//                Arguments.of(Pair.of("Test MissingThrowsInMethodSignature", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test PublicEnumInClass", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test TrivialJavaDoc", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test BadNaming", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test DataEncapsulationViolation", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test SeparationOfLogicAndInteraction", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test TooComplexCode", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test StaticMethods", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test StaticAttributeOfInstanceAttribute", List.of())),
-//                Arguments.of(Pair.of("Test FinalModifier", List.of())),
-//                Arguments.of(Pair.of("Test ParsingIntegerValues", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test ToStringVsEquals", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test DoNotUseObject", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test ClassInsteadOfInterface", List.of())),
-//                Arguments.of(Pair.of("Test EnumForClosedSet", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test EmptyBlock", List.of())),
-//                Arguments.of(Pair.of("Test PackageUsage", List.of(RULE_PREFIX + ))),
-//                Arguments.of(Pair.of("Test DynamicBinding", List.of(RULE_PREFIX + ))),
+                // This is a custom rule, which detects, if any code in the codebase has system dependent line breaks
+                Arguments.of("Test SystemDependentLineBreak", List.of("SystemDependentLineBreakNotAllowed")),
+                Arguments.of("Test ConcreteClassInsteadOfInterface", List.of("LooseCoupling")),
+                // this is a custom rule, which detects assert statements in public functions,
+                // but only if they are the first statement
+                Arguments.of("Test AssertInsteadOfIfLoop", List.of("AssertStatementFirstInPublicFunction")),
+                // this is a custom rule, which detects, if there are public enums inside of classes or interfaces
+                Arguments.of("Test PublicEnumInsideClassAndNotInSeparateFile", List.of("PublicEnumInsideClassOrInterface")),
+                Arguments.of("Test HardcodedLogic", List.of("AvoidLiteralsInIfCondition")),
+                Arguments.of("Test ExceptionsForControlFlow", List.of("EmptyCatchBlock")),
+                Arguments.of("Test TryCatchBlock", List.of("TooLongTryBlockStatement")),
+                Arguments.of("Test WrongLoopType", List.of("ForLoopCanBeForeach", "ForLoopShouldBeWhileLoop")),
+                Arguments.of("Test UtilityClass", List.of("UseUtilityClass")),
+                Arguments.of("Test EmptyConstructor", List.of("UncommentedEmptyConstructor", "UnnecessaryConstructor")),
+                Arguments.of("Test UnusedElement",
+                        List.of("UnusedPrivateField", "UnusedPrivateMethod", "UnusedLocalVariable", "UnusedFormalParameter")
+                ),
+                // this is a custom pmd rule, which detects, if classes only keeps constants, but no other attributes and functions
+                Arguments.of("Test ClassOfConstants", List.of("ClassOfConstants")),
+                Arguments.of("Test FinalModifier", List.of("MethodArgumentCouldBeFinal", "LocalVariableCouldBeFinal"))
         );
     }
 
@@ -127,19 +112,19 @@ public class PMDTests {
         if (occurringIssues.isEmpty()) {
             return;
         }
-        String mergedMessage = newLine;
+        String mergedMessage = NEW_LINE;
         for (PMDTestResultFile file : occurringIssues) {
             for (PMDTestViolation violation : file.violations()) {
                 String fileName = file.filename().split(PMD_REPORT_INPUT_FILE_PATH)[1];
                 mergedMessage +=
                         "Issue: " + violation.rule() + " with message: " + violation.description() +
-                                " File: " + fileName + ", Line: " + violation.beginline() + " " + newLine;
+                                " File: " + fileName + ", Line: " + violation.beginline() + " " + NEW_LINE;
             }
         }
 
         String finalMergedMessage = "Found " + occurringIssues.size()+ " issues: full text: " + mergedMessage;
         // assert fail outside of
-        Assert.fail(finalMergedMessage);
+        Assertions.fail(finalMergedMessage);
     }
 
     private List<PMDTestResultFile> findOccurringIssues(List<String> relevantRules) {
@@ -153,7 +138,7 @@ public class PMDTests {
                             file.filename(),
                             file.violations().stream()
                                     .filter(violation -> relevantRules.contains(violation.rule()))
-                                    .collect(Collectors.toList())
+                                    .collect(Collectors.toSet())
                     );
                     return newFile;
                 })
@@ -161,8 +146,18 @@ public class PMDTests {
                 .collect(Collectors.toList());
     }
 
+    private Map<String, String> rulesFromMap(Map<String, Path> map) {
+        return map.entrySet().stream().collect(
+                Collectors.toMap(
+                        // this `.replace("\\", "/")` is necessary because the PMD API does not work with Windows paths
+                        // thats because the framework will always require forward slashes there
+                        Map.Entry::getKey, e -> e.getValue().normalize().toString().replace("\\", "/")
+                )
+        );
+    }
+
     @AfterAll
-    public static void tearDownAfterClass() {
+    public void tearDownAfterClass() {
         logger.info("over");
     }
 }

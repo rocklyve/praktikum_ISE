@@ -1,12 +1,15 @@
 package edu.kit.informatik;
 
-import java.text.*;
-import java.util.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public final class Client {
 
-    private static final int ITERATIONS = 10;
+    public static int ITERATIONS = 10;
 
     private static final int RANDOM_FLOOR = 5;
 

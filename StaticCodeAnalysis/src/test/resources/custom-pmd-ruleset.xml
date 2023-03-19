@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<ruleset name="My Custom PMD Ruleset">
+    <description>This is a custom PMD ruleset file.</description>
+    <rule name="PublicEnumInsideClassOrInterface"
+          language="java"
+          since="1.03"
+          message="Outsource public enums from classes or interfaces"
+          class="customPMDRule.PublicEnumInClassOrInterfaceRule">
+        <description>This rule detects public enums inside classes.</description>
+        <priority>3</priority>
+        <example>
+            <![CDATA[
+            class MyClass {
+                public enum MyEnum {
+                    VALUE1, VALUE2
+                }
+            }
+            ]]>
+        </example>
+    </rule>
+    <rule name="ClassOfConstants"
+          language="java"
+          since="1.03"
+          message="Classes that only have constants are discouraged. Consider using an interface or an enum instead."
+          class="customPMDRule.ClassOfConstants">
+        <description>This rule detects classes that only have constants.</description>
+        <priority>3</priority>
+        <example>
+            <![CDATA[
+            class MyClass {
+                public static final int CONSTANT1 = 1;
+                public static final int CONSTANT2 = 2;
+            }
+            ]]>
+        </example>
+    </rule>
+    <rule name="AssertStatementFirstInPublicFunction"
+          language="java"
+          since="1.03"
+          message="Public functions with only an assert statement as their first are discouraged.
+                Consider using an assert statement in the test instead."
+          class="customPMDRule.AssertStatementFirstInPublicFunctionRule">
+        <description>This rule detects functions with only one statement, which is an assert statement.</description>
+        <priority>3</priority>
+        <example>
+            <![CDATA[
+            void myFunction() {
+                assert (1 == 1);
+            }
+            ]]>
+        </example>
+    </rule>
+    <rule name="SystemDependentLineBreakNotAllowed"
+          language="java"
+          since="1.03"
+          message="System dependent linebreaks are not allowed."
+          class="customPMDRule.LineBreakRule">
+        <description>This rule is not allowing system dependent linebreaks in the code.</description>
+        <priority>3</priority>
+        <example>
+            <![CDATA[
+            public class MyClass {
+                public static void main(String[] args) {
+                    System.out.println("Hello World!\r\n");
+                }
+            }
+            ]]>
+        </example>
+    </rule>
+    <rule name="TooLongTryBlockStatement"
+          language="java"
+          since="1.03"
+          message="Try block too long."
+          class="customPMDRule.TryCatchBlockSizeRule">
+        <description>Detects a try block that is too long.</description>
+        <priority>3</priority>
+        <example>
+            <![CDATA[
+            public void foo() {
+                try {
+                    // Too many statements
+                    ...
+                } catch (Exception e) {
+                    ...
+                }
+            }
+            ]]>
+        </example>
+    </rule>
+</ruleset>

@@ -2,88 +2,210 @@
 
 ## Introduction
 
-// TODO: fill
+This project represents a static code analysis tool, which is able to detect code smells and other problems in java code.
+The main part of this project are the tests, which will recursivly search for all java files in a given directory and analyze them towards multiple rules.
+The own rules are given by the supervisors, as they are part of the lecture "Programmieren", which is part of the first bachelor semester.
+The task was to map existing rules from existing frameworks to the own rules, which are given by the supervisors.
+The rules are listed in the rules section and mapped to a given rule, if a rule is existing.
+The rules are based on the Sonarqube and PMD ruleset, which are sets of rules for static code analysis.
+Furthermore, custom rules where written for rules, which are not existing in the rulesets, but slightly easy to implement.
 
-## Installation
-// TODO: fill
+## Installation + Usage
+To run the tests, you need to have maven and java17 installed on your machine.
+Choose your IDE and import the project as a maven project.
+Afterwards, execute the tests in the IDE.
 
-## Usage
-// TODO: fill
+## Tests + Results
+The tests are located in the `src/test/java` folder. 
+For both PMD and Sonarqube, there are tests for the rules existing for the corresponding tool.
+For each of the two tools, a `@BeforeAll` method is called, which will initialize the tool and analyze the files to test.
+The results are mapped into an `issues` object. 
+For the Sonarqube tests, the results are available as a `Result` object, which is afterwards mapped to the `issues` object.
+For the PMD tests, the results are written to a `json` file, which is afterwards mapped to the `issues` object.
+
+After the `@BeforeAll` method is finished, the tests can be executed, 
+which will iterate trough the `issues` object and check if there are issues for the test scenario.
+
+Due to the tests being parameterized tests, each test execution will get the relevant rules from the `getTestTypeParameters` function as a Stream.
+
+After all tests are executed, the `@AfterAll` method will be called, which deletes the `issues` object. 
 
 ## Rules
 
-// TODO: fill
+The rules are based on the rulesets from Sonarqube and PMD. 
+They both have a lot of rules, which are not needed for this project.
+The exercise was to map the existing rules with the own rules from the lecture "Programmieren".
 
-### Source + Tools
+### Research
 
-// TODO: fill
+One of the first tasks was to find out which tools are available for static code analysis. 
+There are a lot of tools out there which will now be compared in detail:
+
+#### PMD
+
+##### Usage + installation procedure + size
+
+PMD is a static code analyzer, which can be used in different ways. 
+One useful way is to use it as a maven plugin, which can be easily integrated into your java project (https://maven.apache.org/plugins/maven-pmd-plugin/usage.html). 
+Also, it can be used as a standalone application, but this is not in focus here.
+Furthermore, it can be used directly inside of java code (https://pmd.github.io/latest/pmd_userdocs_tools_java_api.html).
+This will be used in this project, as it is the most flexible way to use PMD inside a test scenario.
+
+##### Feature Set + Parameters
+
+Toolset: https://pmd.sourceforge.io/pmd-6.51.0/pmd_rules_java.html
+
+PMD has a lot of rules, which can be used for static code analysis.
+A first lookup into them will give us a rule `LocalVariableCouldBeFinal`, which is a rule, which can be used to detect local variables, which are only assigned once and could be declared final.
+
+The report can be collected in a json report file or with the function `performAnalysisAndCollectReport()` (https://docs.pmd-code.org/apidocs/pmd-core/6.44.0/net/sourceforge/pmd/PmdAnalysis.html#performAnalysis())
+
+##### Extendability
+
+You can write on rules, take a look here: https://pmd.github.io/latest/pmd_userdocs_extending_writing_pmd_rules.html
+On a first lookup, you have to run a self-hosted server for any analyzation procedures.
+
+#### SonarQube
+
+##### Usage + installation procedure + size
+
+Also for sonarqube, it can be integrated with maven: https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-maven/.
+Sonarqube has a lot of existing rules (650). 
+Therefore, a lot of our rules needed could be mapped to our own rules.
+
+##### Feature Set + Parameters
+The feature set (https://rules.sonarsource.com/java) has very high potential, for example, it can detect code duplications, which is a very useful feature.
+Furthermore, it can detect raw types, which is also one of our own rules. 
+This seems to be one of the tools with the most potential for our needs. 
+
+##### Extendability
+Also for sonarqube, it's possible to extend the ruleset with custom rules (https://docs.sonarqube.org/9.6/extension-guide/adding-coding-rules/, https://github.com/SonarSource/sonar-java/blob/master/docs/CUSTOM_RULES_101.md).
+But the priority here is not that high, because the potential of custom rules with pmd is higher.
+
+#### Spotbugs
+
+##### Usage + installation procedure + size
+
+Also for spotbugs, a maven plugin is existing (https://spotbugs.readthedocs.io/en/latest/maven.html).
+
+##### Feature Set + Parameters
+
+The ruleset of spotbugs seems to be not that huge compared to the other tools, that's why it's not that interesting for us.
+
+##### Extendability
+
+In a short research time, it seems to be not possible to extend the ruleset with custom rules very easily. 
+You are able to write own detectors, but pack them into a jar file and reference them in a own maven plugin.
+This seems to be not that easy as with pmd.
+
+#### Git Maven Plugin
+
+##### Usage + installation procedure + size
+
+Seems to be a plugin only, where you cannot extract the information that easy.
+
+#### UC Code Detector
+
+Seems to be a plugin only, where you cannot extract the information that easy.
+
+#### Other tools
+
+EMMA https://emma.sourceforge.net/
+EclEMMA https://www.eclemma.org/
 
 ### Rule table
+This rule table includes all custom rules from the lecture "Programmieren" and maps them to existing rules from the rulesets of PMD and Sonarqube.
 
-| Number | Rule | Sonarqube (https://rules.sonarsource.com/java) | Link | Note | PMD (https://pmd.github.io/latest/pmd_rules_java.html) | Link | Note |
-|---|---|---|---|---|---|---|---|
-|  |  |  |  |  |  |  |  |
-| 1 | Visibility as low as possible for methods / attributes (private > public > protected) (known exemptions: - Constructors of utility classes must always be private - Constructors of abstract classes can be protected - Constants can also be public) |  |  |  |  |  |  |
-| 2 | Code duplication | Methods should not have identical implementations | 4144 | Does not find example, only simple code duplications | :x: N/A |  |  |
-| 3 | Code duplication: Repetitions Fixable by Inheritance | :x: N/A |  |  | :x: N/A |  |  |
-| 4 | Inheritance instead of Enums | :x: N/A |  |  | :x: N/A |  |  |
-| 5 | Operations instead of domain | :x: N/A |  |  | :x: N/A |  |  |
-| 6 | Hardcoded logic | :x: N/A |  |  | :x: N/A |  |  |
-| 7 | Stringreferenzen | Don’t think that’s possible |  |  |  |  |  |
-| 8 | RawType | Raw types should not be used | 3740 |  |  |  |  |
-| 9 | Exceptions for control flow | :x: N/A |  | Indicator can be an empty catch clause… this can be detected | :x: N/A |  |  |
-|  | Empty Catch Block |  |  |  | EmptyCatchBlock |  |  |
-| 10 | Try/catch Blöcke | :x: N/A |  |  |  |  |  |
-| 11 | Unspecified Error Message | :x: N/A |  |  | :x: N/A |  |  |
-| 12 | Wrong Loop Type | :x: N/A |  |  | :x: N/A |  |  |
-| 13 | Unnecessary complexity | :x: N/A |  |  |  |  |  |
-|  |  |  |  |  |  |  |  |
-| 14 | Clumsy Solution | :x: N/A |  |  | :x: N/A |  |  |
-| 15 | Parsing Integer Values | :x: N/A |  |  | :x: N/A |  |  |
-| 16 | Utility Class | Utility classes should not have public constructors | 1118 | PMD could be more precise here | UseUtilityClass |  |  |
-| 17 | Unsafe Cast | :x: N/A |  |  | :x: N/A |  |  |
-| 18 | Empty Constructor | :x: N/A |  |  | UnnecessaryConstructor |  |  |
-|  |  |  |  |  | UncommentedEmptyConstructor |  |  |
-| 19 | Meaningless constants | :x: N/A |  |  | :x: N/A |  |  |
-| 20 | Scanner (use multiple scanner objects for a single stream of forgetting to close the scanner) | :x: N/A |  |  | :x: N/A |  |  |
-| 21 | Unused Element (Attribute or (helper) Method) | Unused private method should be removed | 1144 |  | UnusedPrivateMethod |  |  |
-|  |  | Unused public methods -> :x: N/A |  |  | Unused public methods -> :x: N/A |  |  |
-|  |  | Unused private fields should be removed | 1068 |  | UnusedPrivateField |  |  |
-|  |  | Unused local variables should be removed | 1481 |  | UnusedLocalVariable |  |  |
-| 22 | Missing `throws` statement in method signature | :x: N/A |  |  | :x: N/A |  |  |
-| 23 | Public enum in class | :x: N/A |  | Maybe this could be solved easily with a custom rule | :x: N/A |  |  |
-| 24 | Class of constants | :x: N/A |  | Maybe this could be solved easily with a custom rule | :x: N/A |  |  |
-| 25 | System dependent line break | :x: N/A |  |  | :x: N/A |  |  |
-| 26 | Trivial JavaDoc | :x: N/A |  |  | :x: N/A |  |  |
-| 27 | Ssssssssssss | Method names should comply with a naming convention, default regex: `^[a-z][a-zA-Z0-9]*$:` | 100 |  |  |  |  |
-| 28 | Don’t think that’s possible | Class names should comply with a naming convention | 101 |  |  |  |  |
-|  | Maybe try with blacklists | Interface names should comply with a naming convention | 114 |  |  |  |  |
-|  | Focus not that much | Constant names should comply with a naming convention | 115 |  |  |  |  |
-|  |  | Field names should comply with a naming convention | 116 |  |  |  |  |
-|  |  | Local variable and method parameter names should comply with a naming convention | 117 |  |  |  |  |
-|  |  | Abstract class names should comply with a naming convention | 118 |  |  |  |  |
-|  |  | Type parameter names should comply with a naming convention | 119 |  |  |  |  |
-|  |  | Package names should comply with a naming convention | 120 |  |  |  |  |
-|  |  | Static non-final field names should comply with a naming convention | 3008 |  |  |  |  |
-| 29 | Data Encapsulation Violation | :x: N/A |  |  | :x: N/A |  |  |
-| 30 | Separation of Logic and Interaction | :x: N/A |  |  | :x: N/A |  |  |
-| 31 | Too complex code | :x: N/A |  |  |  |  |  |
-| 32 | Static methods (auch eher ausklammern) | :x: N/A |  | Not that good, because this is the suggestion to use the parameter as a local variable. | SingularField |  |  |
-| 33 | Static Attribute/Instance Attribute | Public constants and fields initialized at declaration should be "static final" rather than merely "final" | 1170 |  |  |  |  |
-| 34 | Final Modifier | RECHECK -> if part exists, it’s okay |  |  |  |  |  |
-|  |  | Static non-final field names should comply with a naming convention | 3008 |  |  |  |  |
-| 35 | Assert vs IF | Assertions should not be used in production code | 5960 |  |  |  |  |
-|  |  |  | 4274 |  |  |  |  |
-| 36 | Java API with toString / equals | Don’t think that’s possible |  |  |  |  |  |
-| 37 | Object -> do not use the type `Object`, if it’s possible to set it more precise | :x: N/A |  |  | :x: N/A |  |  |
-| 38 | Class instead of Interface -> Use interface implementation | Declarations should use Java collection interfaces such as "List" rather than specific implementation classes such as "LinkedList" | 1319 |  | LooseCoupling |  |  |
-| 39 | Enum for closed sets | :x: N/A |  |  |  |  |  |
-| 40 | Empty Block - Undocumented or unnecessary empty block | Classes should not be empty | 2094 |  |  |  |  |
-| 41 |  | Methods should not be empty | 1186 |  |  |  |  |
-|  |  | Nested blocks of code should not be empty | 108 |  |  |  |  |
-| 43 | Package - Javacode should be structured in meaningful packages |  |  |  |  |  |  |
-| 44 | Dynamic Binding -> use dynamic binding with interitence |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |  |
-|  | CUSTOM RULESET | https://docs.sonarqube.org/9.6/extension-guide/adding-coding-rules/ |  |  | https://pmd.github.io/latest/pmd_userdocs_extending_writing_pmd_rules.html |  |  |
+| Number | Solution existing             | Rule                                                                                                                                                                                                                                                  | PMD (https://pmd.github.io/latest/pmd_rules_java.html)                                                            | Link                 | Note | Sonarqube (https://rules.sonarsource.com/java)                                                                                     | Link | Note                                                                                    |
+|--------|-------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|----------------------|------|------------------------------------------------------------------------------------------------------------------------------------|------|-----------------------------------------------------------------------------------------|
+| 1      |                               | Visibility as low as possible for methods / attributes (private > public > protected) (known exemptions: - Constructors of utility classes must always be private - Constructors of abstract classes can be protected - Constants can also be public) |                                                                                                                   |                      |      |                                                                                                                                    |      |                                                                                         |
+| 2      | :x:                           | Code duplication                                                                                                                                                                                                                                      | :x: N/A                                                                                                           |                      |      | Methods should not have identical implementations                                                                                  | 4144 | Does not find example, only simple code duplications                                    |
+| 3      | :x:                           | Code duplication: Repetitions Fixable by Inheritance                                                                                                                                                                                                  | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 4      | :x:                           | Inheritance instead of Enums                                                                                                                                                                                                                          | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 5      | :x:                           | Operations instead of domain                                                                                                                                                                                                                          | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 6      | :white_check_mark:            | Hardcoded logic                                                                                                                                                                                                                                       | AvoidLiteralsInIfCondition                                                                                        |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 7      |                               | Stringreferenzen                                                                                                                                                                                                                                      |                                                                                                                   |                      |      | Don’t think that’s possible                                                                                                        |      |                                                                                         |
+| 8      | :white_check_mark:            | RawType                                                                                                                                                                                                                                               |                                                                                                                   |                      |      | Raw types should not be used                                                                                                       | 3740 |                                                                                         |
+| 9      | :x:                           | Exceptions for control flow                                                                                                                                                                                                                           | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      | Indicator can be an empty catch clause… this can be detected                            |
+|        | :white_check_mark:            | Empty Catch Block                                                                                                                                                                                                                                     | EmptyCatchBlock                                                                                                   |                      |      |                                                                                                                                    |      |                                                                                         |
+| 10     | :white_check_mark: (OWN RULE) | Try/catch Blöcke                                                                                                                                                                                                                                      | TooLongTryBlockStatement                                                                                          |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 11     | :x:                           | Unspecified Error Message                                                                                                                                                                                                                             | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 12     | :white_check_mark:            | Wrong Loop Type                                                                                                                                                                                                                                       | ForLoopCanBeForeach, ForLoopShouldBeWhileLoop, covers NI and other solution provided by NIII, no solution for NII |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 13     | :x:                           | Unnecessary complexity                                                                                                                                                                                                                                |                                                                                                                   |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 14     | :x:                           | Clumsy Solution                                                                                                                                                                                                                                       | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 15     | :x:                           | Parsing Integer Values                                                                                                                                                                                                                                | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 16     | :white_check_mark:            | Utility Class                                                                                                                                                                                                                                         | UseUtilityClass                                                                                                   |                      |      | Utility classes should not have public constructors                                                                                | 1118 | PMD could be more precise here                                                          |
+| 17     | :x:                           | Unsafe Cast                                                                                                                                                                                                                                           | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 18     | :white_check_mark:            | Empty Constructor                                                                                                                                                                                                                                     | UnnecessaryConstructor                                                                                            |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+|        |                               |                                                                                                                                                                                                                                                       | UncommentedEmptyConstructor                                                                                       |                      |      |                                                                                                                                    |      |                                                                                         |
+| 19     | :x:                           | Meaningless constants                                                                                                                                                                                                                                 | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 20     |                               | Scanner (use multiple scanner objects for a single stream of forgetting to close the scanner)                                                                                                                                                         | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 21     | :white_check_mark:            | Unused Element (Attribute or (helper) Method)                                                                                                                                                                                                         | UnusedPrivateMethod                                                                                               |                      |      | Unused private method should be removed                                                                                            | 1144 |                                                                                         |
+|        |                               |                                                                                                                                                                                                                                                       | Unused public methods -> :x: N/A                                                                                  |                      |      | Unused public methods -> :x: N/A                                                                                                   |      |                                                                                         |
+|        |                               |                                                                                                                                                                                                                                                       | UnusedPrivateField                                                                                                |                      |      | Unused private fields should be removed                                                                                            | 1068 |                                                                                         |
+|        |                               |                                                                                                                                                                                                                                                       | UnusedLocalVariable, UnusedFormalParameter                                                                        |                      |      | Unused local variables should be removed                                                                                           | 1481 |                                                                                         |
+| 22     | :x:                           | Missing `throws` statement in method signature                                                                                                                                                                                                        | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 23     | :white_check_mark: (OWN RULE) | Public enum in class                                                                                                                                                                                                                                  | PublicEnumInsideClassOrInterface (OWN RULE)                                                                       |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 24     | :white_check_mark: (OWN RULE) | Class of constants                                                                                                                                                                                                                                    | ClassOfConstants (OWN RULE)                                                                                       |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 25     | :white_check_mark: (OWN RULE) | System dependent line break                                                                                                                                                                                                                           | SystemDependentLineBreakNotAllowed (OWN RULE)                                                                     | N/ A in all rulesets |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 26     |                               | Trivial JavaDoc                                                                                                                                                                                                                                       | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 27     | :x:                           | Bad naming                                                                                                                                                                                                                                            |                                                                                                                   |                      |      | Method names should comply with a naming convention, default regex: `^[a-z][a-zA-Z0-9]*$:`                                         | 100  |                                                                                         |
+|        |                               |                                                                                                                                                                                                                                                       |                                                                                                                   |                      |      | Class names should comply with a naming convention                                                                                 | 101  |                                                                                         |
+|        |                               |                                                                                                                                                                                                                                                       |                                                                                                                   |                      |      | Interface names should comply with a naming convention                                                                             | 114  |                                                                                         |
+|        |                               |                                                                                                                                                                                                                                                       |                                                                                                                   |                      |      | Constant names should comply with a naming convention                                                                              | 115  |                                                                                         |
+|        |                               |                                                                                                                                                                                                                                                       |                                                                                                                   |                      |      | Field names should comply with a naming convention                                                                                 | 116  |                                                                                         |
+|        |                               |                                                                                                                                                                                                                                                       |                                                                                                                   |                      |      | Local variable and method parameter names should comply with a naming convention                                                   | 117  |                                                                                         |
+|        |                               |                                                                                                                                                                                                                                                       |                                                                                                                   |                      |      | Abstract class names should comply with a naming convention                                                                        | 118  |                                                                                         |
+|        |                               |                                                                                                                                                                                                                                                       |                                                                                                                   |                      |      | Type parameter names should comply with a naming convention                                                                        | 119  |                                                                                         |
+|        |                               |                                                                                                                                                                                                                                                       |                                                                                                                   |                      |      | Package names should comply with a naming convention                                                                               | 120  |                                                                                         |
+|        |                               |                                                                                                                                                                                                                                                       |                                                                                                                   |                      |      | Static non-final field names should comply with a naming convention                                                                | 3008 |                                                                                         |
+| 28     | :x:                           | Data Encapsulation Violation                                                                                                                                                                                                                          | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 29     | :x:                           | Separation of Logic and Interaction                                                                                                                                                                                                                   | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 30     | :x:                           | Too complex code                                                                                                                                                                                                                                      |                                                                                                                   |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 31     | (:x:)                         | Static methods                                                                                                                                                                                                                                        | SingularField                                                                                                     |                      |      | :x: N/A                                                                                                                            |      | Not that good, because this is the suggestion to use the parameter as a local variable. |
+| 32     | :x:                           | Static Attribute/Instance Attribute                                                                                                                                                                                                                   |                                                                                                                   |                      |      | Public constants and fields initialized at declaration should be "static final" rather than merely "final"                         | 1170 |                                                                                         |
+| 33     | :white_check_mark:            | Final Modifier                                                                                                                                                                                                                                        | MethodArgumentCouldBeFinal, LocalVariableCouldBeFinal                                                             |                      |      | RECHECK -> if part exists, it’s okay                                                                                               |      |                                                                                         |
+|        |                               |                                                                                                                                                                                                                                                       |                                                                                                                   |                      |      | Static non-final field names should comply with a naming convention                                                                | 3008 |                                                                                         |
+| 34     | :white_check_mark: (OWN RULE) | Assert vs IF                                                                                                                                                                                                                                          | AssertStatementFirstInPublicFunction (OWN RULE)                                                                   |                      |      | Assertions should not be used in production code                                                                                   | 5960 |                                                                                         |
+|        |                               |                                                                                                                                                                                                                                                       |                                                                                                                   |                      |      |                                                                                                                                    | 4274 |                                                                                         |
+| 35     | :x:                           | Java API with toString / equals                                                                                                                                                                                                                       |                                                                                                                   |                      |      | Don’t think that’s possible                                                                                                        |      |                                                                                         |
+| 36     | :x:                           | Object -> do not use the type `Object`, if it’s possible to set it more precise                                                                                                                                                                       | :x: N/A                                                                                                           |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 37     | :white_check_mark:            | Class instead of Interface -> Use interface implementation                                                                                                                                                                                            | LooseCoupling                                                                                                     |                      |      | Declarations should use Java collection interfaces such as "List" rather than specific implementation classes such as "LinkedList" | 1319 |                                                                                         |
+| 38     | :x:                           | Enum for closed sets                                                                                                                                                                                                                                  |                                                                                                                   |                      |      | :x: N/A                                                                                                                            |      |                                                                                         |
+| 39     |                               | Empty Block - Undocumented or unnecessary empty block                                                                                                                                                                                                 |                                                                                                                   |                      |      | Classes should not be empty                                                                                                        | 2094 |                                                                                         |
+| 40     | :white_check_mark:            |                                                                                                                                                                                                                                                       |                                                                                                                   |                      |      | Methods should not be empty                                                                                                        | 1186 |                                                                                         |
+|        |                               |                                                                                                                                                                                                                                                       |                                                                                                                   |                      |      | Nested blocks of code should not be empty                                                                                          | 108  |                                                                                         |
+| 41     | :x:                           | Package - Javacode should be structured in meaningful packages                                                                                                                                                                                        |                                                                                                                   |                      |      |                                                                                                                                    |      |                                                                                         |
+| 42     | :x:                           | Dynamic Binding -> use dynamic binding with interitence                                                                                                                                                                                               |                                                                                                                   |                      |      |                                                                                                                                    |      |                                                                                         |
+|        |                               |                                                                                                                                                                                                                                                       |                                                                                                                   |                      |      |                                                                                                                                    |      |                                                                                         |
+|        |                               |                                                                                                                                                                                                                                                       |                                                                                                                   |                      |      |                                                                                                                                    |      |                                                                                         |
+|        |                               |                                                                                                                                                                                                                                                       |                                                                                                                   |                      |      |                                                                                                                                    |      |                                                                                         |
+|        |                               | CUSTOM RULESET                                                                                                                                                                                                                                        | https://pmd.github.io/latest/pmd_userdocs_extending_writing_pmd_rules.html                                        |                      |      | https://docs.sonarqube.org/9.6/extension-guide/adding-coding-rules/                                                                |      |                                                                                         |
+
+## Custom Rulesets
+
+### Custom rulesets for PMD
+
+Custom rules can be written in PMD with the Java AST (Abstract Syntax Tree).
+Therefore you have to create a `XML` file and create a new rule. 
+For more details here, take a look into the resources. 
+In this `XML` file, you create a `<ruleset>`, which keeps all the `<rule>` into it.
+In every rule, a description `class` exists, which references to a java class the rule will be executed or validated.
+For example, a custom JAVA class `PublicEnumInClassRule` which extends the `AbstractJavaRule` class 
+is created and will verify, that public enums inside classes are not allowed.
+Every class extends the `AbstractJavaRule` class, where the `visit` method is implemented.
+For more details, take a look into the directory `src/main/java/customPMDRule/`.
+
+The custom rules are created in the file: `custom-pmd-ruleset.xml`.
+This file is added to the ruleset list in the PMDTest.
+Afterwards the rules will be executed and the results will be integrated in the test scenarios.
+
+Resources:
+* https://pmd.github.io/latest/pmd_userdocs_making_rulesets.html#referencing-a-single-rule
+* https://pmd.github.io/latest/pmd_userdocs_extending_writing_rules_intro.html
+
+### Custom Rulesets for Sonarqube
+
+https://docs.sonarqube.org/9.6/extension-guide/adding-coding-rules/
+
+Also it's possible to create own rules with Sonarqube, but they will be not mentioned here, because PMD can cover all requirements.
