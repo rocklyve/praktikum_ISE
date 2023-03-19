@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -21,10 +22,11 @@ import pmdModel.PMDTestResult;
 import pmdModel.PMDTestResultFile;
 import pmdModel.PMDTestViolation;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PMDTests {
     public static final String NEW_LINE = System.lineSeparator();
 
-    private static final Map<String, String> PMD_RULE_SET_FILE_PATHS = rulesFromMap(Map.ofEntries(
+    private final Map<String, String> PMD_RULE_SET_FILE_PATHS = rulesFromMap(Map.ofEntries(
             Map.entry("codestyle", Path.of("category", "java","codestyle.xml")),
             Map.entry("design", Path.of("category", "java","design.xml")),
             Map.entry("bestpractices", Path.of("category", "java","bestpractices.xml")),
@@ -46,11 +48,11 @@ public class PMDTests {
                     .toString();
     private static final String PMD_REPORT_FILE_FORMAT = "json";
 
-    static PMDTestResult issues;
+    PMDTestResult issues;
     private static final Logger logger = LoggerFactory.getLogger(PMDTests.class);
 
     @BeforeAll
-    public static void setUpBeforeClass() throws Exception {
+    public void setUpBeforeClass() throws Exception {
         PMDConfiguration configuration = new PMDConfiguration();
         configuration.addInputPath(PMD_REPORT_INPUT_FILE_PATH);
 
@@ -81,7 +83,7 @@ public class PMDTests {
         checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
-    private static Stream<Arguments> getTestTypeParameters() {
+    private Stream<Arguments> getTestTypeParameters() {
         return Stream.of(
                 // This is a custom rule, which detects, if any code in the codebase has system dependent line breaks
                 Arguments.of("Test SystemDependentLineBreak", List.of("SystemDependentLineBreakNotAllowed")),
@@ -144,7 +146,7 @@ public class PMDTests {
                 .collect(Collectors.toList());
     }
 
-    private static Map<String, String> rulesFromMap(Map<String, Path> map) {
+    private Map<String, String> rulesFromMap(Map<String, Path> map) {
         return map.entrySet().stream().collect(
                 Collectors.toMap(
                         // this `.replace("\\", "/")` is necessary because the PMD API does not work with Windows paths
@@ -155,7 +157,7 @@ public class PMDTests {
     }
 
     @AfterAll
-    public static void tearDownAfterClass() {
+    public void tearDownAfterClass() {
         logger.info("over");
     }
 }

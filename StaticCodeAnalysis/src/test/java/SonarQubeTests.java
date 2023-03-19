@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -23,9 +23,9 @@ import org.sonarsource.sonarlint.core.client.api.standalone.StandaloneAnalysisCo
 import org.sonarsource.sonarlint.core.client.api.standalone.StandaloneGlobalConfiguration;
 import org.sonarsource.sonarlint.core.client.api.standalone.StandaloneSonarLintEngine;
 import org.sonarsource.sonarlint.core.commons.Language;
-
 import edu.kit.informatik.SonarFile;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SonarQubeTests {
     public static final String newLine = System.lineSeparator();
     public static final String JAVA_CLASS_PATH = "java.class.path";
@@ -36,11 +36,11 @@ public class SonarQubeTests {
             .normalize()
             .toString();
     private static final String JAVA_FILE_PREFIX = ".java";
-    private static ArrayList<Issue> issues;
-    static Logger logger = LoggerFactory.getLogger(SonarQubeTests.class);
+    private ArrayList<Issue> issues;
+    Logger logger = LoggerFactory.getLogger(SonarQubeTests.class);
 
     @BeforeAll
-    public static void setUpBeforeClass() throws Exception {
+    public void setUpBeforeClass() throws Exception {
         issues = new ArrayList<>();
 
         Path javaPlugin = getJavaPlugin();
@@ -50,8 +50,7 @@ public class SonarQubeTests {
         StandaloneGlobalConfiguration configuration = StandaloneGlobalConfiguration.builder().addEnabledLanguage(Language.JAVA).addPlugins(javaPlugin).setWorkDir(path).build();
         StandaloneSonarLintEngine standaloneSonarLintEngine = new StandaloneSonarLintEngineImpl(configuration);
         StandaloneAnalysisConfiguration sac = StandaloneAnalysisConfiguration.builder().setBaseDir(path).addInputFiles(javaFiles).build();
-        standaloneSonarLintEngine.analyze(sac, SonarQubeTests::listen, (formattedMessage, level) -> System.out.println(formattedMessage), null);
-//        standaloneSonarLintEngine.analyze(sac, this::listen, (formattedMessage, level) -> System.out.println(formattedMessage), null);
+        standaloneSonarLintEngine.analyze(sac, this::listen, (formattedMessage, level) -> System.out.println(formattedMessage), null);
         standaloneSonarLintEngine.stop();
     }
 
@@ -71,7 +70,7 @@ public class SonarQubeTests {
         checkOccurringIssues(findOccurringIssues(relevantIssueNumbers));
     }
 
-    private static Stream<Arguments> getTestTypeParameters() {
+    private Stream<Arguments> getTestTypeParameters() {
         return Stream.of(
                 Arguments.of("Test RawType", List.of(RULE_PREFIX + "3740")),
                 Arguments.of("Test ConcreteClassInsteadOfInterface", List.of(RULE_PREFIX + "1319")),
@@ -94,11 +93,11 @@ public class SonarQubeTests {
     }
 
     @AfterAll
-    public static void tearDownAfterClass() {
+    public void tearDownAfterClass() {
         issues = null;
     }
 
-    private static void checkOccurringIssues(List<Issue> occurringIssues) {
+    private void checkOccurringIssues(List<Issue> occurringIssues) {
         if (occurringIssues.isEmpty()) {
         } else {
             String mergedMessage = newLine;
@@ -116,7 +115,7 @@ public class SonarQubeTests {
         return issues.stream().filter(issue -> relevantIssueNumbers.contains(issue.getRuleKey())).collect(Collectors.toList());
     }
 
-    private static Path getJavaPlugin() {
+    private Path getJavaPlugin() {
         String classpath = System.getProperty(JAVA_CLASS_PATH);
         String[] classPathValues = classpath.split(File.pathSeparator);
         for (String classPath : classPathValues) {
@@ -126,7 +125,7 @@ public class SonarQubeTests {
         throw new IllegalStateException("Java Plugin not found!");
     }
 
-    private static List<ClientInputFile> getFiles(Path path) throws IOException {
+    private List<ClientInputFile> getFiles(Path path) throws IOException {
         final var list = new ArrayList<ClientInputFile>();
         Files.walk(path).forEach(filePath -> {
             if (filePath.getFileName().toString().endsWith(JAVA_FILE_PREFIX)) {
@@ -137,7 +136,7 @@ public class SonarQubeTests {
         return list;
     }
 
-    private static void listen(Issue i) {
+    private void listen(Issue i) {
         issues.add(i);
         System.err.println(i);
         logger.debug("Issue added: ", issues);
